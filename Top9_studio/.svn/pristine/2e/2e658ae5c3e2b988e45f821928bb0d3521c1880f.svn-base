@@ -1,0 +1,361 @@
+package com.zeustel.top9.fragments.html;
+
+
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zeustel.top9.LoginActivity;
+import com.zeustel.top9.R;
+import com.zeustel.top9.adapters.HolderComment;
+import com.zeustel.top9.adapters.HolderReply;
+import com.zeustel.top9.adapters.OverallRecyclerAdapter;
+import com.zeustel.top9.base.WrapOneAndHandleFragment;
+import com.zeustel.top9.bean.GameEvaluating;
+import com.zeustel.top9.bean.SubUserInfo;
+import com.zeustel.top9.bean.community.Comment;
+import com.zeustel.top9.bean.community.Content;
+import com.zeustel.top9.result.CommentListResult;
+import com.zeustel.top9.result.Result;
+import com.zeustel.top9.utils.Constants;
+import com.zeustel.top9.utils.NetHelper;
+import com.zeustel.top9.utils.Tools;
+import com.zeustel.top9.utils.operate.DataComment;
+import com.zeustel.top9.utils.operate.DataUser;
+import com.zeustel.top9.widgets.CustomRecyclerView;
+import com.zeustel.top9.widgets.InputView;
+
+import org.apache.http.Header;
+
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 评论界面
+ */
+public class HtmlCommentFragment extends WrapOneAndHandleFragment implements OverallRecyclerAdapter.OnitemClickListener, InputView.OnInputView, View.OnClickListener {
+    private static final String EXTRA_NAME = "gameEvaluating";
+    private LinearLayout best_group;
+    private RelativeLayout best_group_top;
+    private ImageView best_group_theme;
+    private CustomRecyclerView comment_list;
+    private Button comment_more;
+    private ImageLoader imageLoader = ImageLoader.getInstance();
+    private InputView input;
+    private OverallRecyclerAdapter<Comment> adapter;
+    private DataComment dataComment;
+    private List<Comment> data = new ArrayList();
+    private GameEvaluating gameEvaluating;
+    private View comment_special_item;
+    private ImageView comment_icon;
+    private TextView comment_name;
+    private TextView good;
+    private String icon;
+    private String nickName;
+    private int goodCount;
+
+    public HtmlCommentFragment() {
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        Tools.log_i(HtmlCommentFragment.class,"onDestroyView","");
+        Tools.recycleImg(best_group_theme);
+        if (comment_list != null) {
+            comment_list.setAdapter(null);
+        }
+        super.onDestroyView();
+        if (data != null) {
+            data.clear();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+            data = null;
+        if (best_group != null) {
+            best_group.removeAllViews();
+            best_group = null;
+        }
+        super.onDestroy();
+    }
+
+    public static HtmlCommentFragment newInstance(GameEvaluating gameEvaluating) {
+        Bundle args = new Bundle();
+        args.putSerializable(EXTRA_NAME, gameEvaluating);
+        HtmlCommentFragment fragment = new HtmlCommentFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            gameEvaluating = (GameEvaluating) getArguments().getSerializable(EXTRA_NAME);
+        }
+        if (null == gameEvaluating) {
+            getFragmentManager().popBackStack();
+        }
+        dataComment = new DataComment(getHandler(), null);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View contentView = inflater.inflate(R.layout.fragment_html_comment, container, false);
+        best_group = (LinearLayout) contentView.findViewById(R.id.best_group);
+        best_group_top = (RelativeLayout) contentView.findViewById(R.id.best_group_top);
+        best_group_theme = (ImageView) contentView.findViewById(R.id.best_group_theme);
+        comment_list = (CustomRecyclerView) contentView.findViewById(R.id.comment_list);
+        comment_more = (Button) contentView.findViewById(R.id.comment_more);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        comment_list.setLayoutManager(mLayoutManager);
+        input = (InputView) contentView.findViewById(R.id.input);
+        input.setOnInputView(this);
+        //        multiInput = (MultifunctionInput) contentView.findViewById(R.id.multiInput);
+        comment_more.setOnClickListener(this);
+        try {
+            adapter = new OverallRecyclerAdapter<Comment>(this.data, R.layout.comment_item, HolderComment.class);
+            comment_list.setAdapter(adapter);
+            adapter.setOnitemClickListener(this);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        try {
+            dataComment.getListData(dataComment.createListBundle(Constants.URL_COMMENT_LIST + "?flag=" +
+                    NetHelper.Flag.FIRST + "&time=" + 0 + "&sourceId=" + gameEvaluating.getId(), 0, NetHelper.Flag.UPDATE), CommentListResult.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        imageLoader.displayImage(Constants.TEST_IMG + gameEvaluating.getBanner(), best_group_theme, Tools.options);
+        return contentView;
+    }
+
+    private void fillBest_group(List<SubUserInfo> best) {
+        SubUserInfo sub = null;
+        for (int i = 0; i < best.size(); i++) {
+            sub =best.get(i);
+            comment_special_item = getActivity().getLayoutInflater().inflate(R.layout.comment_special_item, null);
+            comment_icon = (ImageView) comment_special_item.findViewById(R.id.comment_icon);
+            comment_name = (TextView) comment_special_item.findViewById(R.id.comment_name);
+            good = (TextView) comment_special_item.findViewById(R.id.good);
+            icon = sub.getIcon();
+            nickName = sub.getNickName();
+            goodCount = sub.getGoodCount();
+            imageLoader.displayImage(Constants.TEST_IMG + icon, comment_icon, Tools.options);
+            comment_name.setText(nickName);
+            try {
+                good.setText(String.valueOf(goodCount));
+            } catch (Exception e) {
+                e.printStackTrace();
+                good.setText("0");
+            }
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params.gravity = Gravity.CENTER;
+            params.weight = 1;
+            best_group.addView(comment_special_item, params);
+        }
+    }
+
+    @Override
+    public String getFloatTitle() {
+        return null;
+    }
+
+    @Override
+    public int getBackgroundColor() {
+        return 0;
+    }
+
+
+    @Override
+    public void onHandleListUpdate(Result result, Object obj) {
+        Tools.log_i(HtmlCommentFragment.class, "onHandleListUpdate", "");
+        if (result != null && obj != null && Result.SUCCESS == result.getSuccess()) {
+            List<SubUserInfo> best = null;
+            List<Comment> data = null;
+            if (result instanceof CommentListResult) {
+                best = ((CommentListResult) result).getBest();
+                updateBest(best);
+            }
+            data = (List<Comment>) obj;
+            if (!Tools.isEmpty(data)) {
+                this.data.addAll(0, data);
+                adapter.notifyItemRangeChanged(0, data.size());
+            }
+        }
+    }
+
+    private void updateBest(List<SubUserInfo> best) {
+        if (best_group.getChildCount() == 0 && !Tools.isEmpty(best)) {
+            fillBest_group(best);
+        }
+    }
+
+    @Override
+    public void onHandleListFailed(Result result) {
+        super.onHandleListFailed(result);
+    }
+
+    @Override
+    public void onHandleListNo(Result result) {
+        if (result != null) {
+            List<SubUserInfo> best = null;
+            if (result instanceof CommentListResult) {
+                best = ((CommentListResult) result).getBest();
+                updateBest(best);
+            }
+        }
+    }
+
+    @Override
+    public void onHandleListHistory(Result result, Object obj) {
+        super.onHandleListHistory(result, obj);
+    }
+
+    @Override
+    public void onitemClick(RecyclerView.Adapter adapter, int position, String tag) {
+        if (tag.equals("good")) {
+            if (Constants.USER.isOnline()) {
+                DataUser.doGood(data.get(position).getId(), new GoodRequestResponse(position, getContext(), comment_list, data));
+            } else {
+                Intent intent = new Intent(getContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        } else {
+            getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.temp, CommentDetailFragment.newInstance(gameEvaluating, data.get(position))).commit();
+        }
+        Tools.log_i(HtmlCommentFragment.class, "onitemClick", "tag : " + tag + " , position : " + position);
+        //点赞 回复
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.equals(comment_more)) {
+            getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.temp, CommentMoreFragment.newInstance(gameEvaluating)).commit();
+        }
+    }
+
+    private static final class GoodRequestResponse extends AsyncHttpResponseHandler {
+        private final WeakReference<Context> contextRef;
+        private final WeakReference<RecyclerView> mRecyclerViewRef;
+        private final WeakReference<List<Comment>> mListRef;
+
+        private int index;
+
+        public GoodRequestResponse(int index, Context context, RecyclerView mRecyclerView, List<Comment> data) {
+            this.index = index;
+            contextRef = new WeakReference<Context>(context);
+            mRecyclerViewRef = new WeakReference<RecyclerView>(mRecyclerView);
+            mListRef = new WeakReference<List<Comment>>(data);
+        }
+
+        @Override
+        public void onSuccess(int i, Header[] headers, byte[] bytes) {
+            if (bytes != null) {
+                String json = new String(bytes);
+                Gson gson = new Gson();
+                Tools.log_i(GoodRequestResponse.class, "onSuccess", "json :" + json);
+                Result result = gson.fromJson(json, Result.class);
+                if (result.getSuccess() == Result.SUCCESS) {
+                    success(result);
+                    return;
+                } else if (result.getError() == 10017/*已经点赞*/) {
+                    final Context context = contextRef.get();
+                    if (context != null) {
+                        Tools.showToast(context, result.getMsg());
+                        success(null);
+                    }
+                    return;
+                }
+            }
+            failueToast();
+        }
+
+        @Override
+        public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
+            failueToast();
+        }
+
+        private void failueToast() {
+            final Context context = contextRef.get();
+            if (context != null) {
+                Tools.showToast(context, "点赞失败");
+            }
+        }
+
+        private void success(Result result) {
+            final RecyclerView recyclerView = mRecyclerViewRef.get();
+            final List<Comment> replies = mListRef.get();
+            if (recyclerView != null && replies != null) {
+                View childAt = recyclerView.getChildAt(index);
+                if (childAt != null) {
+                    RecyclerView.ViewHolder childViewHolder = recyclerView.getChildViewHolder(childAt);
+                    if (childViewHolder != null && childViewHolder instanceof HolderComment) {
+                        boolean need = (result != null);
+                        //..更新数据库
+                        Comment comment = replies.get(index);
+                        comment.setIsGooded(true);
+                        if (need) {
+                            comment.setGoodCount(result.getCount());
+                            ((HolderReply) childViewHolder).goodChange(index);
+                        }
+                        replies.set(index, comment);
+                        recyclerView.getAdapter().notifyItemChanged(index);
+                    }
+                }
+            }
+        }
+    }
+
+
+    @Override
+    public void onHandlePublishSuccess(Result result) {
+        Tools.log_i(HtmlCommentFragment.class, "onHandlePublishSuccess", "zzzzzzzz");
+        input.done();
+        Comment comment = Tools.getFirstData(this.data);
+        long time = 0;
+        if (comment != null) {
+            time = comment.getTime();
+        }
+        try {
+            dataComment.getListData(dataComment.createListBundle(Constants.URL_COMMENT_LIST + "?flag=" +
+                    NetHelper.Flag.UPDATE + "&time=" + time + "&sourceId=" + gameEvaluating.getId(), time, NetHelper.Flag.UPDATE), CommentListResult.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onHandlePublishFailed(Result result) {
+        input.done();
+    }
+
+    @Override
+    public void onInputView(String content) {
+        Comment comment = new Comment();
+        Content content1 = new Content();
+        content1.setContentType(Content.ContentType.TEXT);
+        content1.setMsg(content);
+        comment.setContent(content1);
+        comment.setTagId(gameEvaluating.getId());
+        dataComment.publishData(comment);
+    }
+}

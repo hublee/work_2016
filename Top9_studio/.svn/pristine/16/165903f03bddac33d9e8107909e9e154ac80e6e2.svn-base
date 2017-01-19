@@ -1,0 +1,151 @@
+package com.zeustel.top9.widgets;
+
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.graphics.Color;
+import android.os.Build;
+import android.util.AttributeSet;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.nineoldandroids.view.ViewHelper;
+import com.zeustel.top9.utils.DanmakuAnim;
+import com.zeustel.top9.utils.Tools;
+
+/**
+ * @author NiuLei
+ * @email niulei@zeustel.com
+ * @date 2015/11/10 16:27
+ */
+public class VerticalDanmaku extends LinearLayout {
+    private static final int DURATION = 3000;
+
+    public VerticalDanmaku(Context context) {
+        super(context);
+        initView();
+    }
+
+    public VerticalDanmaku(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        initView();
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public VerticalDanmaku(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        initView();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public VerticalDanmaku(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        initView();
+    }
+
+    private void initView() {
+        setOrientation(VERTICAL);
+        setGravity(Gravity.LEFT);
+        /*一切为了从下至上显示*/
+        FrameLayout frameLayout = new FrameLayout(getContext());
+        LinearLayout.LayoutParams params = new LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
+        params.weight = 1;
+        addView(frameLayout, params);
+        /**/
+        //      LayoutTransition layoutTransition = new LayoutTransition();
+        //        PropertyValuesHolder pvhScaleX = PropertyValuesHolder.ofFloat("scaleX", 0f, 1f);
+        //        PropertyValuesHolder pvhScaleY = PropertyValuesHolder.ofFloat("scaleY", 0f, 1f);
+        //        PropertyValuesHolder pvhPivotX = PropertyValuesHolder.ofFloat("pivotX", 0.1f);
+        //        PropertyValuesHolder pvhPivotX = PropertyValuesHolder.ofFloat("pivotX", 0.1f);
+        //        PropertyValuesHolder pvhPivotsss = PropertyValuesHolder.ofFloat("translationY", -1f, 1f);
+        //        final ObjectAnimator changeIn = ObjectAnimator.ofPropertyValuesHolder(this,pvhScaleX, pvhScaleY).setDuration(DURATION);
+        //        layoutTransition.setAnimator(LayoutTransition.APPEARING, changeIn);
+        //        setLayoutTransition(layoutTransition);
+    }
+
+    public void sendAmmo(int icon, String text) {
+        if (getChildCount() > 5) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    getHandler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            removeView(getChildAt(1));
+                        }
+                    });
+                }
+            }).start();
+        }
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 1);
+        params.topMargin = 20;
+        final View view = makeAmmo(icon, text);
+        addView(view);
+
+        DanmakuAnim mDanmakuAnim = new DanmakuAnim(-100, 0);
+        mDanmakuAnim.setOnAnimListener(new DanmakuAnim.OnAnimListener() {
+            @Override
+            public void onAnimIng(float interpolatedTime) {
+                Tools.log_i(VerticalDanmaku.class, "onAnimIng", "interpolatedTime : " + interpolatedTime);
+                ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+                layoutParams.height = Math.round(interpolatedTime * 100);
+                layoutParams.width = Math.round(interpolatedTime * 720);
+            }
+
+            @Override
+            public void onAnimStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimEnd(Animation animation) {
+
+            }
+        });
+        view.startAnimation(mDanmakuAnim);
+
+        //        DanmakuScaleIn mDanmakuScaleIn = new DanmakuScaleIn(getContext());
+        //        mDanmakuScaleIn.setOnAnimListener(new DanmakuScaleIn.OnAnimListener() {
+        //            @Override
+        //            public void onAnimIng(float interpolatedTime) {
+        //                Tools.log_i(VerticalDanmaku.class,"onAnimIng","interpolatedTime : "+interpolatedTime);
+        //                ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+        //                layoutParams.height = Math.round(interpolatedTime * 100);
+        //            }
+        //
+        //            @Override
+        //            public void onAnimStart(Animation animation) {
+        //
+        //            }
+        //
+        //            @Override
+        //            public void onAnimEnd(Animation animation) {
+        //
+        //            }
+        //        });
+        //        view.startAnimation(mDanmakuScaleIn);
+    }
+
+    private View makeAmmo(int icon, String text) {
+        LinearLayout linearLayout = new LinearLayout(getContext());
+        linearLayout.setGravity(Gravity.CENTER_VERTICAL);
+        linearLayout.setOrientation(HORIZONTAL);
+        CircleImage circleImage = new CircleImage(getContext());
+        circleImage.setImageResource(icon);
+        TextView textView = new TextView(getContext());
+        textView.setTextColor(Color.RED);
+        textView.setText(text);
+        LinearLayout.LayoutParams iconParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        linearLayout.addView(circleImage, iconParams);
+        LinearLayout.LayoutParams textParams = new LayoutParams(200, 100);
+        textParams.leftMargin = Tools.dip2px(getContext(), 10);
+        linearLayout.addView(textView, textParams);
+        linearLayout.setBackgroundColor(Color.WHITE);
+        ViewHelper.setAlpha(linearLayout, 0.2f);
+        return linearLayout;
+    }
+}

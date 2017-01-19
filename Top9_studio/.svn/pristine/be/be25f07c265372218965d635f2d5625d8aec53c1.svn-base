@@ -1,0 +1,195 @@
+package com.zeustel.top9.widgets;
+
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.graphics.Color;
+import android.os.Build;
+import android.util.AttributeSet;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.Transformation;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.nineoldandroids.view.ViewHelper;
+import com.zeustel.top9.utils.Tools;
+
+/**
+ * @author NiuLei
+ * @email niulei@zeustel.com
+ * @date 2015/11/19 20:01
+ */
+public class VerticalDanmaku extends ViewGroup {
+    private static final int durationMillis = 1000;
+
+    public VerticalDanmaku(Context context) {
+        super(context);
+        initView();
+    }
+
+    public VerticalDanmaku(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        initView();
+    }
+
+    public VerticalDanmaku(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        initView();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public VerticalDanmaku(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        initView();
+    }
+
+    private int offset = 0;
+    private int offsetBy = 0;
+
+    private void initView() {
+
+    }
+
+    @Deprecated
+    private View makeAmmo(int icon, String text) {
+        LinearLayout linearLayout = new LinearLayout(getContext());
+        linearLayout.setGravity(Gravity.CENTER_VERTICAL);
+        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+        CircleImage circleImage = new CircleImage(getContext());
+        circleImage.setImageResource(icon);
+        TextView textView = new TextView(getContext());
+        textView.setTextColor(Color.RED);
+        textView.setText(text);
+        LinearLayout.LayoutParams iconParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        linearLayout.addView(circleImage, iconParams);
+        LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(200, 100);
+        textParams.leftMargin = Tools.dip2px(getContext(), 10);
+        linearLayout.addView(textView, textParams);
+        linearLayout.setBackgroundColor(Color.WHITE);
+        ViewHelper.setAlpha(linearLayout, 0.2f);
+        return linearLayout;
+    }
+
+    public void send(View view) {
+        ViewGroup.MarginLayoutParams mMarginLayoutParams = new ViewGroup.MarginLayoutParams(ViewGroup.MarginLayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+        addView(view, mMarginLayoutParams);
+        ScaleInAnim scaleInAnim = new ScaleInAnim();
+        scaleInAnim.setDuration(durationMillis);
+        view.startAnimation(scaleInAnim);
+        getHandler().postDelayed(new Scavenger(view), durationMillis * 9);
+    }
+
+    public LayoutParams generateLayoutParams(AttributeSet attrs) {
+        return new MarginLayoutParams(getContext(), attrs);
+    }
+
+    protected LayoutParams generateDefaultLayoutParams() {
+        return new MarginLayoutParams(MarginLayoutParams.MATCH_PARENT, MarginLayoutParams.MATCH_PARENT);
+    }
+
+    protected LayoutParams generateLayoutParams(LayoutParams params) {
+        return new MarginLayoutParams(params);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        int sizeWidth = MeasureSpec.getSize(widthMeasureSpec);
+        int sizeHeight = MeasureSpec.getSize(heightMeasureSpec);
+        int childCount = getChildCount();
+        // 计算出所有的childView的宽和高
+        measureChildren(widthMeasureSpec, heightMeasureSpec);
+        setMeasuredDimension(sizeWidth, sizeHeight);
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        int childCount = getChildCount();
+        if (childCount > 0) {
+            int lastIndex = childCount - 1;
+            int cWidth;
+            int cHeight;
+            int cTop = 0;
+            int offsetBy;
+            View childView = null;
+            MarginLayoutParams params;
+            int bottom = getHeight();
+            for (int i = lastIndex; i >= 0 && i < childCount; i--) {
+                childView = getChildAt(i);
+                if (cTop < 0) {
+                    removeViewsInLayout(0, i + 1);
+                    break;
+                } else {
+                    cWidth = childView.getMeasuredWidth();
+                    cHeight = childView.getMeasuredHeight();
+                    params = (MarginLayoutParams) childView.getLayoutParams();
+                    offsetBy = cHeight + params.bottomMargin + params.topMargin;
+                    if (lastIndex == i) {
+                        this.offsetBy = offsetBy;
+                        cTop = getHeight() - offset;
+                        childView.layout(params.leftMargin, cTop, cWidth + params.leftMargin + params.rightMargin, getHeight());
+                    } else {
+                        cTop = bottom - offsetBy;
+                        childView.layout(params.leftMargin, cTop, cWidth + params.leftMargin + params.rightMargin, bottom);
+                    }
+                    bottom = cTop;
+                }
+            }
+            offset = 0;
+        }
+    }
+
+    public class ScaleInAnim extends ScaleAnimation {
+        public ScaleInAnim() {
+            super(0.0F, 1.0F, 1.0F, 1.0F);
+        }
+
+        @Override
+        protected void applyTransformation(float interpolatedTime, Transformation t) {
+            super.applyTransformation(interpolatedTime, t);
+            if (interpolatedTime < 1.0D) {
+                offset = (int) (interpolatedTime * offsetBy);
+                requestLayout();
+            }
+        }
+    }
+
+    class Scavenger implements Runnable {
+        private View view;
+
+        public Scavenger(View view) {
+            this.view = view;
+        }
+
+        @Override
+        public void run() {
+            AlphaAnimation alphaAnimation = new AlphaAnimation(1.0F, 0.0F);
+            alphaAnimation.setDuration(durationMillis * 2);
+            alphaAnimation.setInterpolator(new DecelerateInterpolator());
+            alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    view.setVisibility(View.INVISIBLE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            view.clearAnimation();
+            view.startAnimation(alphaAnimation);
+        }
+    }
+}

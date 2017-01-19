@@ -1,0 +1,15 @@
+<RelativeLayout
+    android:id="@+id/navigation"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <com.zeustel.top9.widgets.RecycleImageView
+        android:id="@+id/navigation_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/navigation"
+        />
+</RelativeLayout>

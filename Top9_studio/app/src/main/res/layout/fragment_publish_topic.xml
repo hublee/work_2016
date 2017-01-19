@@ -1,0 +1,189 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/def_bg"
+                android:orientation="vertical"
+                tools:context="com.zeustel.top9.fragments.PublishTopicFragment">
+
+    <LinearLayout
+        android:id="@+id/publish_title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="5dp"
+            android:drawableTop="@mipmap/ic_classify"
+            android:text="选择分类"
+            android:textColor="@color/def_font"
+            android:textSize="11sp"
+            />
+
+        <FrameLayout
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/def_line"/>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/publish_title_tab"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <!--
+        app:tabSelectedTextColor：Tab被选中字体的颜色
+        app:tabTextColor：Tab未被选中字体的颜色
+        app:tabIndicatorColor：Tab指示器下标的颜色
+        -->
+    </LinearLayout>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/publish_content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/publish_title_layout"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:cardElevation="1dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/publish_title_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:hint="请输入标题"
+                android:singleLine="true"
+                android:textColor="@color/def_line"
+                android:textSize="14sp"
+                />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/def_line"/>
+
+            <EditText
+                android:id="@+id/publish_content_edit"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@color/transparent"
+                android:gravity="left|top"
+                android:hint="请输入内容"
+                android:maxLines="4"
+                android:textColor="@color/def_line"
+                android:textSize="14sp"
+                />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/publish_picture_group"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@+id/publish_bottom_layout"
+        android:layout_below="@+id/publish_content_layout"
+        android:layout_margin="20dp"
+        android:layout_weight="1"
+        />
+
+    <RelativeLayout
+        android:id="@+id/publish_bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp">
+
+        <LinearLayout
+            android:id="@+id/publish_add_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/publish_add_emoticon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10dp"
+                android:drawableTop="@mipmap/ic_emoticon_black"
+                android:gravity="center"
+                android:text="添加表情"
+                android:textColor="@color/def_font"
+                android:textSize="11sp"/>
+
+            <FrameLayout
+                android:layout_width="1dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center|bottom"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/def_font"/>
+
+            <TextView
+                android:id="@+id/publish_add_file"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10dp"
+                android:drawableTop="@mipmap/ic_add_file"
+                android:gravity="center"
+                android:text="添加图片"
+                android:textColor="@color/def_font"
+                android:textSize="11sp"/>
+        </LinearLayout>
+        <FrameLayout
+            android:id="@+id/publish_line_layout"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/publish_add_layout"
+            android:layout_marginTop="10dp"
+            android:background="@color/def_line"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/publish_line_layout"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            >
+
+            <ImageButton
+                android:id="@+id/publish_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@color/transparent"
+                android:src="@mipmap/ic_back"
+                />
+
+            <Button
+                android:id="@+id/publish_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/all_btn_bg"
+                android:text="发送"
+                android:textColor="@drawable/all_text_color"/>
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,167 @@
+package com.zeustel.top9.fragments.html;
+
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.widget.ImageView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zeustel.top9.R;
+import com.zeustel.top9.bean.html.DesTemplate;
+import com.zeustel.top9.utils.Constants;
+import com.zeustel.top9.utils.Tools;
+import com.zeustel.top9.widgets.OverScrollView;
+import com.zeustel.top9.widgets.OverScrollWarpLayout;
+import com.zeustel.top9.widgets.PrintTextView;
+
+/**
+ * 简介模板界面
+ */
+public class HtmlDesFragment extends HtmlAnimFragment implements OverScrollWarpLayout.OnScrollChange, OverScrollView.OnScrollListener {
+    private static final String EXTRA_NAME = "htmlDes";
+    private PrintTextView subTitle, promote, contentDes, gameName, gameEnName;
+    private ImageView fragment_html_theme;
+    private OverScrollView fragment_html_over;
+    private WebView fragment_html_web;
+    private DesTemplate htmlDes = null;
+    private ImageLoader imageLoader = ImageLoader.getInstance();
+    private String gameEnName1;
+    private String gameName1;
+    private int html_over_height;
+    private String subTitle1;
+    private String promote1;
+    private String contentDes1;
+    private String detailUrl;
+    private String theme;
+    private String getVoiceUrl;
+
+    public HtmlDesFragment() {
+    }
+
+    public static HtmlDesFragment newInstance(DesTemplate htmlDes) {
+        HtmlDesFragment fragment = new HtmlDesFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(EXTRA_NAME, htmlDes);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            htmlDes = (DesTemplate) getArguments().getSerializable(EXTRA_NAME);
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View scrollContentView = inflater.inflate(R.layout.fragment_html_des_scroll, container, false);
+        final View fragment_html_des = scrollContentView.findViewById(R.id.fragment_html_des);
+        subTitle = (PrintTextView) fragment_html_des.findViewById(R.id.des_subTitle);
+        fragment_html_theme = (ImageView) scrollContentView.findViewById(R.id.fragment_html_theme);
+        fragment_html_over = (OverScrollView) scrollContentView.findViewById(R.id.fragment_html_over);
+        promote = (PrintTextView) fragment_html_des.findViewById(R.id.des_promote);
+        gameName = (PrintTextView) fragment_html_des.findViewById(R.id.des_gameName);
+        gameEnName = (PrintTextView) fragment_html_des.findViewById(R.id.des_gameEnName);
+        contentDes = (PrintTextView) fragment_html_des.findViewById(R.id.des_contentDes);
+        fragment_html_web = (WebView) scrollContentView.findViewById(R.id.fragment_html_web);
+
+        subTitle.setDuration(500);
+        promote.setDuration(500);
+        gameName.setDuration(500);
+        gameEnName.setDuration(500);
+        int[] displayMetrics = Tools.getDisplayMetrics(getActivity());
+        int stateHeight = Tools.measureStateBarHeight(getActivity());
+        fragment_html_des.setMinimumHeight(displayMetrics[1] - stateHeight);
+
+        fragment_html_over.setOnScrollChange(this);
+        fragment_html_over.setOnScrollListener(this);
+        updateFragment_html_des();
+        initWeb(fragment_html_web);
+        if (htmlDes != null) {
+            try {
+                fragment_html_web.loadUrl(Constants.URL_SERVER + htmlDes.getDetailUrl());
+            } catch (Exception e) {
+                e.printStackTrace();
+                Tools.log_i(HtmlDesFragment.class, "onCreateView", "load web failed ...");
+            }
+        }
+        Tools.endCreateOperate(fragment_html_des, new Runnable() {
+            @Override
+            public void run() {
+                html_over_height = fragment_html_over.getHeight();
+            }
+        });
+
+        return scrollContentView;
+    }
+
+
+    private void updateFragment_html_des() {
+        if (htmlDes != null) {
+            subTitle1 = htmlDes.getSubTitle();
+            promote1 = htmlDes.getPromote();
+            gameEnName1 = htmlDes.getGameEnName();
+            gameName1 = htmlDes.getGameName();
+            contentDes1 = htmlDes.getContentDes();
+            detailUrl = htmlDes.getDetailUrl();
+            theme = htmlDes.getTheme();
+            Tools.log_i(HtmlDesFragment.class, "updateFragment_html_des", "theme : " + theme);
+            imageLoader.displayImage(Constants.TEST_IMG + theme, fragment_html_theme, Tools.options);
+            this.subTitle.setText(Tools.isEmpty(subTitle1) ? "" : subTitle1);
+            this.promote.setText(Tools.isEmpty(promote1) ? "" : promote1);
+            this.gameName.setText(Tools.isEmpty(gameName1) ? "" : gameName1);
+            this.gameEnName.setText(Tools.isEmpty(gameEnName1) ? "" : gameEnName1);
+            this.contentDes.setText(Tools.isEmpty(contentDes1) ? "" : contentDes1);
+        }
+    }
+
+
+    @Override
+    public String getFloatTitle() {
+        return null;
+    }
+
+    @Override
+    public int getBackgroundColor() {
+        return 0;
+    }
+
+    @Override
+    public void startAnim() {
+        getVoiceUrl = htmlDes.getVoiceUrl();
+        Tools.log_i(HtmlDesFragment.class, "startAnim", "getVoiceUrl : " + getVoiceUrl);
+        subTitle.print(subTitle1);
+        promote.print(promote1);
+        gameName.print(gameName1);
+        gameEnName.print(gameEnName1);
+        contentDes.print(contentDes1);
+    }
+
+    private ViewGroup.LayoutParams layoutParams;
+
+    @Override
+    public void onScrollChange(int x, int y) {
+        if (y > 0) {
+        } else {
+            layoutParams = fragment_html_over.getLayoutParams();
+            layoutParams.height = html_over_height - y;
+            fragment_html_over.setLayoutParams(layoutParams);
+        }
+    }
+
+    @Override
+    public void onScroll(int l, int t, int oldl, int oldt) {
+
+        if (t - oldt > 400/*异常距离*/) {
+
+        } else {
+            fragment_html_theme.scrollTo(0, (int) (t * 0.5f));
+        }
+    }
+
+}

@@ -1,0 +1,40 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.0"
+
+    defaultConfig {
+        applicationId "com.alipay.alipaydemo"
+        minSdkVersion 4
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile files('src/main/java/libs/alipaySdk-20161009.jar')
+    compile group: 'com.google.android', name: 'support-v4', version: 'r7'
+    compile group: 'log4j', name: 'log4j', version: '1.2.17'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.7'
+}
+

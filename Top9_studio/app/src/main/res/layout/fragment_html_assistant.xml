@@ -1,0 +1,129 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+              android:background="@color/def_bg"
+              android:orientation="vertical"
+             tools:context="com.zeustel.top9.fragments.html.HtmlAssistantFragment">
+
+    <com.zeustel.top9.widgets.ExhibitionView
+        android:id="@+id/assistant_exhibition"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"   />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        >
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="15dp"
+            android:background="@mipmap/marks_red"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="游戏副系统"
+            android:textColor="@color/black"
+            android:textSize="18sp"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:drawablePadding="10dp"
+            android:drawableTop="@mipmap/support_see"
+            android:text="装备"/>
+        <FrameLayout
+            android:layout_width="1dp"
+            android:layout_height="65dp"
+            android:layout_marginLeft="15dp"
+            android:background="@color/def_line"/>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/assistant_title1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:textColor="@color/red"/>
+            <TextView
+                android:id="@+id/assistant_content1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:drawablePadding="15dp"
+            android:drawableTop="@mipmap/support_see"
+            android:text="合成"/>
+        <FrameLayout
+            android:layout_width="1dp"
+            android:layout_height="65dp"
+            android:layout_marginLeft="15dp"
+            android:background="@color/def_line"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/assistant_title2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:textColor="@color/red"/>
+            <TextView
+                android:id="@+id/assistant_content2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:id="@+id/main_showAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:text="查看全部 >"
+        android:textColor="@color/red"/>
+</LinearLayout>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants"
+    >
+
+    <RelativeLayout
+        android:id="@+id/program_item_flag"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp">
+
+        <ImageView
+            android:layout_width="5dp"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:scaleType="fitXY"
+            android:src="@mipmap/line_vertical"
+            />
+
+        <RadioButton
+            android:id="@+id/program_item_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/white"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/program_item_describe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/program_item_flag"
+        android:text="asdasd"
+        />
+
+    <TextView
+        android:id="@+id/program_item_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/program_item_describe"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/program_item_flag"
+        android:drawableLeft="@mipmap/ic_time"
+        android:drawablePadding="5dp"
+        android:gravity="center_vertical"
+        />
+
+</RelativeLayout>

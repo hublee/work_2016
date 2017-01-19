@@ -1,0 +1,74 @@
+package com.zeustel.top9.utils;
+
+import android.content.Context;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
+import android.view.animation.Transformation;
+
+import com.zeustel.top9.R;
+
+/**
+ * @author NiuLei
+ * @email niulei@zeustel.com
+ * @date 2015/11/11 17:27
+ */
+public class DanmakuScaleIn extends AnimationSet implements Animation.AnimationListener {
+    public interface OnAnimListener {
+        void onAnimIng(float interpolatedTime);
+
+        void onAnimStart(Animation animation);
+
+        void onAnimEnd(Animation animation);
+    }
+    private OnAnimListener onAnimListener;
+
+    public void setOnAnimListener(OnAnimListener onAnimListener) {
+        this.onAnimListener = onAnimListener;
+    }
+
+    public DanmakuScaleIn(Context context) {
+        super(true);
+        Animation scaleAnim = AnimationUtils.loadAnimation(context, R.anim.danmaku_anim_sacle_in);
+        scaleAnim.setStartOffset(500);
+        addAnimation(scaleAnim);
+        Animation bottomIn = AnimationUtils.loadAnimation(context, R.anim.anim_bottom_in);
+        addAnimation(bottomIn);
+        setDuration(1000);
+        setAnimationListener(this);
+    }
+
+    @Override
+    protected void applyTransformation(float interpolatedTime, Transformation t) {
+        super.applyTransformation(interpolatedTime, t);
+        Tools.log_i(DanmakuScaleIn.class,"applyTransformation","interpolatedTime : "+interpolatedTime);
+        if (interpolatedTime >= 0 && interpolatedTime <= 1) {
+        Tools.log_i(DanmakuScaleIn.class,"applyTransformation","interpolatedTime ???????????? : "+interpolatedTime);
+            if (onAnimListener != null) {
+                onAnimListener.onAnimIng(interpolatedTime);
+            }
+        }
+
+    }
+
+
+    @Override
+    public void onAnimationStart(Animation animation) {
+        if (onAnimListener != null) {
+            onAnimListener.onAnimStart(animation);
+        }
+    }
+
+    @Override
+    public void onAnimationEnd(Animation animation) {
+        animation.cancel();
+        if (onAnimListener != null) {
+            onAnimListener.onAnimEnd(animation);
+        }
+    }
+
+    @Override
+    public void onAnimationRepeat(Animation animation) {
+
+    }
+}

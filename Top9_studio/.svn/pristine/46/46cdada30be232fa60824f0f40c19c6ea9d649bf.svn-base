@@ -1,0 +1,221 @@
+package com.zeustel.top9.temp;
+
+import android.graphics.PointF;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.view.MotionEvent;
+
+import com.jfeinstein.jazzyviewpager.JazzyViewPager;
+import com.zeustel.top9.R;
+import com.zeustel.top9.adapters.JazzyAdapter;
+import com.zeustel.top9.base.WrapNotAndHandleActivity;
+import com.zeustel.top9.bean.GameEvaluating;
+import com.zeustel.top9.bean.html.DesTemplate;
+import com.zeustel.top9.bean.html.HtmlTemp;
+import com.zeustel.top9.bean.html.SystemTemplate;
+import com.zeustel.top9.fragments.html.HtmlAnimFragment;
+import com.zeustel.top9.fragments.html.HtmlCommentFragment;
+import com.zeustel.top9.fragments.html.HtmlDesFragment;
+import com.zeustel.top9.fragments.html.HtmlSystemFragment;
+import com.zeustel.top9.result.HtmlTempResult;
+import com.zeustel.top9.result.Result;
+import com.zeustel.top9.utils.Constants;
+import com.zeustel.top9.utils.Tools;
+import com.zeustel.top9.utils.operate.DBHtmlTempImp;
+import com.zeustel.top9.utils.operate.DataHtmlTemp;
+import com.zeustel.top9.widgets.LoadingView;
+import com.zeustel.top9.widgets.VoiceShyView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/*
+新评测界面
+需要写四个页面  第四个评论页面暂时取消
+需写工厂类 对应fragment
+* */
+public class TempHtmlActivity extends WrapNotAndHandleActivity implements ViewPager.OnPageChangeListener, LoadingView.OnFailedClickListener {
+    public static final String EXTRA_NAME = "GameEvaluating";
+    private List<Fragment> fragments = new ArrayList<Fragment>();
+    private JazzyViewPager html_pager = null;
+    private LoadingView loading = null;
+    private DBHtmlTempImp dbBaseOperate;
+    private DataHtmlTemp dataBaseOperate;
+    private HtmlTemp htmlTemp;
+    private VoiceShyView html_shyView;
+    private List<SystemTemplate> systemTemplates;
+    private DesTemplate htmlDes;
+    private GameEvaluating gameEvaluating;
+
+    private PointF startPoint = new PointF();
+    private PointF movePoint = new PointF();
+    private JazzyAdapter adapter;
+    private Fragment fragment;
+    private SystemTemplate mSystemTemplate;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_html_temp);
+        if (getIntent() != null) {
+            gameEvaluating = (GameEvaluating) getIntent().getSerializableExtra(EXTRA_NAME);
+        }
+        if (gameEvaluating == null) {
+            finish();
+        }
+
+        dbBaseOperate = new DBHtmlTempImp(TempHtmlActivity.this);
+        dataBaseOperate = new DataHtmlTemp(getHandler(), dbBaseOperate);
+        html_pager = (JazzyViewPager) findViewById(R.id.html_pager);
+        loading = (LoadingView) findViewById(R.id.loading);
+        html_shyView = (VoiceShyView) findViewById(R.id.html_shyView);
+        loading.addOnFailedClickListener(this);
+
+        html_pager.setTransitionEffect(JazzyViewPager.TransitionEffect.Tablet);
+        html_pager.setPageMargin(30);
+        html_pager.addOnPageChangeListener(this);
+        onFailedClick();
+    }
+
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (html_pager != null && 0 == html_pager.getCurrentItem()) {
+            switch (ev.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    startPoint.set(ev.getX(), ev.getY());
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    movePoint.set(ev.getX() - startPoint.x, ev.getY() - startPoint.y);
+                    break;
+                case MotionEvent.ACTION_UP:
+                    if (movePoint.x > 50 && Math.abs(movePoint.y) < 50) {
+                        finish();
+                        return true;
+                    }
+                    break;
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    private void fill() {
+        htmlDes = htmlTemp.getHtmlDes();
+        systemTemplates = htmlTemp.getSystemTemplates();
+        fragments.clear();
+        if (htmlDes != null) {
+            fragments.add(HtmlDesFragment.newInstance(htmlDes));
+        }
+        if (!Tools.isEmpty(systemTemplates)) {
+            for (int i = 0; i < systemTemplates.size(); i++) {
+                mSystemTemplate = systemTemplates.get(i);
+                if (mSystemTemplate != null) {
+                    fragments.add(HtmlSystemFragment.newInstance(mSystemTemplate));
+                }
+            }
+        }
+        fragments.add(HtmlCommentFragment.newInstance(gameEvaluating));
+
+        adapter = new JazzyAdapter(html_pager, getSupportFragmentManager(), fragments);
+        //        adapter = new AdapterFragmentPager(getSupportFragmentManager(), data);
+        html_pager.setAdapter(adapter);
+        html_pager.setOffscreenPageLimit(fragments.size());
+        onPageSelected(0);
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (html_shyView != null) {
+            html_shyView.onDestroy();
+        }
+        if (fragments != null) {
+            fragments.clear();
+            fragments = null;
+        }
+        if (systemTemplates != null) {
+            systemTemplates.clear();
+            systemTemplates = null;
+        }
+        super.onDestroy();
+
+    }
+
+    @Override
+    public void onHandleSingleSuccess(Result result, Object obj) {
+        super.onHandleSingleSuccess(result, obj);
+        Tools.log_i(TempHtmlActivity.class, "onHandleSingleSuccess", "");
+        loading.loadSuccess();
+        if (obj != null) {
+            htmlTemp = (HtmlTemp) obj;
+            fill();
+        }
+    }
+
+    @Override
+    public void onHandleSingleFailed(Result result) {
+        super.onHandleSingleFailed(result);
+        loading.loadFailed();
+        Tools.log_i(TempHtmlActivity.class, "onHandleSingleFailed", "");
+        Tools.showToast(this, R.string.load_request_failed);
+        //        失败处理
+    }
+
+    @Override
+    public String getFloatTitle() {
+        return null;
+    }
+
+    @Override
+    public int getBackgroundColor() {
+        return 0;
+    }
+
+    /*后期切换标题  语音 */
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        Tools.log_i(TempHtmlActivity.class, "onPageSelected", "position : " + position);
+        startChildAnim(position);
+        if (0 == position) {
+            if (html_shyView != null && htmlDes != null) {
+                html_shyView.start(Constants.URL_SERVER + htmlDes.getVoiceUrl());
+            }
+        } else if (fragments.size() - 1 == position) {
+            //            html_shyView.start(Constants.URL_SERVER + systemTemplate.getVoiceUrl());
+        } else {
+            if (systemTemplates != null) {
+                SystemTemplate systemTemplate = systemTemplates.get(position - 1);
+                if (html_shyView != null) {
+                    html_shyView.start(Constants.URL_SERVER + systemTemplate.getVoiceUrl());
+                }
+            }
+        }
+    }
+
+    private void startChildAnim(int position) {
+        fragment = fragments.get(position);
+        if (fragment instanceof HtmlAnimFragment) {
+            ((HtmlAnimFragment) fragment).startAnim();
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+    @Override
+    public void onFailedClick() {
+          /*请求单条数据*/
+        try {
+            dataBaseOperate.getSingleData(dataBaseOperate.createSingleBundle(Constants.URL_SEARCH_DETAIL + "?sourceId=" + gameEvaluating.getId() + "&type=" + 3, gameEvaluating.getId()), HtmlTempResult.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

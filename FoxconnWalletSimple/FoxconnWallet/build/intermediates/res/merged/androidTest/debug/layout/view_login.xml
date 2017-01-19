@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/userlogin_layout"
+        >
+
+        <LinearLayout
+            android:id="@+id/login_accountinfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/common_space"
+                android:paddingBottom="@dimen/common_space"
+                android:paddingLeft="@dimen/big_space"
+                android:paddingRight="@dimen/big_space">
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login_username"
+                    android:textColor="#fff"/>
+                <EditText
+                    android:id="@+id/login_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:hint="@string/login_tips1"
+                    android:singleLine="true"
+                    android:textSize="@dimen/common_font"
+                    android:imeOptions="actionNext"
+                    android:background="@color/input_bg"
+                    android:padding="@dimen/little_space"
+                    android:paddingTop="@dimen/common_space"
+                    android:paddingBottom="@dimen/common_space"
+                    android:layout_marginLeft="@dimen/common_space"
+                    android:layout_marginStart="@dimen/common_space"
+                    />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/common_space"
+                android:paddingBottom="@dimen/common_space"
+                android:paddingLeft="@dimen/big_space"
+                android:paddingRight="@dimen/big_space">
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login_password"
+                    android:textColor="@color/common_text"/>
+                <EditText
+                    android:id="@+id/login_userpass"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/login_tips2"
+                    android:inputType="textPassword"
+                    android:singleLine="true"
+                    android:textSize="@dimen/common_font"
+                    android:imeOptions="actionDone"
+                    android:background="@color/input_bg"
+                    android:padding="@dimen/little_space"
+                    android:paddingTop="@dimen/common_space"
+                    android:paddingBottom="@dimen/common_space"
+                    android:layout_marginLeft="@dimen/common_space"
+                    android:layout_marginStart="@dimen/common_space"
+                    />
+
+                <!--<ImageView-->
+                    <!--android:id="@+id/userlogin_showpass"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:src="@mipmap/cannotsee"-->
+                    <!--android:layout_gravity="center_vertical"/>-->
+            </LinearLayout>
+        </LinearLayout>
+        <Button
+            android:id="@+id/login_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/big_space"
+            android:background="@drawable/operate_bg"
+            android:text="@string/login_submit"
+            android:textColor="@color/common_text"
+            android:layout_below="@id/login_accountinfo"
+            />
+
+        <TextView
+            android:id="@+id/login_forgetpass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_marginRight="@dimen/big_space"
+            android:layout_marginEnd="@dimen/big_space"
+            android:textColor="@color/common_text"
+            android:text="@string/login_forget_pass"
+            android:layout_below="@id/login_submit"/>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

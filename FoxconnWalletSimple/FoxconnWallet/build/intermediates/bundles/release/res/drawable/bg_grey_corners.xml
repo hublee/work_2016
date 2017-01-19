@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:shape="rectangle">
+    <!--边框-->
+    <!--  <stroke
+          android:width="1.2px"
+          android:color="#ff00ff"
+      />-->
+    <!--内容主体-->
+    <solid android:color="@color/grey"
+    />
+    <corners
+        android:bottomLeftRadius="@dimen/bg_corners"
+        android:bottomRightRadius="@dimen/bg_corners"
+        android:topLeftRadius="@dimen/bg_corners"
+        android:topRightRadius="@dimen/bg_corners"/>
+    <!--
+    <padding
+        android:top="2dp"
+        android:bottom="2dp"
+        android:left="10dp"
+        android:right="10dp"/>-->
+</shape>

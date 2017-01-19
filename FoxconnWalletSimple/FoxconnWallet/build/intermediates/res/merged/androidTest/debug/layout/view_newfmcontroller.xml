@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+ 		android:orientation="vertical"
+ 		android:paddingTop="@dimen/biggest"
+ 		android:paddingBottom="@dimen/biggest">
+        
+        <RelativeLayout 
+            android:layout_width="@dimen/fm_logo"
+	        android:layout_height="@dimen/fm_logo"
+	        android:layout_gravity="center"
+            >
+            
+            <ImageView 
+	            android:id="@+id/newfm_play_bg"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:src="@drawable/cp_sdk_newfm"
+	            />
+            
+            <ImageView 
+                android:id="@+id/newfm_play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/cp_sdk_newfm_stop"
+                />
+        </RelativeLayout>
+        
+        
+        <TextView
+            android:id="@+id/newfm_tips"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/nowplay_tips"
+            android:textSize="@dimen/big_font"
+            android:text="@string/fm_nowplay_tips"
+            />
+        
+        <TextView 
+            android:id="@+id/newfm_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/little_font"
+            android:gravity="center"
+            android:textColor="@color/newfm_program"
+            />
+        
+        <!-- 
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/common_space"
+            android:layout_marginBottom="@dimen/big_space"
+            android:layout_marginLeft="@dimen/biggest"
+            android:layout_marginRight="@dimen/biggest">
+            
+            <ImageView
+                android:id="@+id/newfm_program"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/cp_sdk_newfm_program"
+                />
+            
+            <ImageView
+                android:id="@+id/newfm_user"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/cp_sdk_newfm_anchor"
+                />
+            
+            <ImageView
+                android:id="@+id/newfm_attention"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/cp_sdk_newfm_attention"
+                />
+            
+            <ImageView
+                android:id="@+id/newfm_pop"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/cp_sdk_newfm_pop"
+                />
+           
+            </LinearLayout>
+         -->
+         
+    </LinearLayout>
+    
+    <ImageView
+        android:id="@+id/newfm_close"
+        android:layout_width="@dimen/closeable_close"
+        android:layout_height="@dimen/closeable_close"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="@dimen/common_space"
+        android:layout_marginEnd="@dimen/common_space"
+        android:padding="@dimen/little_space"
+        android:src="@drawable/cp_sdk_close"
+        />
+
+</RelativeLayout>

@@ -1,0 +1,78 @@
+<LinearLayout
+    android:id="@+id/des_linearLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.zeustel.top9.fragments.html.HtmlDesFragment"
+    >
+
+    <ImageView
+        android:id="@+id/des_detail_gameIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:src="@mipmap/ic_launcher"
+        />
+
+    <TextView
+        android:id="@+id/des_detail_gameName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="狂野之血"/>
+
+    <TextView
+        android:id="@+id/des_detail_gameEnName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="kuangyezhixue"/>
+
+    <LinearLayout
+        android:id="@+id/des_detail_lable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:orientation="horizontal"></LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@mipmap/line_horizontal"
+        android:drawablePadding="10dp"
+        android:drawableRight="@mipmap/line_horizontal"
+        android:text="推荐理由"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:background="@color/def_bg">
+
+        <TextView
+            android:id="@+id/des_detail_reason"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:ellipsize="end"
+            android:gravity="left|center_vertical"
+            android:maxLines="2"
+            android:text="alksdjlaksjdlkasjdlkasjdlk"/>
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/des_detail_items"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    </LinearLayout>
+</LinearLayout>

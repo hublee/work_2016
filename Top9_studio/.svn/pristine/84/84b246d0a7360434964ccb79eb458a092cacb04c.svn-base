@@ -1,0 +1,106 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/def_bg"
+                tools:context="com.zeustel.top9.fragments.NewTop9Fragment"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="12dp"
+        android:orientation="vertical"
+        android:weightSum="5"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="4">
+
+            <com.zeustel.top9.widgets.GalleryGroup
+                android:id="@+id/new_top9_group"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+            </com.zeustel.top9.widgets.GalleryGroup>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="6"
+                >
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"
+                    >
+
+                    <LinearLayout
+                        android:id="@+id/new_top9_circle"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center_horizontal|bottom"
+                        android:background="@mipmap/circle_bg_top9_def"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/new_top9_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp"
+                            />
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/line_driver"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginTop="5dp"
+                            android:background="#ffffff">
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/new_top9_enName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:textColor="@android:color/white"
+                            android:textSize="11sp"
+                            />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"></FrameLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <kankan.wheel.widget.WheelView
+            android:id="@+id/new_top9_wheel"
+            android:layout_width="100dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+</RelativeLayout>

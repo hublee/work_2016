@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+	<WebView
+	    android:id="@+id/webview"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    />
+	
+	<!-- 
+	 <TextView 
+	    android:id="@+id/refresh"
+	    android:layout_width="match_parent"
+	    android:layout_height="40dp"
+	    android:background="#999"
+	    android:textColor="#fff"
+	    android:text="刷新"
+	    android:gravity="center"
+	    android:textSize="14sp"
+	    android:textStyle="bold"
+	    android:layout_alignParentBottom="true"
+	    /> -->
+</RelativeLayout>

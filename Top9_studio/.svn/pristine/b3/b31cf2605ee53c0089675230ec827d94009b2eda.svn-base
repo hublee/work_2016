@@ -1,0 +1,33 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:clickable="true"
+                tools:context="com.zeustel.top9.fragments.html.CommentDetailFragment"
+    >
+
+    <include
+        android:id="@+id/comment_detail_head"
+        layout="@layout/comment_detail_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <include
+        android:id="@+id/include_refresh_layout"
+        layout="@layout/fragment_refresh_base"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/detail_html_input"
+        android:layout_below="@+id/comment_detail_head"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        />
+
+    <com.zeustel.top9.widgets.InputView
+        android:id="@+id/commentDetailInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        />
+</RelativeLayout>

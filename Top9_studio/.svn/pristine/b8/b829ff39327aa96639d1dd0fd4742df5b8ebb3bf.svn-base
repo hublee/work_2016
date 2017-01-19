@@ -1,0 +1,217 @@
+package com.zeustel.top9.fragments;
+
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zeustel.gallery.Gallery2Utils;
+import com.zeustel.top9.ExhibitionActivity;
+import com.zeustel.top9.LoginActivity;
+import com.zeustel.top9.R;
+import com.zeustel.top9.VideoActivity;
+import com.zeustel.top9.VoiceActivity;
+import com.zeustel.top9.assist.share.ShareUtils;
+import com.zeustel.top9.base.WrapOneFragment;
+import com.zeustel.top9.bean.Game;
+import com.zeustel.top9.bean.GameEvaluating;
+import com.zeustel.top9.bean.Search;
+import com.zeustel.top9.temp.TempEvaluatingActivity;
+import com.zeustel.top9.utils.Constants;
+import com.zeustel.top9.utils.Tools;
+import com.zeustel.top9.widgets.CircleImage;
+
+import java.util.List;
+
+/**
+ * 游戏描述
+ */
+public class GameDescribeFragment extends WrapOneFragment implements View.OnClickListener {
+    private static final String EXTRA_NAME = "game";
+    private Game game;
+    private ImageLoader imageLoader = ImageLoader.getInstance();
+    private ImageView game_describe_des;
+    private ImageView game_describe_share;
+    private ImageView game_describe_mic;
+    private CircleImage game_describe_icon;
+    //    private ImageView game_describe_icon;
+    private ImageView game_describe_download;
+    private ImageView game_describe_screenshot;
+    private ImageView game_describe_video;
+    private TextView game_describe_name;
+    private TextView game_describe_entry_room;
+    private TextView game_describe_room_count;
+    private TextView game_describe_online_count;
+    private TextView game_describe_download_text;
+    private TextView game_describe_screenshot_text;
+    private TextView game_describe_video_text;
+    private ImageView game_describe_palayer;
+    private ImageView game_describe_palayer_start;
+    //    private VideoPlayer game_describe_play;
+    private String[] array;
+
+    public GameDescribeFragment() {
+    }
+
+    public static GameDescribeFragment newInstance(Game game) {
+        GameDescribeFragment fragment = new GameDescribeFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(EXTRA_NAME, game);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            game = (Game) getArguments().getSerializable(EXTRA_NAME);
+        }
+        if (game != null) {
+            String screenshot = game.getScreenshot();
+            array = Tools.convertPathArray(screenshot);
+        }
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View contentView = inflater.inflate(R.layout.fragment_game_describe, container, false);
+        game_describe_name = (TextView) contentView.findViewById(R.id.game_describe_name);
+        game_describe_palayer_start = (ImageView) contentView.findViewById(R.id.game_describe_palayer_start);
+        game_describe_palayer = (ImageView) contentView.findViewById(R.id.game_describe_palayer);
+        //        game_describe_play = (VideoPlayer) contentView.findViewById(R.id.game_describe_play);
+        game_describe_entry_room = (TextView) contentView.findViewById(R.id.game_describe_entry_room);
+        game_describe_room_count = (TextView) contentView.findViewById(R.id.game_describe_room_count);
+        game_describe_online_count = (TextView) contentView.findViewById(R.id.game_describe_online_count);
+        game_describe_download_text = (TextView) contentView.findViewById(R.id.game_describe_download_text);
+        game_describe_screenshot_text = (TextView) contentView.findViewById(R.id.game_describe_screenshot_text);
+        game_describe_video_text = (TextView) contentView.findViewById(R.id.game_describe_video_text);
+        game_describe_video = (ImageView) contentView.findViewById(R.id.game_describe_video);
+        game_describe_screenshot = (ImageView) contentView.findViewById(R.id.game_describe_screenshot);
+        game_describe_download = (ImageView) contentView.findViewById(R.id.game_describe_download);
+        game_describe_icon = (CircleImage) contentView.findViewById(R.id.game_describe_icon);
+        //        game_describe_icon = (ImageView) contentView.findViewById(R.id.game_describe_icon);
+        game_describe_mic = (ImageView) contentView.findViewById(R.id.game_describe_mic);
+        game_describe_share = (ImageView) contentView.findViewById(R.id.game_describe_share);
+        game_describe_des = (ImageView) contentView.findViewById(R.id.game_describe_des);
+
+
+        game_describe_video.setOnClickListener(this);
+        game_describe_screenshot.setOnClickListener(this);
+        game_describe_download.setOnClickListener(this);
+        game_describe_share.setOnClickListener(this);
+        game_describe_des.setOnClickListener(this);
+        game_describe_mic.setOnClickListener(this);
+        game_describe_entry_room.setOnClickListener(this);
+        game_describe_download_text.setOnClickListener(this);
+        game_describe_screenshot_text.setOnClickListener(this);
+        game_describe_video_text.setOnClickListener(this);
+        game_describe_palayer.setOnClickListener(this);
+        game_describe_palayer_start.setOnClickListener(this);
+        return contentView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (game != null) {
+            if (game_describe_name != null) {
+                game_describe_name.setText(game.getName() == null ? "" : game.getName());
+            }
+            imageLoader.displayImage(Constants.TEST_IMG + game.getIcon(), game_describe_icon, Tools.options);
+            imageLoader.displayImage(Constants.TEST_IMG + game.getDescribeCover(), game_describe_palayer, Tools.options);
+        }
+    }
+
+    @Override
+    public String getFloatTitle() {
+        return null;
+    }
+
+    @Override
+    public int getBackgroundColor() {
+        return 0;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.game_describe_palayer:
+            case R.id.game_describe_palayer_start:
+                Intent describeIntent = new Intent(getContext(), VideoActivity.class);
+                describeIntent.putExtra(VideoActivity.EXTRA_VIDEO_UR, Constants.URL_SERVER + game.getDescribeUrl());
+                describeIntent.putExtra(VideoActivity.EXTRA_VIDEO_COVER_NET, Constants.TEST_IMG + game.getDescribeCover());
+                startActivity(describeIntent);
+                break;
+            case R.id.game_describe_entry_room:
+            case R.id.game_describe_mic:
+                //进入聊天室
+                if (!Constants.USER.isOnline()) {
+                    Intent intent = new Intent(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
+                Intent intent = new Intent(getContext(), VoiceActivity.class);
+                intent.putExtra(VoiceActivity.EXTRA_NAME, game.getId());
+                startActivity(intent);
+                break;
+            case R.id.game_describe_video:
+            case R.id.game_describe_video_text:
+                Intent videoIntent = new Intent(getContext(), VideoActivity.class);
+                videoIntent.putExtra(VideoActivity.EXTRA_VIDEO_UR, Constants.URL_SERVER + game.getVideoUrl());
+                videoIntent.putExtra(VideoActivity.EXTRA_VIDEO_COVER_NET, Constants.TEST_IMG + game.getVideoCover());
+                startActivity(videoIntent);
+                //游戏视频
+                break;
+            case R.id.game_describe_screenshot:
+            case R.id.game_describe_screenshot_text:
+                if (!Tools.isEmpty(array)) {
+                    Intent screenShotIntent = new Intent(getContext(), ExhibitionActivity.class);
+                    screenShotIntent.putExtra(ExhibitionActivity.EXTRA_NAME_PATH, array);
+                    screenShotIntent.putExtra(ExhibitionActivity.EXTRA_NAME_POSITION, 0);
+                    startActivity(screenShotIntent);
+                }
+                //游戏截图
+                break;
+            case R.id.game_describe_download:
+            case R.id.game_describe_download_text:
+                //下载
+                break;
+            case R.id.game_describe_share:
+                //分享
+                ShareUtils.showShare(getContext());
+                break;
+            case R.id.game_describe_des:
+                //简介
+                if (Constants.SHOW_HOW) {
+                    Intent intent1 = new Intent(getContext(), TempEvaluatingActivity.class);
+                    startActivity(intent1);
+                } else {
+                    int evluatingId = game.getEvluatingId();
+                    GameEvaluating gameEvaluating = new GameEvaluating();
+                    gameEvaluating.setId(evluatingId);
+                    getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.selfDetail, HtmlDetailFragment.newInstance(gameEvaluating, Search.Type.EVALUATING.value())).commit();
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        final List<String> paths = Gallery2Utils.onActivityResult(requestCode, resultCode, data);
+        if (paths != null && !paths.isEmpty()) {
+            for (String path : paths) {
+                Tools.log_i(GameDescribeFragment.class, "onActivityResult", "path : " + path);
+            }
+        }
+    }
+}

@@ -1,0 +1,34 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+
+    <dimen name="little_space">4dp</dimen>
+    <dimen name="common_space">8dp</dimen>
+    <dimen name="big_space">12dp</dimen>
+    <dimen name="bigger">16dp</dimen>
+    <dimen name="biggest">24dp</dimen>
+
+    <dimen name="fm_menu_item_dimen">40dp</dimen>
+    <dimen name="fm_layout_dimen">56dp</dimen>
+    <dimen name="float_item_img_size">48dp</dimen>
+
+    <!--控制中心-->
+    <dimen name="center_icon">40dp</dimen>
+
+    <!--可关闭界面-->
+    <dimen name="closeable_close">30dp</dimen>
+    <dimen name="closeable_margin">40dp</dimen>
+
+
+
+    <!--文字大小-->
+    <dimen name="little_font">12sp</dimen>
+    <dimen name="common_font">14sp</dimen>
+    <dimen name="big_font">16sp</dimen>
+    <dimen name="bigger_font">18sp</dimen>
+    <dimen name="biggest_font">20sp</dimen>
+
+</resources>

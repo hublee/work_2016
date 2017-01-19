@@ -1,0 +1,48 @@
+package com.zeustel.top9.bean.html;
+
+import java.util.List;
+
+/**
+ * 系统模板
+ * @author NiuLei
+ * @email niulei@zeustel.com
+ * @date 2015/10/27 15:26
+ */
+public class SystemTemplate extends BaseTemplate {
+//    private String markUrl;//符号地址
+    private String name;//名称
+    private TopItem topItem;
+    private List<SystemTemplateItem> items;
+
+    public TopItem getTopItem() {
+        return topItem;
+    }
+
+    public void setTopItem(TopItem topItem) {
+        this.topItem = topItem;
+    }
+
+    public List<SystemTemplateItem> getItems() {
+        return items;
+    }
+
+    public void setItems(List<SystemTemplateItem> items) {
+        this.items = items;
+    }
+
+  /*  public String getMarkUrl() {
+        return markUrl;
+    }
+
+    public void setMarkUrl(String markUrl) {
+        this.markUrl = markUrl;
+    }*/
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}

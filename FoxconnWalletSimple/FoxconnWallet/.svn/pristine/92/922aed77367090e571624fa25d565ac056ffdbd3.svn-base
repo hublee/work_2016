@@ -1,0 +1,56 @@
+package com.zeustel.cp.views;
+
+import android.content.Context;
+import android.widget.LinearLayout;
+
+import com.zeustel.cp.utils.Constants;
+import com.zeustel.cp_sdk.R;
+
+/**
+ * Created by Do on 2016/2/25.
+ */
+public class Menus extends LinearLayout{
+    public Menus(Context context){
+        super(context);
+        addView();
+    }
+
+    private void addView(){
+        inflate(getContext(), R.layout.view_menus,this);
+
+
+        MenuItem exchangeItem = new MenuItem(getContext());
+        exchangeItem.setViewId(Constants.EXCHANGE_VIEWID);
+        exchangeItem.displayImg("drawable://" + R.drawable.exchange);
+        exchangeItem.setTitle("兑换");
+//        exchangeItem.registCallBack(this);
+        addView(exchangeItem);
+
+        MenuItem shopItem = new MenuItem(getContext());
+        shopItem.setViewId(Constants.EXCHANGE_VIEWID);
+        shopItem.displayImg("drawable://" + R.drawable.shop);
+        shopItem.setTitle("商城");
+//        shopItem.registCallBack(this);
+        shopItem.setViewFlag(MenuItem.SHOP_VIEW);
+        addView(shopItem);
+
+        MenuItem radioItem = new MenuItem(getContext());
+        radioItem.setViewId(Constants.EXCHANGE_VIEWID);
+        radioItem.displayImg("drawable://" + R.drawable.radio);
+        radioItem.setTitle("电台");
+//        radioItem.registCallBack(this);
+        radioItem.setViewFlag(MenuItem.RADIO_VIEW);
+        addView(radioItem);
+    }
+
+    public void setBackGround(boolean isLeft){
+        if(isLeft){
+//            setBackground(getResources().getDrawable(R.drawable.left_center_bg));
+            setBackgroundDrawable(getResources().getDrawable(R.drawable.left_center_bg));
+        }else{
+//            setBackground(getResources().getDrawable(R.drawable.left_center_bg));
+            setBackgroundDrawable(getResources().getDrawable(R.drawable.left_center_bg));
+        }
+    }
+
+}

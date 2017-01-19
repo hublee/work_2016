@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#EFEFF4">
+
+    <LinearLayout
+        android:id="@+id/gallery2_main_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/new_game_detail_title_back"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingRight="5dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/new_game_detail_title"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="2dp"
+            android:text="@string/gallery2"
+            android:textSize="18sp"/>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/gallery2_main_listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/gallery2_main_title"
+        android:layout_margin="5dp"
+        android:divider="#B7BBC2"
+        android:gravity="center"
+        android:listSelector="@null"
+        android:scrollbars="none">
+    </ListView>
+
+</RelativeLayout><!-- From: file:/D:/lib_workspace/androidStudio/Top9_studio/libraries/GalleryLib/res/layout/gallery2_main.xml -->

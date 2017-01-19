@@ -1,0 +1,32 @@
+package com.zeustel.top9.bean.html;
+
+import java.io.Serializable;
+import java.util.List;
+
+/**
+ * 暂定版评测 <资讯以后?>
+ *
+ * @author NiuLei
+ * @email niulei@zeustel.com
+ * @date 2015/10/27 15:41
+ */
+public class HtmlTemp implements Serializable {
+    private DesTemplate htmlDes;
+    private List<SystemTemplate> systemTemplates;
+
+    public DesTemplate getHtmlDes() {
+        return htmlDes;
+    }
+
+    public void setHtmlDes(DesTemplate htmlDes) {
+        this.htmlDes = htmlDes;
+    }
+
+    public List<SystemTemplate> getSystemTemplates() {
+        return systemTemplates;
+    }
+
+    public void setSystemTemplates(List<SystemTemplate> systemTemplates) {
+        this.systemTemplates = systemTemplates;
+    }
+}

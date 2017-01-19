@@ -1,0 +1,24 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="com.zeustel.top9.temp.FMContainerFragment"
+    android:id="@+id/fmContainer">
+
+
+  <!--  <fragment
+        android:id="@+id/game"
+        android:tag="TempGameFragment"
+        android:name="com.zeustel.top9.temp.TempGameFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <fragment
+        android:id="@+id/fm"
+        android:tag="TempFMFragment"
+        android:name="com.zeustel.top9.temp.TempFMFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+-->
+</FrameLayout>

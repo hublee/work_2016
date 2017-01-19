@@ -1,0 +1,24 @@
+package com.zeustel.cp.intf;
+
+/**
+ * 菜单操作接口
+ * @author Do
+ *
+ */
+public interface IMenu {
+	/**
+	 * 跳转到商城
+	 */
+	public void toShop();
+	
+	/**
+	 * 跳转到页面
+	 * @param viewId
+	 */
+	public void toView(int viewId);
+	
+	/**
+	 * 跳转到电台
+	 */
+	public void toRadio();
+}

@@ -1,0 +1,323 @@
+package com.zeustel.cp.bean;
+
+import android.content.Context;
+import android.util.Log;
+import android.view.View;
+
+import com.zeustel.cp.utils.Constants;
+import com.zeustel.cp.utils.Tools;
+import com.zeustel.cp.intf.IView;
+import com.zeustel.cp.views.Check;
+import com.zeustel.cp.views.ControllerCenter;
+import com.zeustel.cp.views.Exchange;
+import com.zeustel.cp.views.ExchangeOk;
+import com.zeustel.cp.views.Gift;
+import com.zeustel.cp.views.Login;
+import com.zeustel.cp.views.UserSet;
+
+import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+/**
+ * Created by Administrator on 2015/12/14.
+ * 视图工厂类
+ */
+public class ViewFactory extends ViewCreator {
+    private static ViewFactory viewFactory = new ViewFactory();
+    private PopView popView = null;
+    private static Context context;
+
+    private static List<Class> classes = new ArrayList<Class>();
+//    private static List<PopView> popViews = new ArrayList<PopView>();
+    private static ConcurrentLinkedQueue<Integer> saveViews  = new  ConcurrentLinkedQueue<Integer>();
+
+    private IView iView;
+
+    private ViewFactory(){
+
+    }
+
+    public static ViewFactory getInstance(){
+        return viewFactory;
+    }
+
+    public static void setContext(Context context){
+        ViewFactory.context = context;
+    }
+
+    public <T extends PopView> T createView(int viewId){
+        PopView popView = null;
+        switch (viewId){
+            case Constants.CONTROLLERCENTER_VIEWID:
+                popView = viewFactory.createView(ControllerCenter.class,viewId);
+                if(popView!=null) {
+                    popView.setViewWidth(800);
+                    popView.setViewHeight(400);
+                }
+                break;
+            case Constants.EXCHANGE_VIEWID:
+                popView = viewFactory.createView(Exchange.class,viewId);
+                if(popView!=null){
+                    popView.setViewWidth(800);
+                    popView.setViewHeight(700);
+                }
+                break;
+            case Constants.GIFT_VIEWID:
+                popView = viewFactory.createView(Gift.class,viewId);
+                if(popView != null){
+                    popView.setViewWidth(500);
+                    popView.setViewHeight(400);
+                }
+                break;
+            case Constants.LOGIN_VIEWID:
+                popView = viewFactory.createView(Login.class,viewId);
+                if(popView != null){
+                    popView.setViewWidth(500);
+                    popView.setViewHeight(400);
+                }
+                break;
+            case Constants.USERSET_VIEWID:
+                popView = viewFactory.createView(UserSet.class,viewId);
+                if(popView != null){
+                    popView.setViewWidth(500);
+                    popView.setViewHeight(400);
+                }
+                break;
+            case Constants.CHECK_VIEWID:
+                popView = viewFactory.createView(Check.class,viewId);
+                if(popView!=null){
+                    popView.setViewWidth(800);
+                    popView.setViewHeight(700);
+                }
+                break;
+            case Constants.EXCHANGE_OK_VIEWID:
+                popView = viewFactory.createView(ExchangeOk.class,viewId);
+                if(popView!=null){
+                    popView.setViewWidth(400);
+                    popView.setViewHeight(400);
+                }
+                break;
+//            case Constants.USER_LOGIN_VIEWID://用户登录
+//                popView = viewFactory.createView(UserLoginView.class,viewId);
+//                break;
+//            case Constants.USER_REGIST_VIEWID://用户注册
+//                popView = viewFactory.createView(UserRegistView.class,viewId);
+//                break;
+//            case Constants.USER_SET_VIEWID://个人设置
+//                popView = viewFactory.createView(UserSetView.class,viewId);
+//                break;
+//            case Constants.USER_TOPLIST_VIEWID://排行榜
+//                popView = viewFactory.createView(TopListView.class,viewId);
+//                break;
+//            case Constants.USER_MYPOINT_VIEWID://我的积分
+////                popView = viewFactory.createView(MyPointView.class);
+//                popView = viewFactory.createView(PointRecordView.class,viewId);//2016年1月7日09:49:21
+//                break;
+//            case Constants.USER_MYMESSAGE_VIEWID://我的消息
+//                popView = viewFactory.createView(MyMessageView.class,viewId);
+//                break;
+//            case Constants.USER_TOP9_VIEWID://TOP9  临时测试用
+////                popView = viewFactory.createView(QuestionView.class);
+//                break;
+//            case Constants.ANCHOR_LIST_VIEWID://主播关注列表
+//                popView = viewFactory.createView(AnchorListView.class,viewId);
+//                break;
+//            case Constants.CHANGE_USER_NICKNAME_VIEWID://修改用户昵称
+////                ChangeUserInfoView changeUserInfoView = viewFactory.createView(ChangeUserInfoView.class);
+////                changeUserInfoView.setChangeType(0);
+////                popView = (PopView)changeUserInfoView;
+//                popView = viewFactory.createView(ChangeUserNicknameView.class,viewId);
+//                break;
+//            case Constants.CHANGE_USER_PASS_VIEWID://修改用户密码
+////                ChangeUserInfoView changeUserInfoView1 = viewFactory.createView(ChangeUserInfoView.class);
+////                changeUserInfoView1.setChangeType(1);
+////                popView = (PopView)changeUserInfoView1;
+//                popView = viewFactory.createView(ChangeUserPassView.class,viewId);
+//                break;
+//            case Constants.ANSWER_VIEWID://答题
+//                popView = viewFactory.createView(AnswerView.class,viewId);
+//                break;
+//            case Constants.USER_CENTER_VIEWID://用户中心
+//                popView = viewFactory.createView(UserCenterView.class,viewId);
+//                break;
+//            case Constants.GAME_VIEWID://游戏
+//                popView = viewFactory.createView(GameView.class,viewId);
+//                break;
+//            case Constants.FM_VIEWID://fm
+//                popView = viewFactory.createView(FmView.class,viewId);
+//                break;
+//            case Constants.USER_MYATTENTION_VIEWID://我的关注
+//                popView = viewFactory.createView(UserAttentionView.class,viewId);
+//                break;
+//            case Constants.TIPS_VIEWID://提示
+////                popView = viewFactory.createView(TipsDialog.class);
+//                break;
+//            case Constants.ANCHOR_INFO_VIEWID://主播信息
+//                popView = viewFactory.createView(AnchorInfoSingleView.class,viewId);
+//                break;
+//            case Constants.PHONE_REGIST_VIEWID://手机号注册
+//                popView = viewFactory.createView(PhoneRegistView.class,viewId);
+//                break;
+//            case Constants.PHONE_REGIST_CHECK_VIEWID://手机号注册验证
+//                popView = viewFactory.createView(PhoneRegistCheckView.class,viewId);
+//                break;
+//            case Constants.FAST_REGIST_VIEWID://快速注册
+//                popView = viewFactory.createView(FastRegistView.class,viewId);
+//                break;
+//            case Constants.RESET_PASS_VIEWID://重置密码
+//                popView = viewFactory.createView(ResetPassView.class,viewId);
+//                break;
+//            case Constants.RESET_PASS_CHECK_VIEWID://重置密码验证
+//                popView = viewFactory.createView(ResetPassView.class,viewId);
+//                break;
+//            case Constants.BIND_PHONE_VIEWID://绑定手机号
+//                popView = viewFactory.createView(BindPhoneView.class,viewId);
+//                break;
+//            case Constants.BIND_PHONE_CHECK_VIEWID://绑定手机号验证
+//                popView = viewFactory.createView(BindPhoneCheckView.class,viewId);
+//                break;
+//            case Constants.CHANGE_PHONE_VIEWID://修改手机号
+//                popView = viewFactory.createView(ChangePhoneView.class,viewId);
+//                break;
+//            case Constants.CHANGE_PHONE_CHECK_VIEWID://修改手机号验证
+//                popView = viewFactory.createView(ChangePhoneCheckView.class,viewId);
+//                break;
+            default:
+                break;
+
+        }
+
+        return  (T)popView;
+    }
+
+
+    /**
+     * 根据类名创建视图
+     * @param c
+     * @param <T>
+     * @return
+     */
+    public <T extends PopView> T createView(Class<T> c){
+        try{
+            Class tempClass = null;
+            if(classes.contains(Class.forName(c.getName()))){
+                int index = classes.indexOf(Class.forName(c.getName()));
+                tempClass = classes.get(index);
+                return null;
+            }else{
+                tempClass = Class.forName(c.getName());
+                classes.add(tempClass);
+
+                Constructor constructor = tempClass.getDeclaredConstructor(new Class[]{Context.class});
+                constructor.setAccessible(true);
+                popView =(PopView) constructor.newInstance(context);
+                popView.addViewListener(iView);
+
+//                popViews.add(popView);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        return (T)popView;
+    }
+
+    /**
+     * 根据类名和id创建视图
+     * @param c 类名
+     * @param viewId 视图编号
+     * @param <T>
+     * @return
+     */
+    public <T extends PopView> T createView(Class<T> c,int viewId){
+        try{
+            Class tempClass = null;
+            if(classes.contains(Class.forName(c.getName()))){
+                int index = classes.indexOf(Class.forName(c.getName()));
+                tempClass = classes.get(index);
+                return null;
+            }else{
+                tempClass = Class.forName(c.getName());
+                classes.add(tempClass);
+
+                Constructor constructor = tempClass.getDeclaredConstructor(new Class[]{Context.class});
+                constructor.setAccessible(true);
+                popView =(PopView) constructor.newInstance(context);
+                popView.setViewId(viewId);
+                popView.addViewListener(iView);
+
+//                popViews.add(popView);
+
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return (T)popView;
+    }
+
+
+    public void addViewListener(IView iView){
+        this.iView = iView;
+    }
+
+    public void closeView(View view){
+        if(classes.contains(view.getClass())) {
+            int index = classes.indexOf(view.getClass());
+            classes.remove(index);
+
+            iView.dropView(view);
+        }
+    }
+
+    public void closeView(View view,int viewId){
+        closeView(view,viewId,true);
+    }
+
+    public void closeView(View view,int viewId,boolean flag){
+        if(classes.contains(view.getClass())){
+            int index = classes.indexOf(view.getClass());
+            classes.remove(index);
+
+            iView.dropView(view);
+
+            if(saveViews.isEmpty()) {
+//                Tools.showController();
+            }
+
+            if(flag) {
+                saveViews.add(viewId);
+            }
+        }
+    }
+
+    public void closeController(View view){
+        iView.dropView(view);
+    }
+
+
+    public int getSize(){
+        return classes.size();
+    }
+
+
+    public void pageBack(View view,int viewId){
+        closeView(view,viewId,false);
+        synchronized (saveViews){
+            if(!saveViews.isEmpty()) {
+                int tempViewId = saveViews.poll();
+                if (tempViewId != 0)
+                iView.addView(tempViewId);
+            }else{
+                Log.e("saveViews size","size:"+saveViews.size());
+//                Tools.showController();
+            }
+        }
+    }
+
+}

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+>
+    <android.support.percent.PercentRelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_white_corners"
+        app:layout_heightPercent="@fraction/overall_height"
+        app:layout_widthPercent="@fraction/overall_width"
+    >
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="@dimen/rightTop_width"
+                   android:layout_height="@dimen/rightTop_height"
+                   android:layout_alignParentRight="true"
+                   android:layout_alignParentTop="true"
+                   android:layout_marginRight="@dimen/rightTop_margin_right"
+                   android:layout_marginTop="@dimen/rightTop_margin_top"
+                   android:src="@drawable/back"
+        />
+
+        <com.zeustel.cp.wallet.views.PercentLinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            app:layout_widthPercent="@fraction/overall_btn_width"
+        >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/login_main_title_top"
+                android:gravity="center"
+                android:text="@string/login_main_title_text"
+                android:textColor="@color/red"
+                android:textSize="@dimen/login_main_title_font_size"
+                android:textStyle="bold"
+            />
+
+            <Button
+                android:id="@+id/memberLogin"
+                style="@style/overall_btn"
+                android:layout_width="0dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_blue_corners"
+                android:clickable="false"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="e-Mail Login"
+                android:textSize="8sp"
+                app:layout_heightPercent="8%"
+                app:layout_widthPercent="50%"
+            />
+            <EditText
+                android:id="@+id/editEmail"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_grey_border"
+                android:gravity="left|center_vertical"
+                android:hint="Please enter e-Mail"
+                android:paddingLeft="10dp"
+                android:textColor="@color/color_666666"
+                android:textSize="@dimen/overall_edittext_size"
+                app:layout_heightPercent="10%"
+            />
+            <EditText
+                android:id="@+id/editPassword"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_grey_border"
+                android:gravity="left|center_vertical"
+                android:hint="Please enter password"
+                android:paddingLeft="10dp"
+                android:textColor="@color/color_666666"
+                android:textSize="@dimen/overall_edittext_size"
+                app:layout_heightPercent="10%"
+            />
+            <LinearLayout
+                android:id="@+id/forgetLayout"
+                 android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_marginTop="16dp"
+                          android:gravity="center_vertical"
+                          android:orientation="horizontal">
+                <ImageView android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:src="@drawable/help"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:layout_marginLeft="6dp"
+                    android:gravity="center_vertical"
+                    android:text="I forget my password"
+                    android:textColor="@color/blue"
+                    android:textSize="8sp"
+                />
+            </LinearLayout>
+        </com.zeustel.cp.wallet.views.PercentLinearLayout>
+
+        <Button
+            android:id="@+id/gameStart"
+            style="@style/overall_btn"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/bg_red_corners"
+            android:text="Game Start"
+            app:layout_heightPercent="11%"
+            app:layout_widthPercent="@fraction/overall_btn_width"
+        />
+    </android.support.percent.PercentRelativeLayout>
+
+</android.support.percent.PercentRelativeLayout>

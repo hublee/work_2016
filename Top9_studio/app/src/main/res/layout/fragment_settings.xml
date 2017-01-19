@@ -1,0 +1,127 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/def_bg"
+             tools:context="com.zeustel.top9.fragments.SettingsFragment"
+    >
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/settings_card_margin_bottom"
+        android:layout_marginLeft="@dimen/settings_card_margin_left"
+        android:layout_marginRight="@dimen/settings_card_margin_right"
+        android:layout_marginTop="@dimen/settings_card_margin_top"
+        android:background="@android:color/white"
+        app:cardElevation="@dimen/cardview_elevation"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <com.zeustel.top9.widgets.CircleImage
+                    android:id="@+id/settings_icon"
+                    android:layout_width="@dimen/settings_icon_width"
+                    android:layout_height="@dimen/settings_icon_height"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/settings_icon_margin_top"
+                    android:src="@mipmap/ic_icon"
+                    />
+
+                <ImageView
+                    android:id="@+id/settings_edit"
+                    android:layout_width="@dimen/settings_edit_width"
+                    android:layout_height="@dimen/settings_edit_height"
+                    android:layout_below="@+id/settings_icon"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/settings_edit_margin_top"
+                    android:src="@mipmap/settings_edit"
+                    />
+
+                <TextView
+                    android:id="@+id/settings_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/settings_edit"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/settings_name_margin_top"
+                    android:textColor="@color/def_font"
+                    android:textSize="@dimen/settings_name"
+                    android:textStyle="bold"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/settings_name"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/settings_modify_layout_margin_top"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:id="@+id/settings_modify_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border_bg_red"
+                        android:gravity="center"
+                        android:text="@string/settings_modify_name"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/settings_modify_name"
+                        android:layout_marginBottom="@dimen/settings_modify_layout_margin_bottom"
+                        />
+
+                    <TextView
+                        android:id="@+id/settings_modify_password"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/settings_modify_password_margin_left"
+                        android:background="@drawable/border_bg_yellow"
+                        android:gravity="center"
+                        android:text="@string/settings_modify_password"
+                        android:textColor="@color/yellow"
+                        android:textSize="@dimen/settings_modify_password"
+                        android:layout_marginBottom="@dimen/settings_modify_layout_margin_bottom"
+                        />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_height_limit"
+                android:background="@color/def_bg"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    style="@style/def_title"
+                    android:layout_marginLeft="@dimen/settings_def_title_margin_left"
+                    android:text="@string/title_system"
+                    />
+
+                <com.zeustel.top9.widgets.CustomRecyclerView
+                    android:id="@+id/settings_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/settings_recycler_margin_top"
+                    android:background="@android:color/white"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</FrameLayout>

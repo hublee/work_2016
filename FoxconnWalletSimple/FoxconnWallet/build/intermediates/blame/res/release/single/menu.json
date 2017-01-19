@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\res\\merged\\release\\menu\\main.xml",
+        "source": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\res\\menu\\main.xml"
+    },
+    {
+        "merged": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\res\\merged\\release\\menu\\menu_paybill.xml",
+        "source": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\res\\menu\\menu_paybill.xml"
+    }
+]

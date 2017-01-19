@@ -1,0 +1,82 @@
+package com.zeustel.top9.adapters;
+
+import android.content.Context;
+import android.text.Html;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.zeustel.top9.R;
+import com.zeustel.top9.bean.ExchangeGoods;
+import com.zeustel.top9.utils.Constants;
+import com.zeustel.top9.utils.Tools;
+
+/**
+ * 商城列表Holder
+ *
+ * @author NiuLei
+ * @email niulei@zeustel.com
+ * @date 2015/7/29 15:21
+ */
+public class HolderStore extends OverallRecyclerHolder<ExchangeGoods> {
+    private ImageView store_item_icon;
+    private TextView store_item_name;
+    private TextView store_item_price;
+    private TextView store_item_residue;
+    private TextView store_item_already;
+    private ExchangeGoods exchangeGoods;
+    private String icon;
+    private String name;
+    private int price1;
+    private int residue;
+    private int price;
+    private int already;
+
+    public HolderStore(Context context, View itemView) {
+        super(context, itemView);
+    }
+
+   /* @Override
+    public void onDetached() {
+        Tools.recycleImg(store_item_icon);
+        super.onDetached();
+    }*/
+
+    @Override
+    protected void initItemView(View itemView) {
+        store_item_icon = (ImageView) itemView.findViewById(R.id.store_item_icon);
+        store_item_name = (TextView) itemView.findViewById(R.id.store_item_name);
+        store_item_price = (TextView) itemView.findViewById(R.id.store_item_price);
+        store_item_residue = (TextView) itemView.findViewById(R.id.store_item_residue);
+        store_item_already = (TextView) itemView.findViewById(R.id.store_item_already);
+    }
+
+    @Override
+    public void set(OverallRecyclerAdapter<ExchangeGoods> adapter, int position) {
+        exchangeGoods = adapter.getItem(position);
+        if (exchangeGoods == null) {
+            return;
+        }
+        icon = exchangeGoods.getIcon();
+        name = exchangeGoods.getName();
+        price1 = exchangeGoods.getPrice();
+        getImageLoader().displayImage(Constants.TEST_IMG + icon, store_item_icon, Tools.options);
+        store_item_name.setText(name == null ? "" : name);
+        store_item_price.setText(String.valueOf(price1));
+        residue = exchangeGoods.getResidue();
+        price = exchangeGoods.getPrice();
+        already = exchangeGoods.getUpperLimit() - residue;
+        store_item_residue.setText((Html.fromHtml(getContext().getString(R.string.html_font, "#FD4C3C"/*color*/, residue) +
+                getContext().getString(R.string.space) +
+                getContext().getString(R.string.html_font, "#484D57"/*color*/, getContext().getString(R.string.store_item_residue)))));
+        store_item_price.setText((Html.fromHtml(getContext().getString(R.string.html_font, "#FD4C3C"/*color*/, price) +
+                getContext().getString(R.string.space) +
+                getContext().getString(R.string.html_font, "#484D57"/*color*/, getContext().getString(R.string.store_item_price)))));
+        store_item_already.setText(getContext().getString(R.string.store_item_already, already));
+    }
+
+    @Override
+    protected boolean isItemClickEnabled() {
+        return false;
+    }
+}

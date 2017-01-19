@@ -1,0 +1,67 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/def_bg"
+             tools:context="com.zeustel.top9.fragments.ProgramFragment"
+    >
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/note_card_margin"
+        android:background="@android:color/white"
+        app:cardElevation="@dimen/cardview_elevation"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/note_content_margin"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                >
+
+                <ImageView
+                    android:id="@+id/note_icon"
+                    android:layout_width="@dimen/note_icon_width"
+                    android:layout_height="@dimen/note_icon_height"
+                    android:src="@mipmap/program_title_icon"
+                    />
+
+                <TextView
+                    android:id="@+id/note_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:textSize="@dimen/note_title"
+                    />
+            </RelativeLayout>
+
+            <!--  <com.zeustel.top9.widgets.SwipeRefreshLayout
+                  android:id="@+id/note_refresh"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  app:direction="both"
+                  >-->
+
+            <ListView
+                android:id="@+id/note_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:choiceMode="singleChoice"
+                android:clickable="false"
+                android:scrollbars="none"
+                />
+            <!--  </com.zeustel.top9.widgets.SwipeRefreshLayout>-->
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>

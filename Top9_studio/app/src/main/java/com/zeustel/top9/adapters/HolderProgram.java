@@ -1,0 +1,67 @@
+package com.zeustel.top9.adapters;
+
+import android.content.Context;
+import android.view.View;
+import android.widget.RadioButton;
+import android.widget.TextView;
+
+import com.zeustel.top9.R;
+import com.zeustel.top9.bean.Program;
+import com.zeustel.top9.utils.Tools;
+import com.zeustel.top9.widgets.RadioRecyclerView;
+
+/**
+ * 节目列表Holder
+ *
+ * @author NiuLei
+ * @email niulei@zeustel.com
+ * @date 2015/8/4 17:06
+ */
+@Deprecated
+public class HolderProgram extends OverallRecyclerHolder<Program> implements RadioRecyclerView.IRadioViewHolder {//Cyclic
+    private RadioButton program_item_radio;
+    private TextView program_item_describe;
+    private TextView program_item_time;
+
+
+    public HolderProgram(Context context, View itemView) {
+        super(context, itemView);
+    }
+
+    @Override
+    protected void initItemView(View itemView) {
+        program_item_radio = (RadioButton) itemView.findViewById(R.id.program_item_radio);
+        program_item_describe = (TextView) itemView.findViewById(R.id.program_item_describe);
+        program_item_time = (TextView) itemView.findViewById(R.id.program_item_time);
+    }
+
+    @Override
+    public void set(OverallRecyclerAdapter<Program> adapter, int position) {
+        Program program = adapter.getItem(position);
+        set(program);
+    }
+
+    @Override
+    public void set(OverallListAdapter<Program> adapter, int position) {
+        Program program = adapter.getItem(position);
+        set(program);
+    }
+
+    private void set(Program program) {
+        program_item_describe.setText(program.getTitle());
+        program_item_time.setText(Tools.getTimeFormatMD(program.getTime()));
+    }
+
+    @Override
+    public void check(int position, boolean checked) {
+        if (position == getAdapterPosition() && program_item_radio != null) {
+            program_item_radio.setChecked(checked);
+        }
+    }
+
+    @Override
+    protected boolean isItemClickEnabled() {
+        return false;
+    }
+
+}

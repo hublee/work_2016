@@ -1,0 +1,62 @@
+[
+    {
+        "merged": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_out.xml",
+        "source": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\anim\\abc_fade_out.xml"
+    },
+    {
+        "merged": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\res\\merged\\debug\\anim\\rotate_anim.xml",
+        "source": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\res\\anim\\rotate_anim.xml"
+    },
+    {
+        "merged": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_bottom.xml",
+        "source": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\anim\\abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\res\\merged\\debug\\anim\\sacle_anim_in.xml",
+        "source": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\res\\anim\\sacle_anim_in.xml"
+    },
+    {
+        "merged": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_in.xml",
+        "source": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\anim\\abc_fade_in.xml"
+    },
+    {
+        "merged": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_enter.xml",
+        "source": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\anim\\abc_popup_enter.xml"
+    },
+    {
+        "merged": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_top.xml",
+        "source": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\anim\\abc_slide_in_top.xml"
+    },
+    {
+        "merged": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_top.xml",
+        "source": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\anim\\abc_slide_out_top.xml"
+    },
+    {
+        "merged": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\res\\merged\\debug\\anim\\ralation_anim_in.xml",
+        "source": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\res\\anim\\ralation_anim_in.xml"
+    },
+    {
+        "merged": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_bottom.xml",
+        "source": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\anim\\abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\res\\merged\\debug\\anim\\menu_scale_anim_in.xml",
+        "source": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\res\\anim\\menu_scale_anim_in.xml"
+    },
+    {
+        "merged": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_exit.xml",
+        "source": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\anim\\abc_popup_exit.xml"
+    },
+    {
+        "merged": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\res\\merged\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
+        "source": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\res\\merged\\debug\\anim\\alpha_anim_out.xml",
+        "source": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\res\\anim\\alpha_anim_out.xml"
+    },
+    {
+        "merged": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\res\\merged\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
+        "source": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
+    }
+]

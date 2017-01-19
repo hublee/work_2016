@@ -1,0 +1,97 @@
+package com.zeustel.top9.adapters;
+
+import android.content.Context;
+import android.graphics.Typeface;
+import android.support.v4.content.ContextCompat;
+import android.text.SpannableStringBuilder;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.zeustel.top9.R;
+import com.zeustel.top9.base.IAnimViewHolder;
+import com.zeustel.top9.bean.GameEvaluating;
+import com.zeustel.top9.utils.AnimUtils;
+import com.zeustel.top9.utils.Constants;
+import com.zeustel.top9.utils.FontHelper;
+import com.zeustel.top9.utils.Tools;
+import com.zeustel.top9.widgets.PrintTextView;
+
+/**
+ * ...
+ *
+ * @author NiuLei
+ * @email niulei@zeustel.com
+ * @date 2015/7/31 14:59
+ */
+public class HolderEvaluating extends OverallRecyclerHolder<GameEvaluating> implements IAnimViewHolder {
+    private ImageView evaluating_item_banner;
+    private TextView evaluating_item_time;
+    private PrintTextView evaluating_item_subTitle;
+    //    private TextView evaluating_item_subTitle;
+    private TextView evaluating_item_title;
+
+    public HolderEvaluating(Context context, View itemView) {
+        super(context, itemView);
+    }
+
+    @Override
+    protected void initItemView(View itemView) {
+        evaluating_item_banner = (ImageView) itemView.findViewById(R.id.evaluating_item_banner);
+        evaluating_item_time = (TextView) itemView.findViewById(R.id.evaluating_item_time);
+        evaluating_item_subTitle = (PrintTextView) itemView.findViewById(R.id.evaluating_item_subTitle);
+        //        evaluating_item_subTitle = (TextView) itemView.findViewById(R.id.evaluating_item_subTitle);
+        evaluating_item_title = (TextView) itemView.findViewById(R.id.evaluating_item_title);
+        Typeface typeface = FontHelper.getInstance(getContext()).getTypeface();
+        if (typeface != null) {
+            evaluating_item_time.setTypeface(typeface);
+        }
+    }
+
+    @Override
+    public void set(OverallRecyclerAdapter<GameEvaluating> adapter, int position) {
+        GameEvaluating gameEvaluating = adapter.getItem(position);
+        getImageLoader().displayImage(Constants.TEST_IMG + gameEvaluating.getBanner(), evaluating_item_banner, Tools.options);
+        //        evaluating_item_time.setText(Tools.getTimeFormatMD(gameEvaluating.getTime()));
+        //        modify gameName
+        evaluating_item_time.setText(gameEvaluating.getGameName());
+        int evaluatingType = gameEvaluating.getEvaluatingType();
+        if (GameEvaluating.EvaluatingType.HAND_GAME == evaluatingType) {
+            evaluating_item_time.setTextColor(ContextCompat.getColor(getContext(), R.color.blue));
+        } else if (GameEvaluating.EvaluatingType.ONLINE_GAME == evaluatingType) {
+            evaluating_item_time.setTextColor(ContextCompat.getColor(getContext(), R.color.yellow));
+        } else {
+            evaluating_item_time.setTextColor(ContextCompat.getColor(getContext(), R.color.red));
+        }
+
+        /*container_indicator.addView(container_indicator.newChildBtn(0*//*index*//*, R.color.black, R.color.red));
+        container_indicator.addView(container_indicator.newChildBtn(1*//*index*//*, R.color.black, R.color.yellow));
+        container_indicator.addView(container_indicator.newChildBtn(2*//*index*//*, R.color.black, R.color.blue));*/
+        evaluating_item_subTitle.setText(gameEvaluating.getSubTitle());
+        String title = gameEvaluating.getTitle();
+        if (getLightText() != null) {
+            SpannableStringBuilder spannableStringBuilder = Tools.highLight(title, getLightText(), ContextCompat.getColor(getContext(), R.color.red));
+            if (spannableStringBuilder != null) {
+                evaluating_item_title.setText(spannableStringBuilder);
+                return;
+            }
+        }
+        evaluating_item_title.setText(title == null ? "" : title);
+    }
+
+    @Override
+    public void startUpAnim(int startOffset) {
+        AnimUtils.getInstance(getContext()).translateIn(evaluating_item_banner, AnimUtils.TranslateDirection.BOTTOM, false);
+        AnimUtils.getInstance(getContext()).translateIn(evaluating_item_title, AnimUtils.TranslateDirection.BOTTOM, false);
+        AnimUtils.getInstance(getContext()).translateIn(evaluating_item_subTitle, AnimUtils.TranslateDirection.BOTTOM, false, 200);
+        AnimUtils.getInstance(getContext()).translateIn(evaluating_item_time, AnimUtils.TranslateDirection.TOP, true, 500);
+    }
+
+    @Override
+    public void startAnim(int startOffset) {
+        AnimUtils.getInstance(getContext()).translateIn(evaluating_item_banner, AnimUtils.TranslateDirection.RIGHT, false, startOffset);
+        AnimUtils.getInstance(getContext()).translateIn(evaluating_item_title, AnimUtils.TranslateDirection.RIGHT, true, startOffset);
+        evaluating_item_subTitle.print(evaluating_item_subTitle.getText(), startOffset + 200);
+        AnimUtils.getInstance(getContext()).translateIn(evaluating_item_time, AnimUtils.TranslateDirection.TOP, true, startOffset + 500);
+    }
+}

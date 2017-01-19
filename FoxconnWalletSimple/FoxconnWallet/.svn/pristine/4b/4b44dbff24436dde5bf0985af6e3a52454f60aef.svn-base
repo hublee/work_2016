@@ -1,0 +1,5 @@
+package com.zeustel.cp.bean;
+
+public class ResponseObject {
+	private int responseCode;
+}

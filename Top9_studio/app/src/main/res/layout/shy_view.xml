@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:gravity="center_vertical"
+              android:orientation="horizontal"
+    >
+
+    <LinearLayout
+        android:layout_width="@dimen/shy_view_width"
+        android:layout_height="@dimen/shy_view_height"
+        android:background="@drawable/shy_bg"
+        android:gravity="center_vertical|left"
+        android:orientation="horizontal">
+
+
+        <ImageButton
+            android:id="@+id/shy_control"
+            android:layout_width="@dimen/shy_view_control_width"
+            android:layout_height="@dimen/shy_view_control_height"
+            android:background="@color/transparent"
+            android:src="@mipmap/ic_media_play"
+            />
+
+        <ImageView
+            android:id="@+id/shy_state"
+            android:layout_width="@dimen/shy_view_state_width"
+            android:layout_height="@dimen/shy_view_state_height"
+            android:layout_marginLeft="@dimen/shy_view_state_left"
+            android:layout_marginRight="@dimen/shy_view_state_right"
+            android:src="@mipmap/state"/>
+
+        <TextView
+            android:id="@+id/shy_time"
+            android:layout_width="@dimen/shy_view_time_width"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="15"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,221 @@
+<resources>
+
+    <!--
+    %1$d
+    %d   （表示整数）
+    %f    （表示浮点数）
+    %s   （表示字符串）
+    -->
+    <string name="app_name">Top9</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_search">Search</string>
+    <string name="top9_b">Top9币</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_navigation">NavigationActivity</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="title_home">首页</string>
+    <string name="title_home_offline">单机</string>
+    <string name="title_home_online">网游</string>
+    <string name="title_home_hand">手柄</string>
+    <string name="title_evaluating">评测</string>
+    <string name="title_fm_detail">电台</string>
+    <string name="title_fm_compere">主播</string>
+    <string name="title_fm_program">节目</string>
+    <string name="title_top9">TOP9</string>
+    <string name="title_store">商城</string>
+    <string name="title_self">我的</string>
+    <!--输入框-->
+    <string name="input_send">发送</string>
+    <string name="input_send_ing">发送中...</string>
+    <string name="input_hint">我也评论一下</string>
+    <string name="input_empty">没有内容需要发表</string>
+    <string name="publish_success">发表成功</string>
+    <string name="publish_failed">发表失败</string>
+    <string name="html_last_comment">最新评论</string>
+    <!-- 评论时间 -->
+    <string name="str_hoursago">%1$d小时前</string>
+    <string name="str_minsago">%1$d分前</string>
+    <string name="str_just">刚刚</string>
+    <string name="str_yesterday">昨天</string>
+    <string name="str_before_yesterday">前天</string>
+    <string name="str_dayago">%1$d天前</string>
+    <string name="str_a_week">一周前</string>
+    <string name="str_half_a_month">半个月前</string>
+    <!--加载-->
+    <string name="load_ing">正在加载请稍后</string>
+    <string name="load_request_failed">网络加载失败</string>
+    <string name="load_request_no">没有更多数据</string>
+    <string name="load_request_failed_and_check">网络加载失败 \r\n请检查您的网络</string>
+    <!--商城-->
+    <string name="store_item_price">TOP币</string>
+    <string name="store_item_residue">件库存</string>
+    <string name="store_item_already">已有%1$d人兑换</string>
+    <string name="title_activity_warp_not">WarpNotActivity</string>
+    <string name="title_activity_exhibition">ExhibitionActivity</string>
+    <string name="goods_name_text">瓶中的英雄</string>
+
+
+    <!--日期-->
+    <string name="date_format_str">%1$s年%2$s月%3$s日</string>
+    <!--主播-->
+    <string name="compere_name">姓名</string>
+    <string name="compere_nameEN">英文名</string>
+    <string name="compere_birthday">生日</string>
+    <string name="compere_blood">%1$s型血</string>
+    <string name="compere_constellation">%1$s座</string>
+    <string name="compere_hobby">爱好:%1$s</string>
+
+    <!--账户检验-->
+    <string name="check_pass_not_null">密码不能为空</string>
+    <string name="check_account_not_null">账号不能为空</string>
+
+    <!--登录-->
+    <string name="login_account_hint">用户名</string>
+    <string name="login_password_hint">密码</string>
+    <string name="login_commit_text">登录</string>
+    <string name="login_other">其他方式登录</string>
+    <string name="login_no_account">没有账号?</string>
+    <string name="login_regist_now">现在注册</string>
+    <string name="login_success">登录成功</string>
+    <string name="login_failed">登录失败</string>
+    <string name="login_ing">正在登录,请稍后...</string>
+    <string name="auth_cancel">授权操作已取消</string>
+    <string name="auth_error">授权操作遇到错误，请阅读Logcat输出</string>
+    <string name="auth_complete">授权成功，正在跳转登录操作…</string>
+    <string name="digits">0123456789abcdefghijklmnopqrstuvwxyz</string>
+    <string name="digits_with_email">0123456789abcdefghijklmnopqrstuvwxyz@.</string>
+    <!--<font color ="#fd4c3c">text</font> -->
+    <string name="html_font">&#60;font color = \&#34;%1$s\&#34;&#62;%2$s&#60;/font&#62;&#160;</string>
+    <!--空格-->
+    <string name="space">&#160;&#160;</string>
+    <!--注册-->
+    <string name="regist_account">请输入您的账号</string>
+    <string name="regist_account_comment">(*长度为3-20位，可使用字母、数字及下划线，不区分大小写*)</string>
+    <string name="regist_password">请输入您的密码</string>
+    <string name="regist_password_comment">(*长度为6-16位，可使用字母、数字，区分大小写*)</string>
+    <string name="regist_show">显示密码</string>
+    <string name="regist_gentlemen">男</string>
+    <string name="regist_lady">女</string>
+    <string name="regist_commit_text">完成</string>
+    <string name="regist_quick">一键注册</string>
+    <string name="regist_ing">正在注册请稍后...</string>
+    <!--关于top9-->
+    <string name="about_describe">Top9平台,全球玩家的移动平台,包含资讯、社区、电台、积分兑换等服务,每月只推荐9款经典游戏\n\nTop9平台由专业平台团队打造,致力于玩家玩游戏同时更加专业,全面服务。
+    </string>
+    <string name="about_contact">喜欢我们? 吐槽我们?\n您可以通过以下方式找到我们\n1.Top9平台QQ官方交流群:123456\n2.Top平台微信公众号:Top9wechat\n3.Top9平台个人意见-意见反馈</string>
+    <!--我的-->
+    <string name="self_exit">退出</string>
+    <string name="self_contact_qq">客服QQ群 : 12345678</string>
+    <string name="self_contact_tel">客服电话 : 0755-12345678</string>
+
+    <string name="self_integral">Top9币:%1$d</string>
+    <string name="self_attention">关注 :%1$d</string>
+    <string name="self_fans">粉丝 :%1$d</string>
+
+    <string name="self_flower">爱心:%1$d</string>
+    <string name="self_settings">个人设置</string>
+    <string name="self_note">获币记录</string>
+    <string name="self_exchange">兑换查询</string>
+    <string name="self_support">客服中心</string>
+
+    <string name="self_ranking">排行榜</string>
+    <string name="self_currency">我的积分</string>
+    <string name="self_msg">我的消息</string>
+
+
+
+
+    <string name="self_support_feedback">我的反馈</string>
+    <string name="self_support_limit">图片已经达到上限</string>
+    <string name="self_support_empty">发表内容为空</string>
+    <string name="self_support_reply_not">未回复</string>
+    <string name="self_support_reply_already">已回复</string>
+    <string name="self_search">搜&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;索</string>
+
+    <string name="title_system">系统</string>
+    <!--设置-->
+    <string name="settings_modify_name">修改昵称</string>
+    <string name="settings_modify_password">修改密码</string>
+    <string name="settings_home_page">设置首页</string>
+    <string name="settings_check_update">检查新版本</string>
+    <string name="settings_about">关于TOP9</string>
+    <!--note-->
+    <string name="note_balance">TOP9币余额&#160;&#160;</string>
+    <string name="title_activity_wrap_not_view_pager">WrapNotViewPagerActivity</string>
+    <string name="title_activity_fmdetail">FMDetailActivity</string>
+    <string name="title_activity_self_detail">SelfDetailActivity</string>
+    <string name="title_activity_search">SearchActivity</string>
+    <string name="grid9_item_describe">游戏介绍</string>
+    <string name="download">下&#160;&#160;&#160;&#160;载</string>
+    <string name="grid9_item_download">下载游戏</string>
+    <string name="title_activity_game_detail">GameDetailActivity</string>
+    <!--游戏主页-->
+    <string name="game_describe_entry_room">进入聊天室</string>
+    <string name="game_describe_room_count">个聊天室</string>
+    <string name="game_describe_online_count">人在线</string>
+    <string name="game_describe_download_text">下载</string>
+    <string name="game_describe_screenshot_text">截图</string>
+    <string name="game_describe_video_text">视频</string>
+    <string name="title_activity_support">SupportActivity</string>
+    <!--发表话题-->
+    <string name="publish_title_empty">标题不能为空</string>
+    <string name="publish_content_empty">内容不能为空</string>
+    <string name="title_activity_publish_topic">PublishTopicActivity</string>
+    <string name="title_activity_voice">VoiceActivity</string>
+    <!--聊天室-->
+    <string name="load_join_channel">正在进入房间...</string>
+    <string name="load_exit_channel">正在退出房间...</string>
+    <string name="load_toggle_state">正在切换...</string>
+    <string name="pull_room_list">正在获取房间列表...</string>
+    <string name="voice_toggle_text">语音</string>
+    <string name="voice_hf_toggle_text">免提</string>
+    <!--收货人-->
+    <string name="consigee_name_empty">收货人姓名为空</string>
+    <string name="consigee_address_empty">收货人地址为空</string>
+    <string name="consigee_tel_empty">联系电话为空</string>
+    <string name="wait_order">正在兑换...</string>
+    <string name="conversion">兑换</string>
+    <string name="cancel">取消</string>
+    <string name="consigee_name_hint">收货人姓名</string>
+    <string name="consigee_address_hint">收货人地址</string>
+    <string name="consigee_tel_hint">联系电话</string>
+    <string name="goods_price_text">兑换价格</string>
+    <string name="goods_residue_text">剩余数量</string>
+    <string name="goods_describe_text">详细介绍</string>
+    <string name="goods_exchange_text">兑换</string>
+    <!--搜索-->
+    <string name="search_empty">搜索内容为空</string>
+    <string name="search_input_edit_hint">请输入您要搜索的内容</string>
+    <string name="search_note_text">搜索记录</string>
+    <string name="search_go_text">搜索</string>
+    <string name="search_ing">正在搜索...</string>
+    <string name="lack_of_balance">top币不足</string>
+    <string name="modify_pwd_hint">请输入旧密码</string>
+    <string name="modify_pwd_agin_hint">请再次输入旧密码</string>
+    <string name="modify_pwd_new_hint">请输入新密码</string>
+    <string name="modify_ing">正在修改...</string>
+    <string name="modify_nick_empty">昵称为空</string>
+    <string name="modify_nick_none">什么都没修改~~~</string>
+    <string name="modify_done">修改成功</string>
+    <string name="modify_pwd_empty">密码为空</string>
+    <string name="modify_pwd_diff">密码不相同</string>
+    <!--版本-->
+    <string name="check_version_update">正在检查更新</string>
+    <string name="version_last_already">已经是最新版本</string>
+    <string name="version_describe">V%1$s更新说明:</string>
+    <string name="version_time">更新时间:%1$s</string>
+    <string name="update_download_error">下次出错</string>
+    <string name="update_modify_ed">信息被篡改</string>
+    <string name="update_install">安装</string>
+    <string name="update_update">更新</string>
+    <string name="exception_exit">很抱歉,程序出现异常,即将退出.</string>
+    <!--设置首页-->
+    <string name="settings_home_note">(*下次启动软件则打开%1$s为首页)</string>
+    <string name="title_activity_evaluating_temp">EvaluatingTempActivity</string>
+
+    <!--新评测-->
+    <string name="des_gameContent">游戏内容</string>
+    <string name="des_showAll">查看全部 ></string>
+</resources>

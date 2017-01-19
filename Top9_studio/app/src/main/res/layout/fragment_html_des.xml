@@ -1,0 +1,100 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.zeustel.top9.fragments.html.HtmlDesFragment"
+    >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="240dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="15dp"
+            android:background="@mipmap/marks_white"
+            />
+
+        <com.zeustel.top9.widgets.PrintTextView
+            android:id="@+id/des_subTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:ems="11"
+            android:lineSpacingExtra="2dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/des_subTitle"
+            />
+
+        <com.zeustel.top9.widgets.PrintTextView
+            android:id="@+id/des_promote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@mipmap/des_trumpet_background"
+            android:paddingLeft="25dp"
+            android:paddingTop="3dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/des_promote"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/des_gameContent"
+            android:textColor="@color/red"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.zeustel.top9.widgets.PrintTextView
+                android:id="@+id/des_gameName"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/des_gameName"/>
+
+            <com.zeustel.top9.widgets.PrintTextView
+                android:id="@+id/des_gameEnName"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="6dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                />
+        </LinearLayout>
+
+        <com.zeustel.top9.widgets.PrintTextView
+            android:id="@+id/des_contentDes"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:lineSpacingExtra="8dp"
+            android:lines="3"
+            android:textColor="@color/des_contentDes"
+            android:textSize="@dimen/des_contentDes"/>
+    </LinearLayout>
+</LinearLayout>

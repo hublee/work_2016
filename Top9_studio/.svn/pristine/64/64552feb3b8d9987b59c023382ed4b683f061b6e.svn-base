@@ -1,0 +1,291 @@
+package com.zeustel.top9.widgets;
+
+import android.content.Context;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.view.VelocityTracker;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Scroller;
+
+/**
+ * @author NiuLei
+ * @date 2015/10/21 20:08
+ */
+public class GalleryGroup extends ViewGroup {
+    private static final String TAG = "GalleryGroup";
+    /*显示项百分比*/
+    private static final float DEF_VISIBLE_ITEM_PERCENT = 0.85F;
+    /*缩放比例*/
+    private static final float DEF_SCALE = 0.85F;
+    /*最多显示4*/
+    private static final int DEF_VISIBLE_COUNT = 4;
+    /*组件宽度*/
+    private int width;
+    /*组件高度*/
+    private int height;
+    /*显示项的高度*/
+    private int visibleItemHeight;
+    /*剩余高度*/
+    private int otherHeight;
+    /*头差距*/
+    private int topSpace;
+    /*追踪速率*/
+    private VelocityTracker velocityTracker = null;
+    /*滚动帮助类*/
+    private Scroller mScroller = null;
+    /*当前显示页*/
+    private int currentPaper;
+    /*可见第一条*/
+    private int firstVisible;
+    /*初始最后一项Bottom*/
+    private int lastBottom;
+    private OnPageChangeListener mOnPageChangeListener;
+    private float mLastMotionY;
+    private int tag;
+
+    public GalleryGroup(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init();
+    }
+
+    public GalleryGroup(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init();
+    }
+
+    private void init() {
+        getScroller();
+    }
+
+    public ViewGroup.LayoutParams generateLayoutParams(AttributeSet attrs) {
+        return new MarginLayoutParams(getContext(), attrs);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        int sizeWidth = MeasureSpec.getSize(widthMeasureSpec);
+        int sizeHeight = MeasureSpec.getSize(heightMeasureSpec);
+        int childCount = getChildCount();
+        // 计算出所有的childView的宽和高
+        measureChildren(widthMeasureSpec, heightMeasureSpec);
+        if (childCount > 0) {
+            View firstView = getChildAt(0);
+            int cWidth = firstView.getMeasuredWidth();
+            int cHeight = firstView.getMeasuredHeight();
+            if (MeasureSpec.EXACTLY != widthMode) {
+                sizeWidth = cWidth;
+            }
+            if (MeasureSpec.EXACTLY != heightMode) {
+                sizeHeight = Math.round(cHeight / DEF_VISIBLE_ITEM_PERCENT);
+            }
+        }
+        width = sizeWidth;
+        height = sizeHeight;
+        visibleItemHeight = Math.round(sizeHeight * DEF_VISIBLE_ITEM_PERCENT);
+        otherHeight = height - visibleItemHeight;
+        /*默认情况时会只有DEF_VISIBLE_COUNT -1 条 */
+        topSpace = otherHeight / (DEF_VISIBLE_COUNT - 1 - 1);
+    /*    Log.i(TAG, "width : " + width);
+        Log.i(TAG, "height : " + height);
+        Log.i(TAG, "otherHeight : " + otherHeight);
+        Log.i(TAG, "topSpace : " + topSpace);*/
+        setMeasuredDimension(width, height);
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        int normal = DEF_VISIBLE_COUNT - 1;
+        int cWidth = 0;
+        int cHeight = 0;
+        int cLeft = 0;
+        int cTop = 0;
+        int cRight = 0;
+        int cBottom = 0;
+        for (int i = 0; i < getChildCount(); i++) {
+            View childAt = getChildAt(i);
+            cWidth = (int) (width * Math.pow(DEF_SCALE, normal - 1 - i));
+            cHeight = (int) (visibleItemHeight * Math.pow(DEF_SCALE, normal - 1 - i));
+
+            if (cWidth > width) {
+                cWidth = width;
+            }
+            if (cHeight > visibleItemHeight) {
+                cHeight = visibleItemHeight;
+            }
+
+            cLeft = (width - cWidth) / 2;
+            if (i > normal - 1) {
+                cTop = otherHeight + visibleItemHeight * (i + 1 - normal);
+            } else {
+                cTop = topSpace * i;
+            }
+            cRight = width - cLeft;
+            cBottom = cTop + cHeight;
+            childAt.layout(cLeft, cTop, cRight, cBottom);
+            if (getChildCount() - 1 == i) {
+                lastBottom = cBottom;
+            }
+        }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        //捕捉触摸事件
+        velocityTracker = getVelocityTracker();
+        velocityTracker.addMovement(event);
+        final int action = event.getAction();
+        final float y = event.getY();
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+                /*点击屏幕是 如果有动作没有完成 就终止动作*/
+                if (!mScroller.isFinished()) {
+                    mScroller.abortAnimation();
+                }
+                mLastMotionY = y;
+                break;
+            case MotionEvent.ACTION_MOVE:
+                int deltaY = (int) (mLastMotionY - y);
+                mLastMotionY = y;
+                /*随手指滑动*/
+                scrollBy(0, deltaY);
+                /*更新子视图*/
+                updateChildsLayout();
+                break;
+            case MotionEvent.ACTION_UP:
+                int scrollY = getScrollY();
+                if (scrollY < 0) {
+                    /*下滑超出范围 滑动回顶部0*/
+                    smoothScrollTo(0, 0);
+                } else {
+                    /*上滑超出范围 滑动回底部*/
+                    if (getChildCount() > 0) {
+                        int bottom = getChildAt(getChildCount() - 1).getBottom();
+                        /*滑动时 子视图大小会改变 */
+                        if (getHeight() + scrollY > bottom) {
+                            smoothScrollTo(0, bottom - getHeight());
+                        }
+                    } else {
+
+                    }
+                }
+                break;
+            case MotionEvent.ACTION_CANCEL:
+                break;
+        }
+
+        return true;
+    }
+
+    private void updateChildsLayout() {
+        float percent = ((float) (getScrollY() * 100 / topSpace)) / 100;
+        float multiple = getScrollY() / topSpace;
+        int normal = DEF_VISIBLE_COUNT - 1;
+        int cWidth = 0;
+        int cHeight = 0;
+        int cLeft = 0;
+        int cTop = 0;
+        int cRight = 0;
+        int cBottom = 0;
+        for (int i = 0; i < getChildCount(); i++) {
+            View childAt = getChildAt(i);
+            cWidth = (int) (width * Math.pow(DEF_SCALE, normal - 1 - i + percent));
+            cHeight = (int) (visibleItemHeight * Math.pow(DEF_SCALE, normal - 1 - i + +percent));
+            if (cWidth > width) {
+                cWidth = width;
+            }
+            if (cHeight > visibleItemHeight) {
+                cHeight = visibleItemHeight;
+            }
+            cLeft = (width - cWidth) / 2;
+            if (i > normal - 1 + multiple) {
+                View preChild = getChildAt(i - 1);
+                if (preChild == null) {
+                    return;
+                }
+                cTop = preChild.getBottom();
+                if (normal + multiple == i) {
+                    if (currentPaper != i - 1) {
+                        currentPaper = i - 1;
+                        if (mOnPageChangeListener != null) {
+                            mOnPageChangeListener.onPageSelected(currentPaper);
+                        }
+                    }
+                    int target = preChild.getTop() + topSpace;/*想要改变到*/
+                    float positionOffset = multiple + 1 - percent;
+                    cTop = target + Math.round(visibleItemHeight * positionOffset);
+                    if (mOnPageChangeListener != null) {
+                        mOnPageChangeListener.onPageScrolled(i - 1, positionOffset >= 1.0f ? 0.0f : positionOffset, positionOffset >= 1.0f ? 0 : target + visibleItemHeight - cTop);
+                    }
+                }
+            } else {
+                cTop = topSpace * i;
+            }
+            cRight = width - cLeft;
+            cBottom = cTop + cHeight;
+            childAt.layout(cLeft, cTop, cRight, cBottom);
+        }
+    }
+
+    @Override
+    public void computeScroll() {
+        if (mScroller.computeScrollOffset()) {
+            scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
+            updateChildsLayout();
+            postInvalidate();
+        } else {
+        }
+    }
+
+    //调用此方法滚动到目标位置
+    public void smoothScrollTo(int fx, int fy) {
+        int dx = fx - mScroller.getFinalX();
+        int dy = fy - mScroller.getFinalY();
+        smoothScrollBy(dx, dy);
+    }
+
+    //调用此方法设置滚动的相对偏移
+    public void smoothScrollBy(int dx, int dy) {
+        //设置mScroller的滚动偏移量
+        mScroller.startScroll(mScroller.getFinalX(), mScroller.getFinalY(), dx, dy);
+        invalidate();//这里必须调用invalidate()才能保证computeScroll()会被调用，否则不一定会刷新界面，看不到滚动效果
+    }
+
+    public VelocityTracker getVelocityTracker() {
+        if (velocityTracker == null) {
+            velocityTracker = VelocityTracker.obtain();
+        } else {
+            velocityTracker.clear();
+        }
+        return velocityTracker;
+    }
+
+    public Scroller getScroller() {
+        if (mScroller == null) {
+            mScroller = new Scroller(getContext());
+        }
+        return mScroller;
+    }
+
+    public int getVisibleItemHeight() {
+        return visibleItemHeight;
+    }
+
+    public OnPageChangeListener getOnPageChangeListener() {
+        return mOnPageChangeListener;
+    }
+
+    public void setOnPageChangeListener(OnPageChangeListener mOnPageChangeListener) {
+        this.mOnPageChangeListener = mOnPageChangeListener;
+    }
+
+    public interface OnPageChangeListener {
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels);
+
+        public void onPageSelected(int position);
+
+        public void onPageScrollStateChanged(int state);
+    }
+}

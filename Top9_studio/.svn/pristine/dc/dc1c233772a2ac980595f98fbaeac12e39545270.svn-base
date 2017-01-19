@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="SwipeRefreshLayout">
+        <attr name="direction">
+            <enum name="top" value="0"/>
+            <enum name="bottom" value="1"/>
+            <enum name="both" value="2"/>
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="ScrollGroup">
+        <attr name="head" format="reference"/>
+        <attr name="headHeight" format="dimension"/>
+    </declare-styleable>
+    <declare-styleable name="LoadingView">
+
+        <attr name="loadingText" format="string"/>
+        <attr name="loadingTextAppearance" format="reference"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="CircleImage">
+        <attr name="civ_border_width" format="dimension"/>
+        <attr name="civ_border_color" format="color"/>
+        <attr name="civ_border_overlay" format="boolean"/>
+        <attr name="civ_fill_color" format="color"/>
+    </declare-styleable>
+
+    <!--<declare-styleable
+        name="RoundImageView">-->
+    <!-- border_outside_color 外部圆圈的颜色 -->
+
+    <!-- border_inside_color 内部部圆圈的颜色 -->
+
+    <!-- border_thickness 外圆和内圆的宽度 -->
+
+    <!-- <attr
+         name="border_thickness"
+         format="dimension"
+         />
+
+     <attr
+         name="border_inside_color"
+         format="color"
+         />
+
+     <attr
+         name="border_outside_color"
+         format="color"></attr>
+
+ </declare-styleable>-->
+</resources>

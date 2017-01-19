@@ -1,0 +1,37 @@
+package com.zeustel.top9.adapters;
+
+import android.content.Context;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.zeustel.top9.R;
+import com.zeustel.top9.bean.MenuItem;
+
+/**
+ * 设置 我的 菜单列表
+ *
+ * @author NiuLei
+ * @date 2015/8/9 19:47
+ */
+public class HolderSelfMenu extends OverallRecyclerHolder<MenuItem> {
+    private ImageView item_self_icon;
+    private TextView item_self_title;
+
+    public HolderSelfMenu(Context context, View itemView) {
+        super(context, itemView);
+    }
+
+    @Override
+    protected void initItemView(View itemView) {
+        item_self_icon = (ImageView) itemView.findViewById(R.id.item_self_icon);
+        item_self_title = (TextView) itemView.findViewById(R.id.item_self_title);
+    }
+
+    @Override
+    public void set(OverallRecyclerAdapter<MenuItem> adapter, int position) {
+        MenuItem mMenuItem = adapter.getItem(position);
+        item_self_icon.setImageResource(mMenuItem.getImg());
+        item_self_title.setText(mMenuItem.getText());
+    }
+}

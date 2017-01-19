@@ -1,0 +1,10 @@
+package com.zeustel.cp.intf;
+
+import android.view.View;
+
+/**
+ * Created by Do on 2016/2/24.
+ */
+public interface CallBack {
+    public void callBack(View v);
+}

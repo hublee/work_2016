@@ -1,0 +1,23 @@
+package com.zeustel.top9.utils.operate;
+
+import android.content.Context;
+
+import com.zeustel.top9.bean.html.HtmlTemp;
+
+/**
+ * ...
+ *
+ * @author NiuLei
+ * @email niulei@zeustel.com
+ * @date 2015/10/27 15:45
+ */
+public class DBHtmlTempImp extends DBBaseOperate<HtmlTemp> {
+    public DBHtmlTempImp(Context context) {
+        super(context);
+    }
+
+    @Override
+    public Class<HtmlTemp> getEntity() {
+        return HtmlTemp.class;
+    }
+}

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zeustel.top9.widgets.ChoiceRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                               xmlns:app="http://schemas.android.com/apk/res-auto"
+                                               android:layout_width="match_parent"
+                                               android:layout_height="wrap_content"
+                                               android:descendantFocusability="blocksDescendants"
+                                               app:radioBtn="@+id/choice_radio"
+    >
+
+    <RelativeLayout
+        android:id="@+id/choice_flag"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp">
+
+        <ImageView
+            android:id="@+id/choice_line"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:background="@color/def_line"
+            />
+
+        <RadioButton
+            android:id="@id/choice_radio"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/radio_selector_program"
+            android:button="@null"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/choice_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/choice_flag"
+        >
+
+        <TextView
+            android:id="@+id/choice_describe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@drawable/all_text_color_pro"
+            />
+
+        <TextView
+            android:id="@+id/choice_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/choice_describe"
+            android:layout_marginTop="15dp"
+            android:drawableLeft="@drawable/radio_selector_time"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:textColor="@drawable/all_text_color_pro"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""/>
+
+        <TextView
+            android:id="@+id/choice_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/red"
+            android:visibility="invisible"
+            />
+
+    </RelativeLayout>
+
+
+</com.zeustel.top9.widgets.ChoiceRelativeLayout>

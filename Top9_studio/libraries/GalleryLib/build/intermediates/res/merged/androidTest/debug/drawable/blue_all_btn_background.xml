@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/blue_all_btn_click" android:state_pressed="true"></item>
+    <item android:drawable="@drawable/blue_all_btn_nor"></item>
+
+</selector><!-- From: file:/D:/lib_workspace/androidStudio/Top9_studio/libraries/GalleryLib/res/drawable/blue_all_btn_background.xml --><!-- From: file:/D:/lib_workspace/androidStudio/Top9_studio/libraries/GalleryLib/build/intermediates/bundles/debug/res/drawable/blue_all_btn_background.xml -->

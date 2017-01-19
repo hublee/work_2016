@@ -1,0 +1,109 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/def_bg"
+             tools:context="com.zeustel.top9.fragments.CompereFragment"
+    >
+
+    <FrameLayout
+        android:id="@+id/comment_full_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/comment_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="38dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="15dp"
+        android:background="@android:color/white"
+        app:cardElevation="@dimen/cardview_elevation"
+        app:cardCornerRadius="@dimen/cardview_corner_radius"
+        >
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/comment_palayer_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="191dp">
+
+                    <ImageView
+                        android:id="@+id/comment_palayer"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        />
+
+                    <ImageView
+                        android:id="@+id/comment_palayer_start"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/video_start"/>
+                </RelativeLayout>
+
+                <include
+                    android:id="@+id/compere_detail"
+                    layout="@layout/compere_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"/>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/line_driver"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/def_bg"/>
+
+                <ImageView
+                    android:layout_width="@dimen/marks_width"
+                    android:layout_height="@dimen/marks_height"
+                    android:src="@mipmap/marks_red"
+                    />
+
+                <TextView
+                    android:id="@+id/compere_manifesto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="left"
+                    android:textColor="@color/gray"
+                    android:textSize="13sp"
+                    android:lineSpacingExtra="2dp"
+                    />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/line_driver"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/def_bg"/>
+
+                <com.zeustel.top9.widgets.ExhibitionView
+                    android:id="@+id/compere_exhibition"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"/>
+            </LinearLayout>
+        </ScrollView>
+    </android.support.v7.widget.CardView>
+</FrameLayout>

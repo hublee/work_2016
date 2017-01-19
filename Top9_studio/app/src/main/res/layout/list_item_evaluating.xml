@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/def_bg"
+    >
+
+    <ImageView
+        android:id="@+id/evaluating_item_banner"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/evaluating_item_banner_height"
+        android:scaleType="centerCrop"
+        />
+
+    <LinearLayout
+        android:id="@+id/layout_flag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/marks_white_layout_margin_left"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="@dimen/marks_white_layout_margin_top"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <ImageView
+                android:id="@+id/evaluating_item_marks"
+                android:layout_width="@dimen/marks_width"
+                android:layout_height="@dimen/marks_height"
+                android:src="@mipmap/marks_white"/>
+        </FrameLayout>
+
+
+        <FrameLayout
+            android:id="@+id/evaluating_item_line"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="2dp"
+            android:background="@color/white"
+            android:visibility="invisible"
+            />
+        <!--android:layout_marginTop="@dimen/evaluating_item_subtitle_margintop"-->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.zeustel.top9.widgets.PrintTextView
+                android:id="@+id/evaluating_item_subTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical|left"
+                android:singleLine="true"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/evaluating_item_subtitle_size"
+                />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/evaluating_item_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:textColor="@color/red"
+            android:textSize="@dimen/evaluating_item_time_size"
+            android:textStyle="bold|italic"
+
+            />
+
+        <TextView
+            android:id="@+id/evaluating_item_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:gravity="center_vertical|left"
+            android:lineSpacingExtra="5dp"
+            android:maxLines="@integer/evaluating_item_title_max_lines"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/evaluating_item_title_size"
+            />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height_limit"
+        android:layout_below="@+id/layout_flag"
+        android:layout_marginTop="5dp"
+        android:background="@color/evaluating_line"
+        ></FrameLayout>
+</RelativeLayout>

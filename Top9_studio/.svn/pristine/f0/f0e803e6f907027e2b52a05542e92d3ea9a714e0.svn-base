@@ -1,0 +1,52 @@
+package com.zeustel.top9.base;
+
+import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.view.ViewGroup;
+
+import com.umeng.analytics.MobclickAgent;
+
+/**
+ * 单个页面统计没有被ViewPager包裹
+ * @author NiuLei
+ * @email niulei@zeustel.com
+ * @date 2015/6/23 16:08
+ */
+public abstract class WrapNotFrament extends Fragment implements IOverall {
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //统计页面
+        MobclickAgent.onPageStart(getClassName());
+        //统计时长
+        MobclickAgent.onResume(getActivity());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //统计页面
+        MobclickAgent.onPageEnd(getClassName());
+        //统计时长
+        MobclickAgent.onPause(getActivity());
+    }
+
+    @Override
+    public String getClassName() {
+        return getClass().getName();
+    }
+
+    @Override
+    public Context getContext() {
+        return super.getContext().getApplicationContext();
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ViewGroup viewGroup = (ViewGroup) getView();
+        viewGroup.removeAllViews();
+    }
+}

@@ -1,0 +1,139 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/def_bg"
+             android:clickable="true"
+             android:gravity="center"
+             tools:context="com.zeustel.top9.fragments.RegistFragment"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/regist_margin"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/regist_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:digits="@string/digits_with_email"
+                android:hint="@string/regist_account"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
+                android:textColor="@color/def_font"
+                android:textSize="@dimen/regist_account"
+                >
+                <requestFocus/>
+            </EditText>
+
+
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/regist_account_comment"
+            android:textColor="@color/def_comment"
+            android:textSize="@dimen/regist_account_comment"
+            />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/regist_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/regist_password_margin_top"
+            >
+
+            <EditText
+                android:id="@+id/pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:digits="@string/digits"
+                android:hint="@string/regist_password"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:textColor="@color/def_font"
+                android:textSize="@dimen/regist_password"
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/regist_password_comment"
+            android:textColor="@color/def_comment"
+            android:textSize="@dimen/regist_password_comment"
+            />
+
+        <CheckBox
+            android:id="@+id/regist_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginTop="@dimen/regist_show_margin_top"
+            android:button="@drawable/box_selector"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/regist_show_padding_left"
+            android:text="@string/regist_show"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/regist_show"
+            />
+
+        <RadioGroup
+            android:id="@+id/regist_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/regist_group_margin_top"
+            android:checkedButton="@+id/regist_gentlemen"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/regist_gentlemen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/radio_selector_blue"
+                android:text="@string/regist_gentlemen"
+                android:textColor="@color/def_font"
+                android:textSize="@dimen/regist_gender"/>
+
+            <RadioButton
+                android:id="@+id/regist_lady"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/radio_selector_red"
+                android:text="@string/regist_lady"
+                android:textColor="@color/def_font"
+                android:textSize="@dimen/regist_gender"/>
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/regist_btn_margin"
+            android:orientation="vertical"
+            >
+
+            <Button
+                android:id="@+id/regist_commit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/all_btn_bg"
+                android:text="@string/regist_commit_text"
+                android:textColor="@drawable/all_text_color"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

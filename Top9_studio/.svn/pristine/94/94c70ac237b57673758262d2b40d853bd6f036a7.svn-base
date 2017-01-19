@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    app:cardCornerRadius="@dimen/cardview_corner_radius"
+                                    app:cardElevation="@dimen/cardview_elevation"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <ImageView
+            android:id="@+id/grid9_item_icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/red"
+            android:scaleType="fitXY"
+            />
+
+        <ProgressBar
+            android:id="@+id/grid9_item_progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="@integer/grid9_item_progress_max"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/grid9_item_marks_margin_left"
+            android:layout_marginTop="@dimen/grid9_item_marks_margin_top"
+            android:src="@mipmap/marks_black"
+            />
+
+        <TextView
+            android:id="@+id/grid9_item_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/grid9_item_title_margin_left"
+            android:layout_marginTop="@dimen/grid9_item_title_margin_top"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="@integer/grid9_item_title_max_lines"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/grid9_item_title"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/grid9_item_tab_margin_bottom"
+            android:layout_marginLeft="@dimen/grid9_item_tab_margin_left"
+            android:layout_marginRight="@dimen/grid9_item_tab_margin_right"
+            android:layout_marginTop="@dimen/grid9_item_tab_margin_top"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/grid9_item_des"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/grid9_item_tab_vertical_space"
+                android:drawableTop="@mipmap/ic_describe"
+                android:text="@string/grid9_item_describe"
+                android:textColor="@color/def_font"
+                android:textSize="@dimen/grid9_item_describe"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="@integer/weight_one"
+                android:src="@mipmap/line_vertical"
+                />
+
+            <TextView
+                android:id="@+id/grid9_item_download"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/grid9_item_tab_vertical_space"
+                android:drawableTop="@mipmap/ic_download"
+                android:text="@string/download"
+                android:textColor="@color/def_font"
+                android:textSize="@dimen/grid9_item_download_text"/>
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

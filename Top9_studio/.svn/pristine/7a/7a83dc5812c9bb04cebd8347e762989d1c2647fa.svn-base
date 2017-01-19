@@ -1,0 +1,293 @@
+package com.zeustel.top9.utils;
+
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.OvershootInterpolator;
+import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+
+import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.animation.ValueAnimator;
+import com.zeustel.top9.R;
+import com.zeustel.top9.bean.ScreenShotControl;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+public class ScreenshotProvider {
+    // 箭头
+    private static final int ANIM_SPACE = 45;
+    private static final String TRANSLATION_Y = "translationY";
+    private static final String TRANSLATION_X = "translationX";
+    private Context context = null;
+    private Resources mResources = null;
+    private int flag_width = 0;
+    private int flag_height = 0;
+    private ArrayList<ObjectAnimator> mObjectAnimators = new ArrayList<ObjectAnimator>();
+    private HashMap<View, AnimationDrawable> mAnimationDrawables = new HashMap<View, AnimationDrawable>();
+
+    public ScreenshotProvider(Context context) {
+        this.context = context;
+        mResources = context.getResources();
+    }
+
+    public static GradientDrawable getCircleBackground(int cornerRadius, int StrokeWidth) {
+        final GradientDrawable mGradientDrawable = new GradientDrawable();
+        mGradientDrawable.setShape(GradientDrawable.RECTANGLE);
+        mGradientDrawable.setColor(Color.TRANSPARENT);
+        mGradientDrawable.setCornerRadius(cornerRadius);
+        mGradientDrawable.setStroke(StrokeWidth, Color.parseColor("#FFFFFF"));
+        mGradientDrawable.setDither(true);
+        return mGradientDrawable;
+    }
+
+    public void clean() {
+        // TODO Auto-generated method stub
+        if (mObjectAnimators != null && !mObjectAnimators.isEmpty()) {
+            for (ObjectAnimator mObjectAnimator : mObjectAnimators) {
+                if (mObjectAnimator != null) {
+                    mObjectAnimator.cancel();
+                    mObjectAnimator = null;
+                }
+            }
+            mObjectAnimators.clear();
+        }
+        if (mAnimationDrawables != null && !mAnimationDrawables.isEmpty()) {
+            for (Map.Entry<View, AnimationDrawable> anim : mAnimationDrawables.entrySet()) {
+                if (anim != null) {
+                    AnimationDrawable mAnimationDrawable = anim.getValue();
+                    if (mAnimationDrawable != null) {
+                        mAnimationDrawable.stop();
+                    }
+                }
+            }
+            mAnimationDrawables.clear();
+        }
+    }
+
+    public void exit() {
+        if (mObjectAnimators != null && !mObjectAnimators.isEmpty()) {
+            for (ObjectAnimator mObjectAnimator : mObjectAnimators) {
+                if (mObjectAnimator != null) {
+                    mObjectAnimator.cancel();
+                    mObjectAnimator = null;
+                }
+            }
+            mObjectAnimators.clear();
+            mObjectAnimators = null;
+        }
+        if (mAnimationDrawables != null && !mAnimationDrawables.isEmpty()) {
+            for (Map.Entry<View, AnimationDrawable> anim : mAnimationDrawables.entrySet()) {
+                if (anim != null) {
+                    AnimationDrawable mAnimationDrawable = anim.getValue();
+                    if (mAnimationDrawable != null) {
+                        mAnimationDrawable.stop();
+                    }
+                }
+            }
+            mAnimationDrawables.clear();
+            mAnimationDrawables = null;
+        }
+    }
+
+    // 方形
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    @SuppressWarnings("deprecation")
+    public void startRectangleAnim(final ScreenShotControl mScreenShotControl, final long duration) {
+        if (mObjectAnimators != null) {
+            View view = mScreenShotControl.getmButton();
+            int width = mScreenShotControl.getW();
+            int height = mScreenShotControl.getH();
+            if (width == height) {
+                Tools.log_i(ScreenshotProvider.class, "startRectangleAnim  wid == hei");
+                view.setAlpha(0.2f);
+                view.setBackgroundDrawable(getCircleBackground(width, 10));
+            } else {
+                view.setAlpha(1.0f);
+                view.setBackgroundResource(R.drawable.rectangle_frame_img);
+
+            }
+            ObjectAnimator alphaAnim = ObjectAnimator.ofFloat(view, "alpha", view.getAlpha(), 0.0f);
+            alphaAnim.setDuration(duration);
+            alphaAnim.setRepeatCount(ValueAnimator.INFINITE);
+            alphaAnim.setRepeatMode(ValueAnimator.REVERSE);
+            alphaAnim.start();
+            mObjectAnimators.add(alphaAnim);
+        }
+    }
+
+    public void startRotateAnim(float tagDegrees, float toDegrees) {
+
+        if (mAnimationDrawables != null && !mAnimationDrawables.isEmpty()) {
+            for (Map.Entry<View, AnimationDrawable> anim : mAnimationDrawables.entrySet()) {
+                if (anim != null) {
+                    AnimationDrawable mAnimationDrawable = anim.getValue();
+                    View mButton = anim.getKey();
+                    if (mAnimationDrawable != null && mButton != null) {
+                        RotateAnimation mRotateAnimation = new RotateAnimation(0, toDegrees, RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+                        mRotateAnimation.setDuration(500);
+                        mRotateAnimation.setFillAfter(true);
+                        mRotateAnimation.setInterpolator(new OvershootInterpolator());
+                        mRotateAnimation.setAnimationListener(new AnimListener(mButton, mAnimationDrawable, tagDegrees));
+                        mButton.startAnimation(mRotateAnimation);
+                    }
+                }
+            }
+        }
+
+    }
+
+    @SuppressWarnings("deprecation")
+    public void startAnim(int imgRes, View mButton) {
+        if (imgRes > 0) {
+            AnimationDrawable mAnimationDrawable = (AnimationDrawable) mResources.getDrawable(imgRes);
+            mButton.setBackgroundDrawable(mAnimationDrawable);
+            mAnimationDrawable.start();
+            if (mAnimationDrawables.containsKey(mButton)) {
+                mAnimationDrawables.remove(mButton);
+            }
+            mAnimationDrawables.put(mButton, mAnimationDrawable);
+        }
+    }
+
+    public int getImgResByDegrees(int tagDegrees) {
+        switch (tagDegrees) {
+            case 0:
+                return R.drawable.indicate_anim_portrait;
+            case 90:
+                return R.drawable.indicate_anim_landscape;
+            case 180:
+                return R.drawable.indicate_anim_reverse_portrait;
+            case 270:
+            case -90:
+                return R.drawable.indicate_anim_reverse_landscape;
+            default:
+                return R.drawable.indicate_anim_portrait;
+        }
+    }
+
+    public void startFlickerAnim(int tagDegrees, View mButton) {
+        startAnim(getImgResByDegrees(tagDegrees), mButton);
+    }
+
+    public void startArrowsAnim(ViewGroup controlGroup, int left, int top, int width, int height) {
+        int[] displayMetrics = Tools.getDisplayMetrics(controlGroup.getContext());
+        ImageView flag_img = new ImageView(context);
+        if (flag_width == 0 || flag_height == 0) {
+            Bitmap bitmap_up = BitmapFactory.decodeResource(context.getResources(), R.mipmap.screen_item_up_flag);
+            flag_width = bitmap_up.getWidth();
+            flag_height = bitmap_up.getHeight();
+            bitmap_up.recycle();
+            bitmap_up = null;
+        }
+        RelativeLayout.LayoutParams flag_mp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+        int w_center = width / 2;
+        int h_center = height / 2;
+
+        if (top + height + flag_height + ANIM_SPACE <= displayMetrics[1]) {
+
+            // 下面显示
+            flag_img.setImageResource(R.mipmap.screen_item_up_flag);
+            int flag_left = left + w_center - (flag_width / 2);
+            int flag_top = top + height;
+            flag_mp.setMargins(flag_left, flag_top, 0, 0);
+            controlGroup.addView(flag_img, flag_mp);
+            arrowsAnim(flag_img, TRANSLATION_Y, ANIM_SPACE);
+            return;
+        }
+        if (left - flag_width - ANIM_SPACE >= 0) {
+            // 左侧显示
+            flag_img.setImageResource(R.mipmap.screen_item_left_flag);
+            int flag_left = left - flag_width;
+            int flag_top = top + h_center - (flag_height / 2);
+            flag_mp.setMargins(flag_left, flag_top, 0, 0);
+            controlGroup.addView(flag_img, flag_mp);
+            arrowsAnim(flag_img, TRANSLATION_X, -ANIM_SPACE);
+            return;
+        }
+
+        if (left + width + flag_width + ANIM_SPACE <= displayMetrics[2]) {
+            // 右侧显示
+            flag_img.setImageResource(R.mipmap.screen_item_right_flag);
+            int flag_left = left + width;
+            int flag_top = top + h_center - (flag_height / 2);
+            flag_mp.setMargins(flag_left, flag_top, 0, 0);
+            controlGroup.addView(flag_img, flag_mp);
+            arrowsAnim(flag_img, TRANSLATION_X, ANIM_SPACE);
+            return;
+        }
+        if (top - flag_height - ANIM_SPACE >= 0) {
+            // 上面显示
+            Log.i(Constants.TAG, "flag  上面显示");
+            flag_img.setImageResource(R.mipmap.screen_item_down_flag);
+            int flag_left = left + w_center - (flag_width / 2);
+            int flag_top = top - flag_height;
+            flag_mp.setMargins(flag_left, flag_top, 0, 0);
+            controlGroup.addView(flag_img, flag_mp);
+            arrowsAnim(flag_img, TRANSLATION_Y, -ANIM_SPACE);
+            return;
+        }
+    }
+
+    private void arrowsAnim(final ImageView imageView, final String propertyName, final int space) {
+        if (mObjectAnimators != null) {
+            ObjectAnimator mObjectAnimator = ObjectAnimator.ofFloat(imageView, propertyName, space, 0);
+            mObjectAnimator.setRepeatCount(ValueAnimator.INFINITE);
+            mObjectAnimator.setRepeatMode(ValueAnimator.REVERSE);
+            mObjectAnimator.setDuration(1000).start();
+            mObjectAnimators.add(mObjectAnimator);
+        }
+    }
+
+    public class AnimListener implements AnimationListener {
+        private float tagDegrees;
+        private View mButton = null;
+        private AnimationDrawable mAnimationDrawable = null;
+
+        public AnimListener(View mButton, AnimationDrawable mAnimationDrawable, float tagDegrees) {
+            this.mButton = mButton;
+            this.mAnimationDrawable = mAnimationDrawable;
+            this.tagDegrees = tagDegrees;
+        }
+
+        @Override
+        public void onAnimationStart(Animation animation) {
+            // TODO Auto-generated method stub
+            if (mAnimationDrawables != null) {
+                mAnimationDrawable.stop();
+                mAnimationDrawable = null;
+            }
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            animation.cancel();
+            // TODO Auto-generated method stub
+            mButton.clearAnimation();
+            int imgRes = getImgResByDegrees((int) tagDegrees);
+            startAnim(imgRes, mButton);
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+            // TODO Auto-generated method stub
+
+        }
+
+    }
+}

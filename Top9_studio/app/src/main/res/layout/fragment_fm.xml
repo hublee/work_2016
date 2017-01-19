@@ -1,0 +1,133 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/def_bg"
+                tools:context="com.zeustel.top9.fragments.FMFragment"
+
+    >
+
+    <ImageView
+        android:id="@+id/fm_theme"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/fm02"
+        />
+
+    <ImageView
+        android:id="@+id/fm_icon"
+        android:layout_width="@dimen/fm_icon_size"
+        android:layout_height="@dimen/fm_icon_size"
+        android:layout_above="@+id/bottom_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="-50dp"
+        android:background="@mipmap/fm_icon_background"
+        android:padding="50dp"
+        android:src="@mipmap/fm01"
+        />
+
+    <LinearLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/def_bg"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/fm_current_program"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="30dp"
+            android:text="正在播放"
+            android:textColor="@color/def_font"
+            android:textSize="13sp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:animateLayoutChanges="true"
+            android:gravity="center_horizontal|bottom"
+            android:orientation="horizontal"
+            >
+
+            <Button
+                android:id="@+id/fm_program"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawablePadding="5dp"
+                android:drawableTop="@mipmap/ic_program"
+                android:gravity="center"
+                android:text="节目"
+                android:textColor="@color/def_font"
+                android:textSize="11sp"
+                />
+
+            <View
+                android:id="@+id/fm_line_01"
+                android:layout_width="2dp"
+                android:layout_height="20dp"
+                android:background="@mipmap/line_vertical"
+                android:visibility="invisible"
+                />
+
+            <Button
+                android:id="@+id/fm_compere"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawablePadding="5dp"
+                android:drawableTop="@mipmap/ic_compere"
+                android:gravity="center"
+                android:text="主播"
+                android:textColor="@color/def_font"
+                android:textSize="11sp"
+                />
+
+            <View
+                android:id="@+id/fm_line_02"
+                android:layout_width="2dp"
+                android:layout_height="20dp"
+                android:background="@mipmap/line_vertical"
+                android:visibility="invisible"
+                />
+
+            <Button
+                android:id="@+id/fm_float"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawablePadding="5dp"
+                android:drawableTop="@mipmap/ic_float"
+                android:gravity="center"
+                android:text="浮标"
+                android:textColor="@color/def_font"
+                android:textSize="11sp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/fm_toggle"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/bottom_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="-25dp"
+        android:src="@mipmap/fm_toggle"
+        />
+    <!-- <com.zeustel.top9.widgets.LoadingView
+          android:id="@+id/mLoadingView"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:visibility="gone"
+          ></com.zeustel.top9.widgets.LoadingView>-->
+</RelativeLayout>

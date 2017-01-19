@@ -1,0 +1,140 @@
+<FrameLayout
+    android:id="@+id/login"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/def_bg"
+    android:clickable="true"
+    tools:context="com.zeustel.top9.fragments.LoginFragment"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/login_margin"
+        android:gravity="center_horizontal|bottom"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/login_regist"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/login_topLayout_margin_bottom"
+            android:layout_marginLeft="@dimen/login_topLayout_margin_left"
+            android:layout_marginRight="@dimen/login_topLayout_margin_right"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/login_logo_margin_bottom"
+                android:src="@mipmap/login_logo"
+                />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/login_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:digits="@string/digits_with_email"
+                    android:hint="@string/login_account_hint"
+                    android:singleLine="true"
+                    android:textColor="@color/def_font"
+                    android:textSize="@dimen/login_account"
+                    android:imeOptions="actionNext"
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/login_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/login_password_margin_top"
+                >
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:digits="@string/digits"
+                    android:hint="@string/login_password_hint"
+                    android:inputType="textPassword"
+                    android:singleLine="true"
+                    android:textColor="@color/def_font"
+                    android:textSize="@dimen/login_password"
+                    android:imeOptions="actionDone"
+                    />
+            </android.support.design.widget.TextInputLayout>
+            <!-- android:textCursorDrawable="@mipmap/cursor"
+          光标-->
+            <Button
+                android:id="@+id/login_commit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/login_commit_margin_left"
+                android:layout_marginRight="@dimen/login_commit_margin_right"
+                android:layout_marginTop="@dimen/login_commit_margin_top"
+                android:background="@drawable/all_btn_bg"
+                android:text="@string/login_commit_text"
+                android:textColor="@drawable/all_text_color"
+                />
+            <!--android:background="@drawable/border_bg_red_selector"-->
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/login_regist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/login_other"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/login_regist_margin_bottom"
+            android:textSize="@dimen/login_regist"
+
+            />
+            <!--android:text="@string/login_regist"-->
+
+        <TextView
+            android:id="@+id/login_other"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/bottom_layout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/login_other_margin_bottom"
+            android:drawableLeft="@mipmap/line_horizontal"
+            android:drawablePadding="@dimen/login_other_drawable_padding"
+            android:drawableRight="@mipmap/line_horizontal"
+            android:text="@string/login_other"
+            android:textColor="@color/def_font"
+            android:textSize="@dimen/login_other"/>
+
+        <LinearLayout
+            android:id="@+id/bottom_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/bottom_layout_margin_bottom"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/login_qq"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/login_qq"/>
+
+            <ImageButton
+                android:id="@+id/login_wechat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/login_wechat_margin_left"
+                android:background="@mipmap/login_wechat"/>
+        </LinearLayout>
+    </RelativeLayout>
+</FrameLayout>

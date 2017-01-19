@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\res\\merged\\androidTest\\debug\\menu\\main.xml",
+        "source": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\bundles\\debug\\res\\menu\\main.xml"
+    },
+    {
+        "merged": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\res\\merged\\androidTest\\debug\\menu\\menu_paybill.xml",
+        "source": "D:\\lib_workspace\\androidStudio\\FoxconnWalletSimple\\FoxconnWallet\\build\\intermediates\\bundles\\debug\\res\\menu\\menu_paybill.xml"
+    }
+]

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--社区头-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/def_bg"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        >
+
+        <ImageView
+            android:id="@+id/community_head_icon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@mipmap/ic_icon"/>
+
+        <FrameLayout
+            android:id="@+id/community_head_line"
+            android:layout_width="1dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/community_head_icon"
+            android:background="@mipmap/line_vertical_red"
+            />
+
+        <TextView
+            android:id="@+id/community_head_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/community_head_line"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="name"
+            android:textColor="@color/red"
+            android:textSize="14sp"
+            />
+
+        <TextView
+            android:id="@+id/community_head_landlord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/community_head_name"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="楼主"
+            android:textSize="14sp"
+            />
+
+        <TextView
+            android:id="@+id/community_head_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/community_head_line"
+            android:layout_marginTop="-20dp"
+            android:layout_toRightOf="@+id/community_head_line"
+            android:drawableLeft="@mipmap/ic_time"
+            android:drawablePadding="@dimen/def_title_drawable_left_padding"
+            android:text="2014"
+            />
+
+        <TextView
+            android:id="@+id/community_head_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/community_head_icon"
+            android:layout_marginTop="30dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/def_font"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/community_head_subTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/community_head_title"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/gray"
+            android:textSize="13sp"
+            />
+    </RelativeLayout>
+</FrameLayout>

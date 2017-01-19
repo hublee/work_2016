@@ -1,0 +1,201 @@
+package com.zeustel.top9.widgets;
+
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.os.Build;
+import android.text.TextUtils;
+import android.util.AttributeSet;
+import android.widget.TextView;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+/**
+ * 打字效果TextView
+ *
+ * @author NiuLei
+ * @date 2015/10/18 14:24
+ * <p/>
+ * xml属性定制
+ * 铃音切换
+ */
+public class PrintTextView extends TextView {
+    /*默认持续*/
+    private static final int DEF_DURATION = 1500;
+    private int duration = DEF_DURATION;
+    /*间隔时间*/
+    private int interval;
+    /*是否铃声*/
+    private boolean ringAble;
+    /*定时器*/
+    private Timer timer;
+    /*需打印字符*/
+    private String printStr;
+    /*追加字符*/
+    private String appendStr;
+    /*已经打印长度*/
+    private int printAlreadyLen;
+    private OnPrintListener onPrintListener;
+    /*任务*/
+    private Runnable printRunnable = new Runnable() {
+        @Override
+        public void run() {
+            printAlreadyLen = getText().toString().length();
+            if (printStr != null) {
+                if (printAlreadyLen < printStr.length()) {
+                    appendStr = printStr.substring(printAlreadyLen, printAlreadyLen + 1);
+                    append(appendStr);
+                    if (onPrintListener != null) {
+                        onPrintListener.onPrinting(appendStr, interval * printAlreadyLen + 1);
+                    }
+                } else {
+                    if (onPrintListener != null) {
+                        onPrintListener.onPrintEnd();
+                    }
+                    destroyTask();
+                }
+            }
+        }
+    };
+    /*定时器任务*/
+    private TimerTask printTimerTask;
+
+    private void destroyTask() {
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+//            Tools.log_i(PrintTextView.class, "run", "timer.cancel()");
+        }
+        if (printTimerTask != null) {
+            printTimerTask.cancel();
+            printTimerTask = null;
+        }
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        destroyTask();
+        onPrintListener = null;
+        appendStr = null;
+        printStr = null;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    /**
+     * 设置持续时间
+     *
+     * @param duration
+     */
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    /**
+     * 设置打字监听
+     */
+    public void setOnPrintListener(OnPrintListener onPrintListener) {
+        this.onPrintListener = onPrintListener;
+    }
+
+    public PrintTextView(Context context) {
+        super(context);
+    }
+
+    public PrintTextView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(context, attrs, 0, 0);
+    }
+
+    public PrintTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init(context, attrs, defStyleAttr, 0);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public PrintTextView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        init(context, attrs, defStyleAttr, defStyleRes);
+    }
+
+    private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        /*final Resources.Theme theme = context.getTheme();
+        TypedArray a = theme.obtainStyledAttributes(attrs,
+                com.android.internal.R.styleable.TextViewAppearance, defStyleAttr, defStyleRes);*/
+    }
+
+    /**
+     * 打字
+     */
+    public void print(CharSequence text, int startOffset) {
+        if (text != null) {
+            printStr = text.toString();
+//            Tools.log_i(PrintTextView.class, "print", "printStrLen : " + printStr.length());
+            if (!TextUtils.isEmpty(printStr)) {
+                setText("");
+                interval = duration / printStr.length();
+                printTimerTask = new TimerTask() {
+                    @Override
+                    public void run() {
+                        post(printRunnable);
+                    }
+                };
+                timer = new Timer();
+                timer.schedule(printTimerTask, startOffset, interval);
+                postDelayed(destroyTask, duration);
+                if (onPrintListener != null) {
+                    onPrintListener.onPrintStart();
+                }
+            }
+        }
+    }
+
+    private Runnable destroyTask = new Runnable() {
+        @Override
+        public void run() {
+            destroyTask();
+        }
+    };
+
+    public void print(CharSequence text) {
+        print(text, 0);
+    }
+
+    /**
+     * 是否可以铃音
+     */
+    public boolean isRingAble() {
+        return ringAble;
+    }
+
+    /**
+     * 设置铃音
+     */
+    public void setRingAble(boolean ringAble) {
+        this.ringAble = ringAble;
+    }
+
+    /*打字监听*/
+    public interface OnPrintListener {
+        /**
+         * 开始
+         */
+        void onPrintStart();
+
+        /**
+         * 打字中
+         *
+         * @param appendStr 追加字符
+         * @param useTime   用时
+         */
+        void onPrinting(String appendStr, int useTime);
+
+        /**
+         * 完成
+         */
+        void onPrintEnd();
+    }
+}

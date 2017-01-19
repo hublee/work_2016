@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="?attr/selectableItemBackground"
+                                    android:clickable="true"
+                                    app:cardElevation="@dimen/cardview_elevation"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/evaluating_item_banner_height"
+            >
+
+            <ImageView
+                android:id="@+id/evaluating_item_banner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/evaluating_item_sub_margin"
+                android:layout_marginLeft="@dimen/evaluating_item_title_margin"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/marks_white"/>
+
+                <com.zeustel.top9.widgets.PrintTextView
+                    android:id="@+id/evaluating_item_subTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/evaluating_item_subtitle_margintop"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical|left"
+                    android:singleLine="true"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/evaluating_item_subtitle_size"
+                    android:textStyle="bold"
+                    />
+<!--                <TextView
+                    android:id="@+id/evaluating_item_subTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/evaluating_item_subtitle_margintop"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical|left"
+                    android:singleLine="true"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/evaluating_item_subtitle_size"
+                    android:textStyle="bold"
+                    />-->
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/evaluating_item_bottom_height"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/evaluating_item_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/evaluating_item_title_margin"
+                android:gravity="center"
+                android:textColor="@color/red"
+                android:textSize="@dimen/evaluating_item_time_size"
+                android:textStyle="bold|italic"
+                />
+
+            <TextView
+                android:id="@+id/evaluating_item_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/evaluating_item_title_margin"
+                android:ellipsize="end"
+                android:gravity="center_vertical|left"
+                android:maxLines="@integer/evaluating_item_title_max_lines"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/evaluating_item_title_size"
+                android:textStyle="bold"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

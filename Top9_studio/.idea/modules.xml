@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/libraries/DanmakuFlame/DanmakuFlame.iml" filepath="$PROJECT_DIR$/libraries/DanmakuFlame/DanmakuFlame.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraries/GalleryLib/GalleryLib.iml" filepath="$PROJECT_DIR$/libraries/GalleryLib/GalleryLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraries/MainLibs/MainLibs.iml" filepath="$PROJECT_DIR$/libraries/MainLibs/MainLibs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraries/OneKeyShare/OneKeyShare.iml" filepath="$PROJECT_DIR$/libraries/OneKeyShare/OneKeyShare.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Top9_studio.iml" filepath="$PROJECT_DIR$/Top9_studio.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraries/Wheel/Wheel.iml" filepath="$PROJECT_DIR$/libraries/Wheel/Wheel.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraries/libraries.iml" filepath="$PROJECT_DIR$/libraries/libraries.iml" />
+    </modules>
+  </component>
+</project>

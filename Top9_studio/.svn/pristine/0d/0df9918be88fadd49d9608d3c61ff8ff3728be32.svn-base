@@ -1,0 +1,140 @@
+package com.zeustel.top9.temp;
+
+
+import android.graphics.Color;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.app.Fragment;
+import android.text.Html;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zeustel.top9.R;
+import com.zeustel.top9.bean.SubUserInfo;
+import com.zeustel.top9.utils.Constants;
+import com.zeustel.top9.utils.Tools;
+import com.zeustel.top9.widgets.CircleImage;
+import com.zeustel.top9.widgets.InputView;
+import com.zeustel.top9.widgets.VerticalDanmaku;
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class TempFMFragment extends TempSkipFragment implements View.OnClickListener {
+
+    private VerticalDanmaku danmaku;
+    public TempFMFragment() {
+
+    }
+
+    private ImageView temp_fm_theme;
+    private VerticalDanmaku temp_fm_danmaku;
+    private InputView temp_fm_input;
+    private TextView temp_fm_flag;
+    private ImageButton temp_fm_game;
+    private LinearLayout temp_fm_compere;
+    private LinearLayout temp_fm_program;
+    private LinearLayout temp_fm_attention;
+    private LinearLayout temp_fm_edit;
+    private ImageView temp_fm_control;
+    private ImageLoader imageLoader = ImageLoader.getInstance();
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            SubUserInfo mSubUserInfo = new SubUserInfo();
+            mSubUserInfo.setIcon(null);
+            mSubUserInfo.setNickName("asdsalkd");
+            temp_fm_danmaku.send(makeAmmo(mSubUserInfo, "弹弹弹弹弹弹弹~~~~~~~~~"));
+        }
+    };
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View contentView = inflater.inflate(R.layout.fragment_temp_fm, container, false);
+        temp_fm_theme = (ImageView) contentView.findViewById(R.id.temp_fm_theme);
+        temp_fm_danmaku = (VerticalDanmaku) contentView.findViewById(R.id.temp_fm_danmaku);
+        temp_fm_input = (InputView) contentView.findViewById(R.id.temp_fm_input);
+        temp_fm_flag = (TextView) contentView.findViewById(R.id.temp_fm_flag);
+        temp_fm_game = (ImageButton) contentView.findViewById(R.id.temp_fm_game);
+        temp_fm_compere = (LinearLayout) contentView.findViewById(R.id.temp_fm_compere);
+        temp_fm_program = (LinearLayout) contentView.findViewById(R.id.temp_fm_program);
+        temp_fm_attention = (LinearLayout) contentView.findViewById(R.id.temp_fm_attention);
+        temp_fm_edit = (LinearLayout) contentView.findViewById(R.id.temp_fm_edit);
+        temp_fm_control = (ImageView) contentView.findViewById(R.id.temp_fm_control);
+        temp_fm_input.setOnInputView(new InputView.OnInputView() {
+            @Override
+            public void onInputView(final String content) {
+
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        temp_fm_danmaku.send(makeAmmo(Constants.USER, content));
+                        temp_fm_input.done();
+                    }
+                }, 500);
+            }
+        });
+        temp_fm_input.setBg(Color.TRANSPARENT);
+        temp_fm_game.setOnClickListener(this);
+        updateUI();
+        return contentView;
+    }
+
+    private void updateUI() {
+        temp_fm_flag.setText("小妹陪你玩游戏,速来围观啊啊啊啊啊阿萨斯的");
+        temp_fm_flag.setSelected(true);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        Thread.sleep(1500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    handler.sendEmptyMessage(1);
+                }
+            }
+        }).start();
+    }
+
+    private View makeAmmo(SubUserInfo subUserInfo, String text) {
+        if (subUserInfo == null) {
+            return null;
+        }
+        View ammoView = getActivity().getLayoutInflater().inflate(R.layout.list_item_ammo, null);
+        CircleImage ammo_by = (CircleImage) ammoView.findViewById(R.id.ammo_by);
+        TextView ammo_text = (TextView) ammoView.findViewById(R.id.ammo_text);
+        imageLoader.displayImage(Constants.TEST_IMG + subUserInfo.getIcon(), ammo_by, Tools.options);
+
+        ammo_text.setText((Html.fromHtml(getContext().getString(R.string.html_font, "#FD4C3C"/*color*/, subUserInfo.getNickName()) +
+                getContext().getString(R.string.space) +
+                ":" +
+                getContext().getString(R.string.space) +
+                getContext().getString(R.string.html_font, "#FFFFFF"/*color*/, text))));
+
+        return ammoView;
+    }
+    @Override
+    public void onClick(View v) {
+        if (temp_fm_game.equals(v)) {
+            if (getOnSkipListener() != null) {
+                getOnSkipListener().onSkip(TempFMFragment.this);
+            }
+        }
+    }
+}

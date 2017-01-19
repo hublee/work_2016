@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:orientation="vertical">
+    <com.zeustel.top9.widgets.AnimViewFlipper
+        android:id="@+id/exhibition"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:autoStart="false"
+        android:flipInterval="@integer/viewflipper_flip_interval"
+        />
+
+    <com.zeustel.top9.widgets.Indicator
+        android:id="@+id/exhibition_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        />
+</FrameLayout>

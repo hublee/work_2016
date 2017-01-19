@@ -1,0 +1,209 @@
+package com.zeustel.top9.utils;
+
+import android.content.Context;
+import android.content.res.AssetManager;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.lidroid.xutils.DbUtils;
+import com.zeustel.top9.bean.CommunityInfo;
+import com.zeustel.top9.bean.CommunityTopic;
+import com.zeustel.top9.bean.ExchangeGoods;
+import com.zeustel.top9.bean.Game;
+import com.zeustel.top9.bean.GameEvaluating;
+import com.zeustel.top9.bean.SubUserInfo;
+import com.zeustel.top9.result.TestSubList;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
+import java.util.List;
+
+/**
+ * @author NiuLei
+ * @email niulei@zeustel.com
+ * @date 2015/10/20 15:32
+ */
+public class NativeUtils {
+
+    public static void importChatFaces(final Context context) {
+        if (context == null) {
+            return;
+        }
+        try {
+            Tools.log_i(NativeUtils.class, "importChatFaces", "start");
+            String[] names = context.getAssets().list("chatFace");
+            final File face = Tools.getCacheDirFace(context);
+            for (int i = 0; i < names.length; i++) {
+                String name = names[i];
+                InputStream open = context.getAssets().open("chatFace" + File.separator + name);
+                Tools.copyFile(open, new File(face, name));
+            }
+            Tools.log_i(NativeUtils.class, "importChatFaces", "end");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void importCacheImgs(final Context context) {
+        if (context == null) {
+            return;
+        }
+        try {
+            Tools.log_i(NativeUtils.class, "importCacheImgs", "start");
+            String[] names = context.getAssets().list("img");
+            final File imgCache = Tools.getCacheDirImage(context);
+            for (int i = 0; i < names.length; i++) {
+                String name = names[i];
+                InputStream open = context.getAssets().open("img" + File.separator + name);
+                Tools.copyFile(open, new File(imgCache, name));
+            }
+            Tools.log_i(NativeUtils.class, "importCacheImgs", "end");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static List<SubUserInfo> importSubs(Context context) {
+        BufferedReader reader = null;
+        String line = null;
+        StringBuffer sbf = new StringBuffer();
+        String json = null;
+        TestSubList testSubList = null;
+        try {
+            InputStream open = context.getAssets().open("json" + File.separator + "allSubUserInfo.json");
+            reader = new BufferedReader(new InputStreamReader(open));
+            while ((line = reader.readLine()) != null) {
+                sbf.append(line);
+            }
+            json = sbf.toString();
+            Gson gson = new Gson();
+            testSubList = gson.fromJson(json, TestSubList.class);
+            return testSubList.getData();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                reader = null;
+            }
+            line = null;
+            sbf = null;
+            json = null;
+            testSubList = null;
+        }
+        return null;
+    }
+
+    public static void exportDatabase2Cache(Context context) throws Exception {
+        Tools.log_i(NativeUtils.class, "exportDatabase2Cache", "start");
+        DbUtils dbUtils = DButilsHelper.getDbUtils(context);
+        Gson gson = new Gson();
+        List<GameEvaluating> allGameEvaluatings = dbUtils.findAll(GameEvaluating.class);
+        List<Game> allGames = dbUtils.findAll(Game.class);
+        List<ExchangeGoods> allExchangeGoodss = dbUtils.findAll(ExchangeGoods.class);
+        List<CommunityInfo> allCommunityInfos = dbUtils.findAll(CommunityInfo.class);
+        List<CommunityTopic> allCommunityTopics = dbUtils.findAll(CommunityTopic.class);
+        json2Native(context, gson, allGameEvaluatings, "allGameEvaluatings.json");
+        json2Native(context, gson, allGames, "allGames.json");
+        json2Native(context, gson, allExchangeGoodss, "allExchangeGoodss.json");
+        json2Native(context, gson, allCommunityInfos, "allCommunityInfos.json");
+        json2Native(context, gson, allCommunityTopics, "allCommunityTopics.json");
+        Tools.log_i(NativeUtils.class, "exportDatabase2Cache", "done");
+    }
+
+    public static void importCache2Database(Context context) throws Exception {
+        if (context == null) {
+            return;
+        }
+        Tools.log_i(NativeUtils.class, "importCache2Database", "start");
+        AssetManager assetManager = context.getAssets();
+        String[] names = assetManager.list("json");
+        String name = null;
+        String json = null;
+        InputStream open = null;
+        Type type = null;
+        Gson gson = new Gson();
+        DbUtils dbUtils = DButilsHelper.getDbUtils(context);
+        if (!Tools.isEmpty(names)) {
+            for (int i = 0; i < names.length; i++) {
+                name = names[i];
+                open = assetManager.open("json" + File.separator + name);
+                json = readFile2Str(open);
+                if (json != null) {
+                    if ("allGameEvaluatings.json".equals(name)) {
+                        type = new TypeToken<List<GameEvaluating>>() {
+                        }.getType();
+                        List<GameEvaluating> allGameEvaluatings = gson.fromJson(json, type);
+                        dbUtils.saveAll(allGameEvaluatings);
+                    }
+                    if ("allGames.json".equals(name)) {
+                        type = new TypeToken<List<Game>>() {
+                        }.getType();
+                        List<Game> allGames = gson.fromJson(json, type);
+                        dbUtils.saveAll(allGames);
+                    }
+                    if ("allExchangeGoodss.json".equals(name)) {
+                        type = new TypeToken<List<ExchangeGoods>>() {
+                        }.getType();
+                        List<ExchangeGoods> allExchangeGoodss = gson.fromJson(json, type);
+                        dbUtils.saveAll(allExchangeGoodss);
+                    }
+                    if ("allCommunityInfos.json".equals(name)) {
+                        type = new TypeToken<List<CommunityInfo>>() {
+                        }.getType();
+                        List<CommunityInfo> allCommunityInfos = gson.fromJson(json, type);
+                        dbUtils.saveAll(allCommunityInfos);
+                    }
+                    if ("allCommunityTopics.json".equals(name)) {
+                        type = new TypeToken<List<CommunityTopic>>() {
+                        }.getType();
+                        List<CommunityTopic> allCommunityTopics = gson.fromJson(json, type);
+                        dbUtils.saveAll(allCommunityTopics);
+                    }
+                }
+            }
+            Tools.log_i(NativeUtils.class, "importCache2Database", "done");
+        }
+    }
+
+    private static String readFile2Str(InputStream inputStream) throws IOException {
+        if (inputStream == null) {
+            return null;
+        }
+        int len = -1;
+        byte[] buff = new byte[1024];
+        StringBuffer sbf = new StringBuffer();
+        while ((len = inputStream.read(buff)) != -1) {
+            sbf.append(new String(buff, 0, len, "UTF-8"));
+        }
+        inputStream.close();
+        inputStream = null;
+        return sbf.toString();
+    }
+
+    private static <T> void json2Native(Context context, Gson gson, List<T> data, String fileName) throws Exception {
+        if (context == null || gson == null || Tools.isEmpty(data) || fileName == null) {
+            //..
+            return;
+        }
+        String json = gson.toJson(data);
+        if (json != null) {
+            FileOutputStream outputStream = new FileOutputStream(new File(Tools.getCacheDir(context) + File.separator + "json", fileName));
+            outputStream.write(json.getBytes("UTF-8"));
+            outputStream.flush();
+            outputStream.close();
+            outputStream = null;
+        }
+        data.clear();
+        data = null;
+    }
+}

@@ -1,0 +1,103 @@
+package com.zeustel.top9.adapters;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+/**
+ * @author NiuLei
+ * @email niulei@zeustel.com
+ * @date 2015/7/24 15:11
+ */
+public abstract class OverallRecyclerHolder<T> extends RecyclerView.ViewHolder implements View.OnClickListener {
+    //图片加载
+    private ImageLoader imageLoader = ImageLoader.getInstance();
+    private Context context;
+    private OnElementClickListener onElementClickListener;
+    //高亮文本
+    private String lightText;
+
+    public OverallRecyclerHolder(Context context, View itemView) {
+        super(itemView);
+        this.context = context;
+        initItemView(itemView);
+        if (isItemClickEnabled()) {
+            itemView.setOnClickListener(this);
+        }
+    }
+
+    protected boolean isItemClickEnabled() {
+        return true;
+    }
+
+    public String getLightText() {
+        return lightText;
+    }
+
+    public void setLightText(String lightText) {
+        this.lightText = lightText;
+    }
+
+    /**
+     * 点击回调
+     */
+    public interface OnElementClickListener {
+        /**
+         * @param position 索引
+         * @param tag      元素tag
+         */
+        void onElementClick(int position, String tag);
+    }
+
+    public void setOnElementClickListener(OnElementClickListener onElementClickListener) {
+        this.onElementClickListener = onElementClickListener;
+    }
+
+    public OnElementClickListener getOnElementClickListener() {
+        return onElementClickListener;
+    }
+
+    public ImageLoader getImageLoader() {
+        return imageLoader;
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    /**
+     * 初始化
+     *
+     * @param itemView
+     */
+    protected abstract void initItemView(View itemView);
+
+    /**
+     * 设置
+     *
+     * @param adapter  OverallRecyclerAdapter<T> 对象
+     * @param position 索引
+     */
+    public abstract void set(OverallRecyclerAdapter<T> adapter, int position);
+
+    /**
+     * 设置 适配Baseadapter
+     *
+     * @param adapter  OverallListAdapter<T> 对象
+     * @param position 索引
+     */
+    public void set(OverallListAdapter<T> adapter, int position) {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (itemView.equals(v)) {
+            if (onElementClickListener != null) {
+                onElementClickListener.onElementClick(getAdapterPosition(), "all");
+            }
+        }
+    }
+}

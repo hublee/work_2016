@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="@dimen/float_menu_layout_width"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:animateLayoutChanges="true"
+    >
+
+    <RelativeLayout
+        android:id="@+id/expand_menu_content_layout"
+        android:layout_width="@dimen/float_menu_layout_width"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/expand_menu_control_layout"
+        >
+
+        <com.zeustel.top9.widgets.CustomListView
+            android:id="@+id/expand_menu_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:choiceMode="singleChoice"
+            android:divider="@null"
+            android:listSelector="@color/float_menu_bg"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/expand_menu_control_layout"
+        android:layout_width="@dimen/float_menu_layout_width"
+        android:layout_height="@dimen/float_menu_layout_width"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        >
+
+        <ImageView
+            android:id="@+id/expand_menu_control"
+            android:layout_width="@dimen/float_menu_width"
+            android:layout_height="@dimen/float_menu_width"
+            android:layout_centerInParent="true"
+            android:padding="10dp"
+            android:src="@mipmap/action_menu_control"
+            android:background="@drawable/expand_menu_control_bg_normal"
+
+            />
+    </RelativeLayout>
+
+</RelativeLayout>

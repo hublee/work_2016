@@ -1,0 +1,421 @@
+package com.zeustel.top9.adapters;
+
+import android.content.Context;
+import android.net.Uri;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.zeustel.top9.R;
+import com.zeustel.top9.bean.Community;
+import com.zeustel.top9.bean.CommunityInfo;
+import com.zeustel.top9.bean.CommunityTopic;
+import com.zeustel.top9.bean.GameEvaluating;
+import com.zeustel.top9.bean.HtmlComment;
+import com.zeustel.top9.bean.HtmlPaper;
+import com.zeustel.top9.bean.SubUserInfo;
+import com.zeustel.top9.utils.Constants;
+import com.zeustel.top9.utils.TimeUtil;
+import com.zeustel.top9.utils.Tools;
+import com.zeustel.top9.widgets.ImgPreview;
+import com.zeustel.top9.widgets.VideoLayout;
+
+import java.util.List;
+
+/**
+ * web页适配器
+ *
+ * @author NiuLei
+ * @email niulei@zeustel.com
+ * @date 2015/7/31 15:21
+ */
+public class AdapterWeb extends OverallRecyclerAdapter<HtmlComment> {
+    //用于显示头和内容
+    public static final int NEED_SPACE = 2;
+    private Context context;
+    private LayoutInflater inflater;
+    //web下方评论
+    private List<HtmlComment> data;
+    //web页上方信息
+    private HtmlPaper htmlPaper;
+
+    /**
+     * 构造方法
+     *
+     * @param data      web评论集合
+     * @param htmlPaper web页信息
+     * @throws NoSuchMethodException
+     */
+    public AdapterWeb(List<HtmlComment> data, HtmlPaper htmlPaper) throws NoSuchMethodException {
+        super(data, 0/*layoutId*/, null/*Class<? extends OverallRecyclerHolder>*/);
+        for (int i = 0; i < NEED_SPACE; i++) {
+            data.add(0, new HtmlComment());
+        }
+        this.htmlPaper = htmlPaper;
+        this.data = data;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (0 == position) {
+            if (htmlPaper instanceof Community) {
+                if (htmlPaper instanceof CommunityTopic) {
+                    return ViewType.HEAD_TOPIC;
+                } else if (htmlPaper instanceof CommunityInfo) {
+                    return ViewType.HEAD_INFO;
+                }
+            } else {
+                return ViewType.HEAD_EVA;
+            }
+        }
+        if (1 == position) {
+            return ViewType.CONTENT;
+        }
+        if (2 == position) {
+            return ViewType.COMMENT_FIRST;
+        }
+        return ViewType.COMMENT;
+    }
+
+    @Override
+    public OverallRecyclerHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (context == null)
+            context = parent.getContext();
+        if (inflater == null)
+            inflater = LayoutInflater.from(context);
+        OverallRecyclerHolder viewHolder = null;
+        switch (viewType) {
+            case ViewType.HEAD_EVA:
+                viewHolder = new HeadEvaViewHolder(context, Tools.setLayoutParams(inflater.inflate(HeadEvaViewHolder.LAYOUT_ID, null)));
+                break;
+            case ViewType.HEAD_TOPIC:
+                viewHolder = new HeadTopicViewHolder(context, Tools.setLayoutParams(inflater.inflate(HeadTopicViewHolder.LAYOUT_ID, null)));
+                break;
+            case ViewType.HEAD_INFO:
+                viewHolder = new HeadInfoViewHolder(context, Tools.setLayoutParams(inflater.inflate(HeadInfoViewHolder.LAYOUT_ID, null)));
+                break;
+            case ViewType.CONTENT:
+                viewHolder = new ContentViewHolder(context, Tools.setLayoutParams(inflater.inflate(ContentViewHolder.LAYOUT_ID, null)));
+                break;
+            case ViewType.COMMENT_FIRST:
+                viewHolder = new CommentFirstViewHolder(context, Tools.setLayoutParams(inflater.inflate(CommentFirstViewHolder.LAYOUT_ID, null)));
+                break;
+            case ViewType.COMMENT:
+                viewHolder = new CommentViewHolder(context, Tools.setLayoutParams(inflater.inflate(CommentViewHolder.LAYOUT_ID, null)));
+                break;
+        }
+        return viewHolder;
+    }
+
+    public static class ViewType {
+        //评测头部
+        public static final int HEAD_EVA = 1;
+        //社区头部
+        public static final int HEAD_TOPIC = 2;
+        //资讯头部
+        public static final int HEAD_INFO = 3;
+        //内容 web
+        public static final int CONTENT = 4;
+        //第一个回复
+        public static final int COMMENT_FIRST = 5;
+        //回复
+        public static final int COMMENT = 6;
+    }
+
+    /**
+     * 第一个评论
+     */
+    public class CommentFirstViewHolder extends OverallRecyclerHolder<HtmlComment> {
+        public static final int LAYOUT_ID = R.layout.list_item_first_comment;
+        private TextView comment_flag;
+        private ImageView icon;
+        private TextView name;
+        private TextView time;
+        private TextView content;
+
+        public CommentFirstViewHolder(Context context, View itemView) {
+            super(context, itemView);
+        }
+
+        @Override
+        protected void initItemView(View itemView) {
+            comment_flag = (TextView) itemView.findViewById(R.id.comment_flag);
+            View commentView = itemView.findViewById(R.id.comment_layout);
+            icon = (ImageView) commentView.findViewById(R.id.icon);
+            name = (TextView) commentView.findViewById(R.id.name);
+            time = (TextView) commentView.findViewById(R.id.time);
+            content = (TextView) commentView.findViewById(R.id.content);
+        }
+
+        @Override
+        public void set(OverallRecyclerAdapter<HtmlComment> adapter, int position) {
+            if (ViewType.COMMENT_FIRST != this.getItemViewType()) {
+                return;
+            }
+            HtmlComment mHtmlComment = getItem(position);
+            String content = mHtmlComment.getContent();
+            this.content.setText(Tools.isEmpty(content) ? "" : content);
+            SubUserInfo mSubUserInfo = mHtmlComment.getSubUserInfo();
+            if (mSubUserInfo != null) {
+                String nickName = mSubUserInfo.getNickName();
+                int gender = mSubUserInfo.getGender();
+                this.name.setText(Tools.isEmpty(nickName) ? "" : nickName);
+                getImageLoader().displayImage(Constants.TEST_IMG + mSubUserInfo.getIcon(), this.icon, Tools.newOptions(this.icon.getWidth() / 2));
+            }
+            time.setText(TimeUtil.getTimeDisplay(context, mHtmlComment.getTime()));
+        }
+    }
+
+    public class CommentViewHolder extends OverallRecyclerHolder<HtmlComment> {
+        public static final int LAYOUT_ID = R.layout.list_item_comment;
+        private ImageView icon;
+        private TextView name;
+        private TextView time;
+        private TextView content;
+
+        public CommentViewHolder(Context context, View itemView) {
+            super(context, itemView);
+        }
+
+        @Override
+        protected void initItemView(View itemView) {
+            icon = (ImageView) itemView.findViewById(R.id.icon);
+            name = (TextView) itemView.findViewById(R.id.name);
+            time = (TextView) itemView.findViewById(R.id.time);
+            content = (TextView) itemView.findViewById(R.id.content);
+        }
+
+        @Override
+        public void set(OverallRecyclerAdapter<HtmlComment> adapter, int position) {
+            if (ViewType.COMMENT != this.getItemViewType()) {
+                return;
+            }
+            HtmlComment mHtmlComment = getItem(position);
+            String content = mHtmlComment.getContent();
+            this.content.setText(Tools.isEmpty(content) ? "" : content);
+            SubUserInfo mSubUserInfo = mHtmlComment.getSubUserInfo();
+            if (mSubUserInfo != null) {
+                String nickName = mSubUserInfo.getNickName();
+                int gender = mSubUserInfo.getGender();
+                this.name.setText(Tools.isEmpty(nickName) ? "" : nickName);
+                getImageLoader().displayImage(Constants.TEST_IMG + mSubUserInfo.getIcon(), this.icon, Tools.newOptions(this.icon.getWidth() / 2));
+            }
+            time.setText(TimeUtil.getTimeDisplay(context, mHtmlComment.getTime()));
+        }
+    }
+
+    public class ContentViewHolder extends OverallRecyclerHolder<HtmlComment> {
+        public static final int LAYOUT_ID = R.layout.list_item_web;
+        private WebView contentWeb;
+        private WebSettings webSettings;
+        private boolean isFinished = false;
+
+        public ContentViewHolder(Context context, View itemView) {
+            super(context, itemView);
+        }
+
+        @Override
+        protected void initItemView(View itemView) {
+            contentWeb = (WebView) itemView.findViewById(R.id.contentWeb);
+            contentWeb.setWebViewClient(new ControlWebViewClient());
+            webSettings = contentWeb.getSettings();
+            webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+            webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+            webSettings.setBlockNetworkImage(true);
+            webSettings.setDefaultTextEncodingName("UTF-8");
+        }
+
+        @Override
+        public void set(OverallRecyclerAdapter<HtmlComment> adapter, int position) {
+            if (ViewType.CONTENT != this.getItemViewType() || htmlPaper == null) {
+                return;
+            }
+            String mHtmlContent = htmlPaper.getContent();
+            if (mHtmlContent != null) {
+                // 设置Html图片自动适应屏幕
+                String oldChar = "<img src=";
+                // 必须为两个空格 为下面判断铺垫
+                String newChar = "<img  width=\"100%\" src=";
+                if (mHtmlContent.indexOf(oldChar) != -1) {
+                    mHtmlContent = mHtmlContent.replace(oldChar, newChar);
+                }
+                // 处理上传图片方式不同引起的图片超出屏幕问题
+                oldChar = "<img width=";
+                String endChar = "src=";
+                // 必须为两个空格 为下面判断铺垫
+                newChar = "<img  width=\"100%\"";
+                int index = -1;
+                while ((index = mHtmlContent.indexOf(oldChar)) != -1) {
+                    mHtmlContent = mHtmlContent.replace(mHtmlContent.substring(index, mHtmlContent.indexOf(endChar, index)), newChar);
+                }
+                try {
+                    contentWeb.loadDataWithBaseURL(Constants.URL_SERVER, mHtmlContent, "text/html", "utf-8", null);
+
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        class ControlWebViewClient extends WebViewClient {
+            @Override
+            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                // TODO Auto-generated method stub
+                webSettings.setBlockNetworkImage(false);
+                super.onReceivedError(view, errorCode, description, failingUrl);
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                // TODO Auto-generated method stub
+                webSettings.setBlockNetworkImage(false);
+                super.onPageFinished(view, url);
+                if (!isFinished) {
+                    isFinished = true;
+                }
+            }
+        }
+    }
+
+    public class HeadInfoViewHolder extends OverallRecyclerHolder<CommunityInfo> {
+        public static final int LAYOUT_ID = R.layout.list_item_info_head;
+        private CommunityInfo communityInfo;
+
+        public HeadInfoViewHolder(Context context, View itemView) {
+            super(context, itemView);
+        }
+
+        @Override
+        protected void initItemView(View itemView) {
+
+        }
+
+        @Override
+        public void set(OverallRecyclerAdapter<CommunityInfo> adapter, int position) {
+            if (htmlPaper instanceof CommunityInfo) {
+                communityInfo = (CommunityInfo) htmlPaper;
+            }
+        }
+    }
+
+    public class HeadTopicViewHolder extends OverallRecyclerHolder<CommunityTopic> {
+        public static final int LAYOUT_ID = R.layout.list_item_support_head;
+        /*        public static final int LAYOUT_ID = R.layout.list_item_com_head;*/
+        private ImageView community_head_icon;
+        private TextView community_head_name;
+        private TextView community_head_time;
+        private TextView community_head_title;
+        private TextView community_head_subTitle;
+        private ImgPreview community_head_picture;
+        private CommunityTopic communityTopic;
+
+        public HeadTopicViewHolder(Context context, View itemView) {
+            super(context, itemView);
+        }
+
+        @Override
+        protected void initItemView(View itemView) {
+            community_head_icon = (ImageView) itemView.findViewById(R.id.community_head_icon);
+            community_head_name = (TextView) itemView.findViewById(R.id.community_head_name);
+            community_head_time = (TextView) itemView.findViewById(R.id.community_head_time);
+            community_head_title = (TextView) itemView.findViewById(R.id.community_head_title);
+            community_head_subTitle = (TextView) itemView.findViewById(R.id.community_head_subTitle);
+            community_head_picture = (ImgPreview) itemView.findViewById(R.id.community_head_picture);
+        }
+
+        @Override
+        public void set(OverallRecyclerAdapter<CommunityTopic> adapter, int position) {
+            if (htmlPaper instanceof CommunityTopic) {
+                communityTopic = (CommunityTopic) htmlPaper;
+            }
+            SubUserInfo subUserInfo = communityTopic.getSubUserInfo();
+            if (subUserInfo != null) {
+                getImageLoader().displayImage(Constants.TEST_IMG + subUserInfo.getIcon(), community_head_icon, Tools.newOptions(community_head_icon.getWidth() / 2));
+                community_head_name.setText(subUserInfo.getNickName());
+            }
+
+            Tools.endCreateOperate(community_head_picture, new Runnable() {
+                @Override
+                public void run() {
+                    String imgs = communityTopic.getImages();
+                    List<String> strings = Tools.convertPathList(imgs);
+                    if (!Tools.isEmpty(strings)) {
+                        try {
+                            AdapterSupportPicture pictureAdapter = new AdapterSupportPicture(strings);
+                            pictureAdapter.setIsNet(true);
+                            Tools.log_i(HeadTopicViewHolder.class, "set", "getWidth " + community_head_picture.getWidth() + " getHeight " + community_head_picture.getHeight());
+                            pictureAdapter.setSpanCount(strings.size(), ImgPreview.SPAN_COUNT, community_head_picture.getWidth(), community_head_picture.getHeight());
+                            pictureAdapter.setMode(HolderSupport.MODE_LAYOUT);
+                            community_head_picture.setAdapter(pictureAdapter);
+                        } catch (NoSuchMethodException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+
+            community_head_time.setText(Tools.getTimeformatAll(communityTopic.getTime()));
+            community_head_title.setText(communityTopic.getTitle());
+            community_head_subTitle.setText(communityTopic.getSubTitle());
+        }
+    }
+
+
+    public class HeadEvaViewHolder extends OverallRecyclerHolder<HtmlComment> implements View.OnClickListener {
+        public static final int LAYOUT_ID = R.layout.list_item_eva_head;
+        private ImageView head_eva_banner;
+        private TextView head_eva_subtitle;
+        private LinearLayout head_eva_download;
+        private LinearLayout head_eva_video;
+        private TextView head_eva_title;
+        private GameEvaluating gameEvaluating;
+        private VideoLayout head_eva_player;
+        //        private VideoPlayer head_eva_player;
+
+        public HeadEvaViewHolder(Context context, View itemView) {
+            super(context, itemView);
+        }
+
+        public void initItemView(View itemView) {
+            head_eva_banner = (ImageView) itemView.findViewById(R.id.head_eva_banner);
+            head_eva_subtitle = (TextView) itemView.findViewById(R.id.head_eva_subtitle);
+            head_eva_title = (TextView) itemView.findViewById(R.id.head_eva_title);
+            head_eva_download = (LinearLayout) itemView.findViewById(R.id.head_eva_download);
+            head_eva_video = (LinearLayout) itemView.findViewById(R.id.head_eva_video);
+            head_eva_player = (VideoLayout) itemView.findViewById(R.id.head_eva_player);
+            //            head_eva_player = (VideoPlayer) itemView.findViewById(R.id.head_eva_player);
+
+            head_eva_download.setOnClickListener(this);
+            head_eva_video.setOnClickListener(this);
+        }
+
+        public void set(OverallRecyclerAdapter<HtmlComment> adapter, int position) {
+            if (htmlPaper instanceof GameEvaluating) {
+                this.gameEvaluating = (GameEvaluating) htmlPaper;
+            }
+            if (this.gameEvaluating != null) {
+                getImageLoader().displayImage(Constants.TEST_IMG + gameEvaluating.getBanner(), head_eva_banner, Tools.options);
+                head_eva_subtitle.setText(gameEvaluating.getSubTitle());
+                head_eva_title.setText(gameEvaluating.getTitle());
+                head_eva_player.getVideo_view().setVideoURI(Uri.parse(Constants.URL_SERVER + gameEvaluating.getVideoUrl()));
+            }
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.head_eva_download:
+                    break;
+                case R.id.head_eva_video:
+                    break;
+            }
+        }
+    }
+}

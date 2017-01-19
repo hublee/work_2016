@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+>
+    <android.support.percent.PercentRelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_white_corners"
+        app:layout_heightPercent="@fraction/overall_height"
+        app:layout_widthPercent="@fraction/overall_width"
+    >
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="@dimen/rightTop_width"
+                   android:layout_height="@dimen/rightTop_height"
+                   android:layout_alignParentRight="true"
+                   android:layout_alignParentTop="true"
+                   android:layout_marginRight="@dimen/rightTop_margin_right"
+                   android:layout_marginTop="@dimen/rightTop_margin_top"
+                   android:src="@drawable/back"
+        />
+
+        <com.zeustel.cp.wallet.views.PercentLinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            app:layout_widthPercent="@fraction/overall_btn_width"
+        >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/login_main_title_top"
+                android:gravity="center"
+                android:text="@string/login_main_title_text"
+                android:textColor="@color/red"
+                android:textSize="@dimen/login_main_title_font_size"
+                android:textStyle="bold"
+            />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="6dp"
+                android:gravity="center_vertical|left"
+                android:text="Wonderful Star Account Bound :"
+                android:textColor="@color/color_666666"
+                android:textSize="@dimen/checkbox_font_size"
+            />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="0dp"
+                          android:gravity="center"
+                          android:orientation="horizontal"
+                          app:layout_heightPercent="13%"
+                          android:background="@drawable/bg_grey_thin_corners"
+                          android:layout_marginTop="6dp"
+            >
+                <ImageView
+                    android:id="@+id/accountIcon" android:layout_width="18dp" android:layout_height="18dp"
+                           android:layout_marginLeft="12dp"
+                           />
+
+                <TextView
+                    android:id="@+id/accountName"
+                    android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:ellipsize="end"
+                          android:gravity="center"
+                          android:singleLine="true"
+                          android:textColor="@color/color_b2b2b2"
+                          android:textSize="12sp"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical|left"
+                android:text="Have Wonderful Star Member Account :"
+                android:textColor="@color/color_666666"
+                android:textSize="@dimen/checkbox_font_size"
+            />
+            <Button
+                android:id="@+id/memberLogin"
+                style="@style/overall_btn"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/btn_corners_selector"
+                android:text="Member Login"
+                app:layout_heightPercent="@fraction/overall_btn_height"
+            />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical|left"
+                android:text="No Wonderful Star Member Account :"
+                android:textColor="@color/color_666666"
+                android:textSize="@dimen/checkbox_font_size"
+            />
+            <Button
+                android:id="@+id/registerAccount"
+                style="@style/overall_btn"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/btn_corners_selector"
+                android:text="Register New Account"
+                app:layout_heightPercent="@fraction/overall_btn_height"
+            />
+            <Button
+                android:id="@+id/gameStart"
+                style="@style/overall_btn"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_red_corners"
+                android:text="Game Start"
+                app:layout_heightPercent="11%"
+            />
+    </com.zeustel.cp.wallet.views.PercentLinearLayout>
+</android.support.percent.PercentRelativeLayout>
+
+</android.support.percent.PercentRelativeLayout>

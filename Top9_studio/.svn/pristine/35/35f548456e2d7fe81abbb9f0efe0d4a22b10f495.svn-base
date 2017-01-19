@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--评测详细头布局-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/def_bg"
+              android:layoutAnimation="@anim/layout_anim_left_in"
+              android:orientation="vertical"
+    >
+
+    <ImageView
+        android:id="@+id/head_eva_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/head_eva_content_margin"
+        android:layoutAnimation="@anim/layout_anim_left_in"
+        android:orientation="vertical"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/marks_red"
+            />
+
+        <TextView
+            android:id="@+id/head_eva_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/evaluating_item_subtitle_margintop"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="alksjdlkasjdlkajsdlkasjdlkasjdlkajsdlkjalskjdlkasjdlkajsdlkjalksjdlkasjdlkasjdlaksjdlkasjdlkajsdlkjalskdjalkskdjalksjdlkasjdlkajsdlkasjdlkasjdlkajsdlkjalskjdlkasjdlkajsdlkjalksjdlkasjdlkasjdlaksjdlkasjdlkajsdlkjalskdjalkskdj"
+            android:textColor="@color/red"
+            android:textSize="@dimen/evaluating_item_subtitle_size"
+            android:textStyle="bold"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/head_eva_line_height"
+            android:layout_marginBottom="@dimen/head_eva_line_margin"
+            android:layout_marginTop="@dimen/head_eva_line_margin"
+            android:background="@color/def_line"></View>
+
+        <LinearLayout
+            android:id="@+id/head_eva_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/download_btn_bg"
+            android:gravity="center_vertical"
+            android:layoutAnimation="@anim/layout_anim_left_in"
+            android:orientation="horizontal"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/download_btn"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:text="下载"
+                android:textColor="@color/def_font"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/head_eva_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray"
+            android:textSize="14sp"
+            />
+
+        <LinearLayout
+            android:id="@+id/head_eva_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/download_btn_bg"
+            android:gravity="center_vertical"
+            android:layoutAnimation="@anim/layout_anim_left_in"
+            android:orientation="horizontal"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/video_btn"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:text="《狂暴之血》视频介绍"
+                android:textColor="@color/def_font"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                />
+        </LinearLayout>
+
+       <!-- <com.zeustel.top9.widgets.VideoPlayer
+            android:id="@+id/head_eva_player"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            />-->
+        <com.zeustel.top9.widgets.VideoLayout
+            android:id="@+id/head_eva_player"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp">
+
+        </com.zeustel.top9.widgets.VideoLayout>
+    </LinearLayout>
+</LinearLayout>

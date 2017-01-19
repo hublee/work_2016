@@ -1,0 +1,57 @@
+package com.zeustel.top9;
+
+import android.content.Intent;
+import android.os.Bundle;
+
+import com.zeustel.top9.adapters.AdapterFragmentPager;
+import com.zeustel.top9.base.WrapNotViewPagerActivity;
+import com.zeustel.top9.bean.FM;
+import com.zeustel.top9.fragments.CompereFragment;
+import com.zeustel.top9.fragments.ProgramFragment;
+import com.zeustel.top9.temp.TempProgramFragment;
+import com.zeustel.top9.utils.Constants;
+
+public class FMDetailActivity extends WrapNotViewPagerActivity {
+    public static final String EXTRA_NAME_DATA = "data";
+    public static final String EXTRA_NAME_POSITION = "position";
+    private FM fm;
+    private int position;
+    private AdapterFragmentPager adapter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        if (intent != null) {
+            fm = (FM) intent.getSerializableExtra(EXTRA_NAME_DATA);
+            position = intent.getIntExtra(EXTRA_NAME_POSITION, position);
+        }
+        if (fm == null) {
+            finish();
+        }else{
+            getIndicator().addView(getIndicator().newChildBtn(0/*index*/, R.color.black, R.color.blue));
+            if (Constants.SHOW_HOW) {
+                getData().add(TempProgramFragment.newInstance(fm.getPrograms()));
+            } else {
+            getData().add(ProgramFragment.newInstance(fm.getPrograms()));
+            }
+            getIndicator().addView(getIndicator().newChildBtn(1/*index*/, R.color.black, R.color.yellow));
+            getData().add(CompereFragment.newInstance(fm.getCompere()));
+            adapter = new AdapterFragmentPager(getSupportFragmentManager(), getData());
+            getViewPager().setAdapter(adapter);
+            //预加载所有页面
+            //        getViewPager().setOffscreenPageLimit(getData().size());
+            setCurrentItem(position);
+        }
+    }
+
+    @Override
+    public String getFloatTitle() {
+        return null;
+    }
+
+    @Override
+    public int getBackgroundColor() {
+        return 0;
+    }
+}

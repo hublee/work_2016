@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/input_switch_top"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/input_switch"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher"
+            />
+
+        <Button
+            android:id="@+id/input_voice"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/input_switch"
+            android:layout_weight="1"
+            android:text="按住说话"
+            android:visibility="gone"
+            />
+
+        <LinearLayout
+            android:id="@+id/input_edit_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            >
+
+            <EditText
+                android:id="@+id/input_edit"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="评论一句"
+                />
+
+            <ImageButton
+                android:id="@+id/input_face"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/ic_launcher"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/input_send"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:scaleType="centerCrop"
+            android:text="发送"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/input_height_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/input_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+            <com.zeustel.top9.widgets.Indicator
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/input_add"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:src="@mipmap/ic_launcher"
+                />
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/input_tab"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <ImageButton
+                android:id="@+id/input_settings"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:src="@mipmap/ic_launcher"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

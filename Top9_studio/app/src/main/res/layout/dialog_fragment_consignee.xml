@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:gravity="center"
+
+    >
+
+    <LinearLayout
+        android:id="@+id/consigee_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/consigee_layout_margin_bottom"
+        android:layout_marginLeft="@dimen/consigee_layout_margin_left"
+        android:layout_marginRight="@dimen/consigee_layout_margin_right"
+        android:layout_marginTop="@dimen/consigee_layout_margin_top"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+
+        <com.zeustel.top9.widgets.TextInputHorizontalLayout
+            android:id="@+id/consigee_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:gravity="center_vertical"
+            >
+
+            <EditText
+                style="@style/Consigee_edit"
+                android:hint="@string/consigee_name_hint"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
+                />
+
+            <ImageView
+                style="@style/delete_icon"
+                />
+        </com.zeustel.top9.widgets.TextInputHorizontalLayout>
+
+        <FrameLayout
+            style="@style/horizontal_line"
+            android:layout_marginTop="@dimen/consigee_space"
+            />
+
+        <com.zeustel.top9.widgets.TextInputHorizontalLayout
+            android:id="@+id/consigee_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/consigee_space"
+            android:animateLayoutChanges="true"
+            android:gravity="center_vertical"
+            >
+
+            <EditText
+                style="@style/Consigee_edit"
+                android:hint="@string/consigee_address_hint"
+                android:imeOptions="actionNext"
+                android:maxLines="@integer/consigee_address_max_lines"
+                />
+
+            <ImageView
+                style="@style/delete_icon"
+                />
+        </com.zeustel.top9.widgets.TextInputHorizontalLayout>
+
+        <FrameLayout
+            style="@style/horizontal_line"
+            android:layout_marginTop="@dimen/consigee_space"
+            />
+
+        <com.zeustel.top9.widgets.TextInputHorizontalLayout
+            android:id="@+id/consigee_tel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/consigee_space"
+            android:animateLayoutChanges="true"
+            android:gravity="center_vertical"
+            >
+
+            <EditText
+                style="@style/Consigee_edit"
+                android:hint="@string/consigee_tel_hint"
+                android:imeOptions="actionDone"
+                android:singleLine="true"
+                />
+
+            <ImageView
+                style="@style/delete_icon"
+                />
+        </com.zeustel.top9.widgets.TextInputHorizontalLayout>
+
+        <FrameLayout
+            style="@style/horizontal_line"
+            android:layout_marginTop="@dimen/consigee_space"
+            />
+    </LinearLayout>
+</FrameLayout>

@@ -1,0 +1,179 @@
+package com.zeustel.top9.widgets;
+
+import android.content.Context;
+import android.support.v4.view.GestureDetectorCompat;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.view.animation.AnimationUtils;
+import android.widget.ViewFlipper;
+
+import com.zeustel.top9.R;
+import com.zeustel.top9.utils.Tools;
+
+/**
+ * 添加滑动功能
+ * 滑动监听
+ * 子view点击监听
+ */
+public class AnimViewFlipper extends ViewFlipper {
+    private Context context = null;
+    //是否触摸
+    private boolean isTouch = false;
+    //手势监听
+    private GestureDetectorCompat gestureDetector;
+    private OnItemClickCallBack mOnItemClickCallBack = null;
+    private OnFlipperListener mOnFlipperListener = null;
+    //父视图是否具有滚动功能
+    private boolean scrollable;
+
+    /**
+     * 子view点击监听
+     */
+    public interface OnItemClickCallBack {
+        void onItemClick(int index);
+    }
+
+    /**
+     * 滑动监听
+     */
+    public interface OnFlipperListener {
+        /**
+         * 显示上一个
+         */
+        void showPrevioused();
+
+        /**
+         * 显示下一个
+         */
+        void showNexted();
+    }
+
+    public AnimViewFlipper(Context context) {
+        super(context);
+        init(context);
+    }
+
+    public AnimViewFlipper(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(context);
+    }
+
+    private void init(Context context) {
+        this.context = context;
+        gestureDetector = new GestureDetectorCompat(context, new GestureListener());
+    }
+
+
+    /**
+     * 添加滑动监听
+     *
+     * @param mOnFlipperListener 滑动监听
+     */
+    public void addOnFlipperListener(OnFlipperListener mOnFlipperListener) {
+        this.mOnFlipperListener = mOnFlipperListener;
+    }
+
+    /**
+     * 添加item点击事件
+     *
+     * @param mOnItemClickCallBack item点击事件
+     */
+    public void addOnItemClickCallBack(OnItemClickCallBack mOnItemClickCallBack) {
+        this.mOnItemClickCallBack = mOnItemClickCallBack;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (gestureDetector != null) {
+            return gestureDetector.onTouchEvent(event);
+        }
+        return super.onTouchEvent(event);
+    }
+
+    @Override
+    public void showNext() {
+        // TODO Auto-generated method stub
+        if (!isTouch) {
+            setInAnimation(AnimationUtils.loadAnimation(context, R.anim.right_in));
+            setOutAnimation(AnimationUtils.loadAnimation(context, R.anim.left_out));
+        }
+        super.showNext();
+        if (mOnFlipperListener != null) {
+            mOnFlipperListener.showNexted();
+        }
+    }
+
+    @Override
+    public void showPrevious() {
+        // TODO Auto-generated method stub
+        if (!isTouch) {
+            setInAnimation(AnimationUtils.loadAnimation(context, R.anim.left_in));
+            setOutAnimation(AnimationUtils.loadAnimation(context, R.anim.right_out));
+        }
+        super.showPrevious();
+        if (mOnFlipperListener != null) {
+            mOnFlipperListener.showPrevioused();
+        }
+    }
+
+    public void setParentScrollAble(boolean scrollable) {
+        this.scrollable = scrollable;
+    }
+
+    /**
+     * 手势监听
+     */
+    private class GestureListener extends android.view.GestureDetector.SimpleOnGestureListener {
+        //单击
+
+        @Override
+        public boolean onDown(MotionEvent e) {
+            Tools.log_i(GestureListener.class, "onDown", "");
+            if (scrollable)/*解决父视图具有滚动功能时 ViewFlipper 滑动不灵敏*/
+            getParent().requestDisallowInterceptTouchEvent(true);
+            return true;
+        }
+
+        //单击
+        @Override
+        public boolean onSingleTapUp(MotionEvent e) {
+            Tools.log_i(GestureListener.class, "onSingleTapUp", "");
+            int index = getDisplayedChild();
+            if (mOnItemClickCallBack != null) {
+                mOnItemClickCallBack.onItemClick(index);
+            }
+            return super.onSingleTapUp(e);
+        }
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            Tools.log_i(GestureListener.class, "onFling", "");
+            if (e1 == null || e2 == null) {
+                return false;
+            }
+            if (e1.getX() - e2.getX() > 200) {// right
+                if (isAutoStart()) {
+                    stopFlipping();
+                }
+                isTouch = true;
+                setInAnimation(AnimationUtils.loadAnimation(context, R.anim.right_in));
+                setOutAnimation(AnimationUtils.loadAnimation(context, R.anim.left_out));
+                showNext();
+                startFlipping();
+            } else if (e2.getX() - e1.getX() > 200) {// left
+                if (isAutoStart()) {
+                    stopFlipping();
+                }
+                isTouch = true;
+                setInAnimation(AnimationUtils.loadAnimation(context, R.anim.left_in));
+                setOutAnimation(AnimationUtils.loadAnimation(context, R.anim.right_out));
+                showPrevious();
+                startFlipping();
+            } else {
+                isTouch = false;
+                return false;
+            }
+            return false;
+        }
+    }
+}

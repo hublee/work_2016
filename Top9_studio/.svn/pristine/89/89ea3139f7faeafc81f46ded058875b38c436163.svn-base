@@ -1,0 +1,90 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Top9.Theme.Red" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--状态栏底色-->
+        <item name="colorPrimaryDark">@color/red</item>
+        <!--导航栏底色-->
+        <item name="colorPrimary">@color/red</item>
+        <!--导航栏上的标题颜色-->
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <!--Activity窗口的颜色-->
+        <!--<item name="android:windowBackground">@color/material_blue_grey_800</item>-->
+        <!--按钮选中或者点击获得焦点后的颜色 悬浮按钮-->
+        <item name="colorAccent">?attr/colorPrimary</item>
+        <!--和 colorAccent相反，正常状态下按钮的颜色-->
+        <item name="colorControlNormal">?attr/colorPrimary</item>
+        <!--Button按钮正常状态颜色-->
+        <item name="colorButtonNormal">?attr/colorPrimary</item>
+        <!--EditText 输入框中字体的颜色-->
+        <item name="editTextColor">?android:attr/textColorPrimary</item>
+    </style>
+
+    <style name="Top9.Style.TextView" parent="Top9.Theme.Red">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:padding">@dimen/style_margin</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:textSize">@dimen/style_text_size</item>
+    </style>
+
+    <style name="FloatMenu">
+        <item name="android:windowEnterAnimation">@anim/translate_float_menu</item>
+    </style>
+
+    <style name="wrap">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="match">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="compere_column_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/def_font</item>
+        <item name="android:textSize">@dimen/compere_column_title</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="def_title" parent="wrap">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/def_font</item>
+        <item name="android:textSize">@dimen/def_title</item>
+        <item name="android:drawableLeft">@mipmap/line_vertical_red</item>
+        <item name="android:drawablePadding">@dimen/def_title_drawable_left_padding</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <!--收货人内输入框样式-->
+    <style name="Consigee_edit" parent="wrap">
+        <item name="android:layout_width">@dimen/min_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">@integer/weight_one</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:textColor">@color/def_font</item>
+        <item name="android:textSize">@dimen/consigee_text_size</item>
+    </style>
+
+    <!--输入框 删除按钮-->
+    <style name="delete_icon" parent="wrap">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/delete_icon_padding</item>
+        <item name="android:src">@mipmap/ic_delete</item>
+        <item name="android:visibility">invisible</item>
+    </style>
+    <!--水平方向 线-->
+    <style name="horizontal_line" parent="wrap">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/line_driver</item>
+        <item name="android:background">@color/def_line</item>
+    </style>
+</resources>

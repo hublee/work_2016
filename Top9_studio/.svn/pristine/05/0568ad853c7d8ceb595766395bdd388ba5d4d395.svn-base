@@ -1,0 +1,126 @@
+package com.zeustel.top9.base;
+
+import android.os.Handler;
+import android.os.Message;
+
+import com.zeustel.top9.R;
+import com.zeustel.top9.result.Result;
+import com.zeustel.top9.utils.Tools;
+
+import java.util.List;
+
+/**
+ * ...
+ *
+ * @author NiuLei
+ * @email niulei@zeustel.com
+ * @date 2015/9/17 10:18
+ */
+public abstract class WrapNotAndHandleActivity extends WrapNotActivity implements IOverallHandleSupport {
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case IOverallHandleSupport.MSG_LIST_SUCCESS:
+                    if (msg.arg1 == IOverallHandleSupport.ARG1_NATIVE) {//本地
+                        if (msg.arg2 == IOverallHandleSupport.ARG2_HISTORY) {//历史
+                            onHandleListHistory(null, msg.obj);
+                        } else {//更新
+                            onHandleListUpdate(null, msg.obj);
+                        }
+                    } else {//网络
+                        Result result = (Result) msg.obj;
+                        Object obj = result.getData();
+                        List data = null;
+                        if (obj != null && obj instanceof List) {
+                            data = (List) obj;
+                            if (!Tools.isEmpty(data)) {
+                                if (msg.arg2 == IOverallHandleSupport.ARG2_HISTORY) {//历史
+                                    onHandleListHistory(result, data);
+                                } else {//更新
+                                    onHandleListUpdate(result, data);
+                                }
+                            } else {
+                                onHandleListNo(result);
+                            }
+                        }
+                    }
+                    break;
+                case IOverallHandleSupport.MSG_LIST_FAILED:
+                    onHandleListFailed(msg.obj == null ? null : (Result) msg.obj);
+                    break;
+                case IOverallHandleSupport.MSG_PUBLISH_SUCCESS:
+                    onHandlePublishSuccess(msg.obj == null ? null : (Result) msg.obj);
+                    break;
+                case IOverallHandleSupport.MSG_PUBLISH_FAILED:
+                    onHandlePublishFailed(msg.obj == null ? null : (Result) msg.obj);
+                    break;
+                case IOverallHandleSupport.MSG_SINGLE_SUCCESS:
+                    if (msg.arg1 == IOverallHandleSupport.ARG1_NATIVE) {
+                        onHandleSingleSuccess(null, msg.obj);
+                    } else {
+                        Result result = (Result) msg.obj;
+                        onHandleSingleSuccess(result, result.getData());
+                    }
+                    break;
+                case IOverallHandleSupport.MSG_SINGLE_FAILED:
+                    onHandleSingleFailed(msg.obj == null ? null : (Result) msg.obj);
+                    break;
+            }
+        }
+    };
+
+    public Handler getHandler() {
+        return handler;
+    }
+
+    @Override
+    public void onHandleListUpdate(Result result, Object obj) {
+
+    }
+
+    @Override
+    public void onHandleListHistory(Result result, Object obj) {
+
+    }
+
+    @Override
+    public void onHandleListNo(Result result) {
+        Tools.showToast(this, R.string.load_request_no);
+    }
+
+    @Override
+    public void onHandleListFailed(Result result) {
+        Tools.showToast(this, R.string.load_request_failed);
+    }
+
+    @Override
+    public void onHandlePublishSuccess(Result result) {
+        Tools.showToast(this, R.string.publish_success);
+    }
+
+    @Override
+    public void onHandlePublishFailed(Result result) {
+        Tools.showToast(this, R.string.load_request_failed);
+    }
+
+    @Override
+    public void onHandleSingleSuccess(Result result, Object obj) {
+
+    }
+
+    @Override
+    public void onHandleSingleFailed(Result result) {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+        }
+    }
+}

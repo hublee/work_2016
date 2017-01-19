@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="grid9">
+        <item>01/09</item>
+        <item>02/09</item>
+        <item>03/09</item>
+        <item>04/09</item>
+        <item>05/09</item>
+        <item>06/09</item>
+        <item>07/09</item>
+        <item>08/09</item>
+        <item>09/09</item>
+        <item>更&#160;&#160;多</item>
+    </string-array>
+    <string-array name="topicType">
+        <item>【综合讨论】</item>
+        <item>【活动公告】</item>
+        <item>【攻略心得】</item>
+        <item>【问题咨询】</item>
+        <item>【玩家交流】</item>
+        <item>【全    部】</item>
+    </string-array>
+    <string-array name="topicClassify">
+        <item>综合讨论</item>
+        <item>活动公告</item>
+        <item>攻略心得</item>
+        <item>问题咨询</item>
+        <item>玩家交流</item>
+    </string-array>
+    <string-array name="infoType">
+        <item>【资讯新闻】</item>
+        <item>【资讯公告】</item>
+        <item>【资讯心得】</item>
+        <item>【资讯活动】</item>
+        <item>【资讯访谈】</item>
+        <item>【全    部】</item>
+    </string-array>
+    <string-array name="topBtips">
+        <item>每日登录</item>
+        <item>发表评论</item>
+        <item>发表主题</item>
+        <item>发表回帖</item>
+        <item>发送弹幕</item>
+    </string-array>
+    <string-array name="topBnums">
+        <item>+10</item>
+        <item>+5</item>
+        <item>+5</item>
+        <item>+2</item>
+        <item>+1</item>
+    </string-array>
+
+</resources>

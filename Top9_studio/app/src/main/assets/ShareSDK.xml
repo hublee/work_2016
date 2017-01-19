@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DevInfor>
+
+    <ShareSDK AppKey="275aba22985e"/>
+
+    <SinaWeibo
+        AppKey="544537616"
+        AppSecret="37ef156f75bee3a06a31d17b58b5c4b9"
+        Enable="true"
+        Id="1"
+        RedirectUrl="http://www.zeustel.com"
+        SortId="1"/>
+
+    <TencentWeibo
+        AppKey="801524119"
+        AppSecret="8639a77a2943e05d37be530c618f4113"
+        Enable="true"
+        Id="2"
+        RedirectUri="http://www.zeustel.com"
+        SortId="2"/>
+
+    <Renren
+        ApiKey="0ce28effdab4462284aec1346c101da3"
+        AppId="270302"
+        Enable="true"
+        Id="3"
+        SecretKey="e410df5647c144feb8e2df17a788b466"
+        SortId="3"/>
+
+    <QQ
+        AppId="1101839775"
+        AppKey="0zNUB85Jvj3GnrQs"
+        Enable="true"
+        Id="4"
+        ShareByAppClient="false"
+        SortId="4"/>
+
+    <QZone
+        AppId="1101839775"
+        AppKey="0zNUB85Jvj3GnrQs"
+        Enable="true"
+        Id="5"
+        ShareByAppClient="false"
+        SortId="5"/>
+
+    <Wechat
+        AppId="wx35f28aee99b28f0f"
+        AppSecret="8aff21fe125aaf96f72ff1cee7f4b0ea"
+        BypassApproval="false"
+        Enable="true"
+        Id="6"
+        SortId="6"/>
+
+    <WechatMoments
+        AppId="wx35f28aee99b28f0f"
+        BypassApproval="false"
+        Enable="true"
+        Id="7"
+        SortId="7"/>
+    <!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
+    <!--
+    	Wechat微信和WechatMoments微信朋友圈的appid是一样的；
+    
+                       注意：开发者不能用我们这两个平台的appid,否则分享不了
+    
+       	  微信测试的时候，微信测试需要先签名打包出apk,
+		sample测试微信，要先签名打包，keystore在sample项目中，密码123456
+		
+		BypassApproval是绕过审核的标记，设置为true后AppId将被忽略，故不经过
+		审核的应用也可以执行分享，但是仅限于分享文字和图片，不能分享其他类型，
+		默认值为false。此外，微信收藏不支持此字段。
+
+
+    -->
+    <!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
+
+</DevInfor>

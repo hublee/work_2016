@@ -1,0 +1,43 @@
+package com.zeustel.top9.adapters;
+
+import android.content.Context;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.zeustel.top9.R;
+import com.zeustel.top9.bean.MenuItem;
+
+/**
+ * ...
+ *
+ * @author NiuLei
+ * @email niulei@zeustel.com
+ * @date 2015/8/25 17:04
+ */
+public class HolderExpandMenu extends OverallRecyclerHolder<MenuItem>{
+    private ImageView float_menu_item_img;
+    private TextView float_menu_item_text;
+    public HolderExpandMenu(Context context, View itemView) {
+        super(context, itemView);
+    }
+    @Override
+    protected void initItemView(View itemView) {
+        if (itemView != null) {
+            float_menu_item_img = (ImageView) itemView.findViewById(R.id.float_menu_item_img);
+            float_menu_item_text = (TextView) itemView.findViewById(R.id.float_menu_item_text);
+        }
+    }
+    @Override
+    public void set(OverallRecyclerAdapter<MenuItem> adapter, int position) {
+        MenuItem mMenuItem = adapter.getItem(position);
+        float_menu_item_img.setImageResource(mMenuItem.getImg());
+        float_menu_item_text.setText(mMenuItem.getText());
+
+    }
+
+    @Override
+    protected boolean isItemClickEnabled() {
+        return false;
+    }
+}

@@ -1,0 +1,119 @@
+package com.zeustel.top9.adapters;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.zeustel.top9.utils.Tools;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+
+/**
+ * 全局适配器
+ *
+ * @author NiuLei
+ * @email niulei@zeustel.com
+ * @date 2015/7/22 11:22
+ */
+public class OverallRecyclerAdapter<T> extends RecyclerView.Adapter<OverallRecyclerHolder<T>> implements OverallRecyclerHolder.OnElementClickListener {
+    private Context context;
+    private LayoutInflater inflater;
+    private List<T> data;
+    private int layoutId;
+    private Class<? extends OverallRecyclerHolder> cls;
+    private Constructor<?> vh;
+    private OnitemClickListener onitemClickListener;
+    private String lightText;
+
+    private void onDetached() {
+        inflater = null;
+        if (data != null) {
+            data.clear();
+            data = null;
+        }
+        layoutId = -1;
+        cls = null;
+        vh = null;
+        onitemClickListener = null;
+        lightText = null;
+    }
+
+
+    public String getLightText() {
+        return lightText;
+    }
+
+    public void setLightText(String lightText) {
+        this.lightText = lightText;
+    }
+
+    @Override
+    public void onElementClick(int position, String tag) {
+        if (onitemClickListener != null) {
+            onitemClickListener.onitemClick(OverallRecyclerAdapter.this, position, tag);
+        }
+    }
+
+    public interface OnitemClickListener {
+        void onitemClick(RecyclerView.Adapter adapter, int position, String tag);
+    }
+
+    public void setOnitemClickListener(OnitemClickListener onitemClickListener) {
+        this.onitemClickListener = onitemClickListener;
+    }
+
+    public OverallRecyclerAdapter(List<T> data, int layoutId, Class<? extends OverallRecyclerHolder> cls) throws NoSuchMethodException {
+        this.data = data;
+        this.layoutId = layoutId;
+        this.cls = cls;
+        if (cls != null) {
+            try {
+                vh = cls.getConstructor(Context.class, View.class);
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+                throw e;
+            }
+        }
+    }
+
+    @Override
+    public OverallRecyclerHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (context == null)
+            context = parent.getContext().getApplicationContext();
+        if (inflater == null)
+            inflater = LayoutInflater.from(context);
+        OverallRecyclerHolder mRecyclerHolderHelper = null;
+        if (vh != null) {
+            try {
+                mRecyclerHolderHelper = (OverallRecyclerHolder) vh.newInstance(context, Tools.setLayoutParams(inflater.inflate(layoutId, null)));
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        }
+        mRecyclerHolderHelper.setOnElementClickListener(this);
+        mRecyclerHolderHelper.setLightText(lightText);
+        return mRecyclerHolderHelper;
+    }
+
+    @Override
+    public void onBindViewHolder(OverallRecyclerHolder holder, int position) {
+        holder.set(this, position);
+    }
+
+    @Override
+    public int getItemCount() {
+        return data == null ? 0 : data.size();
+    }
+
+    public T getItem(int position) {
+        return data.get(position);
+    }
+}

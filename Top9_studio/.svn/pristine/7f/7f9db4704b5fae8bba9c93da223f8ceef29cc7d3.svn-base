@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/def_bg"
+                android:clickable="true"
+                android:orientation="vertical"
+    >
+
+    <include
+        android:id="@+id/include_refresh_layout"
+        layout="@layout/fragment_refresh_base"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/detail_html_input"
+        android:layout_margin="@dimen/game_describe_card_margin"
+        />
+
+    <com.zeustel.top9.widgets.InputView
+        android:id="@+id/detail_html_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        />
+</RelativeLayout>

@@ -1,0 +1,9 @@
+include ':app'
+include ':libraries:DanmakuFlame'
+include ':libraries:Wheel'
+include ':libraries:MainLibs'
+include ':libraries:OneKeyShare'
+include ':libraries:GalleryLib'
+
+
+

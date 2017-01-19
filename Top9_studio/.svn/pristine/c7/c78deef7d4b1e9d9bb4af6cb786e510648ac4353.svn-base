@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="weight_one">1</integer>
+    <!--收货人地址最大行数-->
+    <integer name="consigee_address_max_lines">3</integer>
+    <integer name="evaluating_item_title_max_lines">3</integer>
+    <integer name="viewflipper_flip_interval">5000</integer>
+    <integer name="grid9_item_progress_max">100</integer>
+    <integer name="grid9_item_title_max_lines">2</integer>
+</resources>

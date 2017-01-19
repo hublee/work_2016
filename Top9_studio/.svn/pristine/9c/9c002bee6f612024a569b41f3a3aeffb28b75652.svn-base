@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="style_text_size">13sp</dimen>
+    <dimen name="def_title">14sp</dimen>
+    <!--悬浮标题-->
+    <dimen name="float_title_textsize">13sp</dimen>
+    <dimen name="evaluating_item_time_size">22sp</dimen>
+    <dimen name="evaluating_item_title_size">13sp</dimen>
+    <dimen name="evaluating_item_subtitle_size">15sp</dimen>
+    <dimen name="input_hint">13sp</dimen>
+    <dimen name="input_send">12sp</dimen>
+    <dimen name="compere_column_title">15sp</dimen>
+    <dimen name="compere_column_value">10sp</dimen>
+    <!--登录-->
+    <dimen name="login_account">16sp</dimen>
+    <dimen name="login_password">16sp</dimen>
+    <dimen name="login_regist">14sp</dimen>
+    <dimen name="login_other">14sp</dimen>
+    <!--注册-->
+    <dimen name="regist_account">14sp</dimen>
+    <dimen name="regist_account_comment">13sp</dimen>
+    <dimen name="regist_password">@dimen/regist_account</dimen>
+    <dimen name="regist_password_comment">@dimen/regist_account_comment</dimen>
+    <dimen name="regist_show">13sp</dimen>
+    <dimen name="regist_gender">18sp</dimen>
+    <!--我的-->
+    <dimen name="self_name">18sp</dimen>
+    <dimen name="self_integral">12sp</dimen>
+    <dimen name="self_flower">12sp</dimen>
+    <dimen name="self_exit">11sp</dimen>
+    <dimen name="item_self_title">15sp</dimen>
+    <dimen name="settings_name">18sp</dimen>
+    <dimen name="settings_modify_name">12sp</dimen>
+    <dimen name="settings_modify_password">12sp</dimen>
+    <!--记录-->
+    <dimen name="note_title">14sp</dimen>
+    <!--top9游戏-->
+    <dimen name="grid9_item_title">12sp</dimen>
+    <dimen name="grid9_item_describe">12sp</dimen>
+    <dimen name="grid9_item_download_text">12sp</dimen>
+    <dimen name="game_describe_name">13sp</dimen>
+    <dimen name="game_describe_entry_room">13sp</dimen>
+    <dimen name="game_describe_download_text">12sp</dimen>
+    <dimen name="game_describe_screenshot_text">12sp</dimen>
+    <dimen name="game_describe_video_text">12sp</dimen>
+    <!--聊天室-->
+    <dimen name="voice_group_name_size">15sp</dimen>
+    <dimen name="voice_group_count_size">15sp</dimen>
+    <dimen name="voice_child_nickName_size">12sp</dimen>
+    <dimen name="voice_toggle_size">11sp</dimen>
+    <dimen name="voice_hf_toggle_size">11sp</dimen>
+    <!--收货人字体大小-->
+    <dimen name="consigee_text_size">14sp</dimen>
+    <!--商品详细-->
+    <dimen name="goods_name_size">14sp</dimen>
+    <dimen name="goods_residue_size">13sp</dimen>
+    <dimen name="goods_describe_des_size">14sp</dimen>
+    <dimen name="goods_price_des_size">12sp</dimen>
+    <dimen name="goods_price_size">13sp</dimen>
+    <dimen name="goods_residue_des_size">12sp</dimen>
+    <dimen name="goods_describe_size">12sp</dimen>
+    <dimen name="store_item_name_size">14sp</dimen>
+    <dimen name="store_item_price_size">12sp</dimen>
+    <dimen name="store_item_residue_size">12sp</dimen>
+    <dimen name="store_item_already_size">11sp</dimen>
+    <dimen name="container_title_size">13sp</dimen>
+    <!--搜索-->
+    <dimen name="search_input_edit_size">12sp</dimen>
+    <dimen name="search_note_size">12sp</dimen>
+    <dimen name="bottom_send_size">12sp</dimen>
+    <dimen name="modify_pwd_text_size">14sp</dimen>
+
+</resources>

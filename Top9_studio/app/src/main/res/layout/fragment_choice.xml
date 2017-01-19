@@ -1,0 +1,19 @@
+<com.zeustel.top9.widgets.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             app:direction="both"
+                                             tools:context="com.zeustel.top9.fragments.ChoiceFragment"
+    >
+
+    <ListView
+        android:id="@+id/choice_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:choiceMode="singleChoice"
+        android:clickable="false"
+        android:scrollbars="none"
+        />
+
+</com.zeustel.top9.widgets.SwipeRefreshLayout>

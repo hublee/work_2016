@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/def_bg"
+             android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:id="@+id/lack_money_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="Top币不足"
+            android:textColor="@color/def_font"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_driver"
+            android:background="@color/def_line"/>
+
+        <TextView
+            android:id="@+id/lack_money_tips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="30dp"
+            android:lineSpacingExtra="10dp"
+            android:textSize="13sp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:text="(*注 : 各项每日上限均为10Top币)"
+            android:textColor="@color/def_font"
+            android:textSize="11sp"
+            />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_driver"
+            android:background="@color/def_line"/>
+
+        <Button
+            android:id="@+id/lack_money_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/all_btn_bg"
+            android:gravity="center"
+            android:text="确认"
+            android:textColor="@drawable/all_text_color"
+            android:textSize="15sp"
+            />
+    </LinearLayout>
+</FrameLayout>

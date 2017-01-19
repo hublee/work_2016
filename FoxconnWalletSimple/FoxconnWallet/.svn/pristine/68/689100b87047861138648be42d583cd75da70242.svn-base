@@ -1,0 +1,92 @@
+package com.zeustel.cp;
+
+import android.text.TextUtils;
+
+public class CPInfo {
+	private String appId;//appid
+	private String appKey;//appkey
+	private String cpPrivate;//私钥
+	private String zsPublic;//平台公钥
+	
+	/**
+	 * 获取appid
+	 * @return
+	 */
+	public String getAppId() {
+		return appId;
+	}
+	
+	/**
+	 * 设置appid
+	 * @return
+	 */
+	public void setAppId(String appId) {
+		this.appId = appId;
+	}
+	
+	/**
+	 *获取appkey
+	 * @return
+	 */
+	public String getAppKey() {
+		return appKey;
+	}
+	
+	/**
+	 * 设置appkey
+	 * @param appKey
+	 */
+	public void setAppKey(String appKey) {
+		this.appKey = appKey;
+	}
+	
+	/**
+	 * 获取 cp 私钥
+	 * @param cpPrivate
+	 */
+	public String getCpPrivate() {
+		return cpPrivate;
+	}
+	
+	/**
+	 * 设置 cp 私钥
+	 * @param cpPrivate
+	 */
+	public void setCpPrivate(String cpPrivate) {
+		this.cpPrivate = cpPrivate;
+	}
+	
+	/**
+	 * 获取平台公钥
+	 * @return
+	 */
+	public String getZsPublic() {
+		return zsPublic;
+	}
+	
+	/**
+	 * 设置平台公钥
+	 * @param zsPublic
+	 */
+	public void setZsPublic(String zsPublic) {
+		this.zsPublic = zsPublic;
+	}
+
+	public CPInfo(){
+		
+	}
+	
+	public CPInfo(String appId, String appKey, String cpPrivate, String zsPublic) {
+		super();
+		this.appId = appId;
+		this.appKey = appKey;
+		this.cpPrivate = cpPrivate;
+		this.zsPublic = zsPublic;
+	}
+	
+	public boolean isEmpty(){
+		return TextUtils.isEmpty(appId)||TextUtils.isEmpty(appKey);
+//		return !((appId!=null)&&(appKey!=null)&&(cpPrivate!=null)&&(zsPublic!=null)&&(!TextUtils.isEmpty(appId))&&(!TextUtils.isEmpty(appKey))&&(!TextUtils.isEmpty(cpPrivate))&&(!TextUtils.isEmpty(zsPublic)));
+	}
+	
+}

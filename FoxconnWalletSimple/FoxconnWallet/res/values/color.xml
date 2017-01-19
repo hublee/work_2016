@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+     <color name="color_808080">#808080</color>
+    <!-- 电台控制背景 -->
+	<color name="fm_center_bg">#99000000</color>
+    <!-- 兑换控制 背景 -->
+    <color name="center_bg">#99041925</color>
+    <!-- 兑换 通用背景 -->
+    <color name="common_bg">#ffffff</color>
+    <!-- 兑换 通用按钮 -->
+    <color name="common_btn">#e66b7e</color>
+    <!-- 不可点击状态 -->
+    <color name="common_btn_enable">#ccc</color>
+    <!-- 兑换 通用标题背景 -->
+    <color name="common_title_bg">#e84c5e</color>
+    <!-- 兑换 通用文字 -->
+    <color name="common_text">#c5c5c5</color>
+    <!-- 兑换 通用输入 -->
+    <color name="common_input">#3b424c</color>
+    <!-- 兑换 通用提示 -->
+    <color name="common_tips">#fd8a9e</color>
+    <!-- 兑换 通用提交 -->
+    <color name="common_submit">#f4554f</color>
+    <!-- 兑换 通用提示 -->
+    <color name="common_text_hint">#676767</color>
+    <!-- 弹窗背景 -->
+    <color name="dialog_bg">#fff</color>
+    <!-- 分割线 -->
+    <color name="separate">#f1f1f1</color>
+    <!-- 验证 -->
+    <color name="check_bg">#fff</color>
+    
+    <!-- 弹窗 -->
+    <color name="dialog_ok">#f4554f</color>
+    <color name="dialog_cancel">#b2b2b2</color>
+    
+    <!-- 电台  正在播放-->
+    <color name="nowplay_tips">#ea5b5b</color>
+    <color name="newfm">#fff</color>
+    <color name="newfm_program">#000</color>
+    
+    <color name="dark_btn">#cc999999</color>
+
+    <color name="input_bg">#111</color>
+
+    <color name="input_separate">#fff</color>
+    <color name="important_text">#ff8101</color>
+
+	<color name="nowplay_bg">#000</color>
+	
+	  <color name="white">#ffffff</color>
+    <color name="red">#f93a32</color>
+    <color name="grey">#cccccc</color>
+    <color name="blue">#3b5998</color>
+    <color name="grey_thin">#e6e6e6</color>
+    <color name="color_666666">#666666</color>
+    <color name="color_b2b2b2">#b2b2b2</color>
+    <color name="color_4c4c4c">#4c4c4c</color>
+</resources>

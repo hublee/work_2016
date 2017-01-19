@@ -1,0 +1,30 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="com.zeustel.top9.temp.TempEvaluatingActivity"
+                android:id="@+id/temp"
+    >
+
+    <com.zeustel.top9.widgets.CustomViewPager
+        android:id="@+id/html_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <com.zeustel.top9.widgets.VoiceShyView
+        android:id="@+id/html_shyView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="-20dp"
+        android:layout_marginTop="100dp"
+        />
+
+    <com.zeustel.top9.widgets.LoadingView
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:visibility="gone"
+        />
+</RelativeLayout>

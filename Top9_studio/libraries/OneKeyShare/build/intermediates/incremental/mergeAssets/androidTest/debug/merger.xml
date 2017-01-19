@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="unspecified"><source path="D:\lib_workspace\androidStudio\Top9_studio\libraries\OneKeyShare\build\intermediates\exploded-aar\Top9_studio.libraries\MainLibs\unspecified\assets"/></dataSet><dataSet config="debug"><source path="D:\lib_workspace\androidStudio\Top9_studio\libraries\OneKeyShare\build\intermediates\bundles\debug\assets"/></dataSet><dataSet config="main"><source path="D:\lib_workspace\androidStudio\Top9_studio\libraries\OneKeyShare\src\androidTest\assets"/></dataSet></merger>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <com.zeustel.top9.widgets.ScrollGroup
+        android:id="@+id/main_video_layout_flag"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/main_video_layout"
+            android:layout_width="match_parent"
+            android:layout_height="256dp"
+            >
+
+            <ImageView
+                android:id="@+id/main_video_cover"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                />
+
+            <ImageView
+                android:id="@+id/main_video_toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/video_start"
+                android:visibility="gone"/>
+        </RelativeLayout>
+    </com.zeustel.top9.widgets.ScrollGroup>
+<!--com.zeustel.top9.widgets.OverScrollView-->
+    <com.zeustel.top9.widgets.OverScrollView
+        android:id="@+id/main_over"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            >
+
+            <FrameLayout
+                android:id="@+id/listenerFlag"
+                android:layout_width="match_parent"
+                android:layout_height="256dp"
+                android:background="@android:color/transparent"/>
+
+            <LinearLayout
+                android:id="@+id/main_video_bootom"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical"
+                >
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@mipmap/marks_red"
+                    />
+
+                <com.zeustel.top9.widgets.PrintTextView
+                    android:id="@+id/main_big_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#484657"
+                    android:textSize="18sp"/>
+
+                <LinearLayout
+                    android:id="@+id/main_items"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"/>
+
+                <WebView
+                    android:id="@+id/fragment_html_sys_web"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="none"
+                    android:focusableInTouchMode="false"
+                    android:focusable="false"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </com.zeustel.top9.widgets.OverScrollView>
+</RelativeLayout>

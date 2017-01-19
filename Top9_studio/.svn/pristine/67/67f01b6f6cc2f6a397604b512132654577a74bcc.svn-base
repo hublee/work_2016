@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="unicode"?>
+<ChatFace>
+	<next key="#0">0.GIF</next>
+	<next key="#1">1.GIF</next>
+	<next key="#2">2.GIF</next>
+	<next key="#3">3.GIF</next>
+	<next key="#4">4.GIF</next>
+	<next key="#5">5.GIF</next>
+	<next key="#6">6.GIF</next>
+	<next key="#7">7.GIF</next>
+	<next key="#8">8.GIF</next>
+	<next key="#9">9.GIF</next>
+	<next key="#10">10.GIF</next>
+	<next key="#11">11.GIF</next>
+	<next key="#12">12.GIF</next>
+	<next key="#13">13.GIF</next>
+	<next key="#14">14.GIF</next>
+	<next key="#15">15.GIF</next>
+	<next key="#16">16.GIF</next>
+	<next key="#17">17.GIF</next>
+	<next key="#18">18.GIF</next>
+	<next key="#19">19.GIF</next>
+	<next key="#20">20.GIF</next>
+</ChatFace>

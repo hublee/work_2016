@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true">
+        <!--android:layout_marginLeft="@dimen/closeable_close"-->
+        <!--android:layout_marginTop="@dimen/closeable_close">-->
+
+        <LinearLayout
+            android:id="@+id/closeable_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/center_bg"
+            android:paddingLeft="@dimen/biggest"
+            android:paddingRight="@dimen/biggest"
+            />
+        <!--android:paddingTop="@dimen/little_font"-->
+        <!--android:paddingBottom="@dimen/little_font"-->
+    </RelativeLayout>
+
+    <!--<ImageView-->
+        <!--android:id="@+id/closeable_close"-->
+        <!--android:layout_width="@dimen/closeable_close"-->
+        <!--android:layout_height="@dimen/closeable_close"-->
+        <!--android:src="@mipmap/close1"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentEnd="true"/>-->
+</RelativeLayout>

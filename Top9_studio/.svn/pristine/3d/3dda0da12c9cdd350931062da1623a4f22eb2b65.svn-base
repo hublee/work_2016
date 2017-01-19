@@ -1,0 +1,137 @@
+apply plugin: 'com.android.application'
+
+def releaseTime() {
+    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
+}
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion '23.0.0'
+
+    defaultConfig {
+        applicationId "com.zeustel.top9"
+        minSdkVersion 8
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "Top9"]
+    }
+
+    buildTypes {
+        debug {
+            //显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            versionNameSuffix "-debug"
+            //不混淆
+            minifyEnabled false
+            //zipAlign 不优化
+            zipAlignEnabled false
+            //不移除无用的Resources文件
+            shrinkResources false
+        }
+        release {
+            //显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            versionNameSuffix "-release"
+            //混淆
+            minifyEnabled true
+            //zipAlign 优化
+            zipAlignEnabled true
+            //移除无用的Resources文件
+            shrinkResources true
+            //加载默认混淆配置文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+        top9 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "Top9"]
+        }
+        googlePlay {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "googlePlay"]
+        }
+        xiaoMi {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaoMi"]
+        }
+        umeng {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "umeng"]
+        }
+    }
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                //Top9_20141121_googlepaly_1.0-debug.apk
+                def fileName = "Top9_${releaseTime()}_${variant.productFlavors[0].name}_v${defaultConfig.versionName}.apk"
+                output.outputFile = new File(outputFile.parent, fileName)
+            }
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    /*友盟统计sdk
+                                                                                                    OtherWay : compile 'com.umeng.analytics:analytics:latest.integration'
+                                                                                                    License :
+                                                                                                    Url : http://www.umeng.com/
+                                                                                                    */
+    compile files('libs/umeng-analytics-v5.5.3.jar')
+    /*json框架
+                                                                                                    OtherWay : compile 'com.google.code.gson:gson:2.3.1'
+                                                                                                    License : Apache Version 2.0
+                                                                                                    Url : https://github.com/google/gson
+                                                                                                    */
+    compile files('libs/gson-2.3.1.jar')
+    /*网络框架
+                                                                                                    OtherWay : compile 'com.loopj.android:android-async-http:1.4.7'
+                                                                                                    License : Apache Version 2.0
+                                                                                                    Url : https://github.com/loopj/android-async-http
+                                                                                                    */
+    compile files('libs/android-async-http-1.4.8.jar')
+    /*tabhost viewpager框架
+                                                                                                    OtherWay :
+                                                                                                    License : Apache Version 2.0
+                                                                                                    Url : https://github.com/LuckyJayce/ViewPagerIndicator
+                                                                                                    */
+    //    compile files('libs/viewPagerIndicator.jar')
+    /*图片加载框架
+                                                                                                    OtherWay :
+                                                                                                    License : Apache Version 2.0
+                                                                                                    Url : https://github.com/nostra13/Android-Universal-Image-Loader
+                                                                                                    */
+    //    compile files('libs/universal-image-loader-1.9.4.jar')
+    /*开源弹幕项目
+                                                                                                    OtherWay : compile 'com.github.ctiao:dfm:0.3.2'
+                                                                                                    License : Apache Version 2.0
+                                                                                                    Url : https://github.com/Bilibili/DanmakuFlameMaster
+                                                                                                    */
+    /*滚轮组件
+                                                                                                */
+    compile files('libs/nineoldandroids-2.4.0.jar')
+    /*动画框架
+                                                                                                    OtherWay :
+                                                                                                    License : Apache Version 2.0
+                                                                                                    Url : https://github.com/JakeWharton/NineOldAndroids
+                                                                                                    */
+    //    compile files('libs/nineoldandroids-2.4.0.jar')
+    compile files('libs/xUtils-2.6.14.jar')
+    compile project(':libraries:DanmakuFlame')
+    compile project(':libraries:Wheel')
+    compile project(':libraries:OneKeyShare')
+    compile project(':libraries:MainLibs')
+    compile project(':libraries:GalleryLib')
+    compile files('libs/gotye_voichannel_20150610.jar')
+    compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.android.support:cardview-v7:23.0.1'
+    compile 'com.android.support:recyclerview-v7:23.0.1'
+    compile 'com.android.support:design:23.0.1'
+    compile 'com.android.support:percent:23.0.0'
+    compile 'com.android.support:support-v4:23.0.1'
+    compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
+    compile 'com.android.support:gridlayout-v7:23.0.1'
+}

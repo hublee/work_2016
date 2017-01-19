@@ -1,0 +1,72 @@
+{
+  "data": [
+    {
+      "id": 53,
+      "nickName": "yangtest",
+      "icon": "/attaches/app/user/icon/41c340ad-1089-4d39-bd48-891706f44c25.png",
+      "gender": 0,
+      "lastModifyTime": 1448208262000,
+      "goodCount": 3
+    },
+    {
+      "id": 54,
+      "nickName": "yangtest1",
+      "icon": "/attaches/images/default_head.jpg",
+      "gender": 0,
+      "lastModifyTime": 1446603936000,
+      "goodCount": 0
+    },
+    {
+      "id": 55,
+      "nickName": "yangtest2",
+      "icon": "/attaches/images/default_head.jpg",
+      "gender": 0,
+      "lastModifyTime": 1446603973000,
+      "goodCount": 0
+    },
+    {
+      "id": 60,
+      "nickName": "会飞的猪",
+      "icon": "/attaches/app/user/icon/914cfa66-6333-4e4e-bec3-b7a4b2cdc8aa.png",
+      "gender": 0,
+      "lastModifyTime": 1448435759000,
+      "goodCount": 0
+    },
+    {
+      "id": 61,
+      "nickName": "杨女侠",
+      "icon": "/attaches/app/user/icon/81975036-1a5f-440a-ac2d-2ba87df17110.png",
+      "gender": 0,
+      "lastModifyTime": 1448436240000,
+      "goodCount": 0
+    },
+    {
+      "id": 62,
+      "nickName": "风一样的女人",
+      "icon": "/attaches/app/user/icon/78a6c885-b3ad-44b9-a4c1-e5601972a0aa.png",
+      "gender": 0,
+      "lastModifyTime": 1448436326000,
+      "goodCount": 0
+    },
+    {
+      "id": 63,
+      "nickName": "隔壁王嫂",
+      "icon": "/attaches/app/user/icon/18a59622-c086-473b-8875-d455f3813e04.png",
+      "gender": 0,
+      "lastModifyTime": 1448436505000,
+      "goodCount": 0
+    },
+    {
+      "id": 64,
+      "nickName": "神仙姐姐",
+      "icon": "/attaches/app/user/icon/7b52bcdf-871a-4cf8-9fbc-d5a2a142ea63.png",
+      "gender": 0,
+      "lastModifyTime": 1448444056000,
+      "goodCount": 1
+    }
+  ],
+  "success": 1,
+  "error": 0,
+  "msg": null,
+  "count": 0
+}

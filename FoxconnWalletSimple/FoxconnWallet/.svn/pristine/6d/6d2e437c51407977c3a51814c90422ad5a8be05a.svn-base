@@ -1,0 +1,98 @@
+package com.zeustel.cp.views;
+
+import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
+import com.zeustel.cp.utils.Constants;
+import com.zeustel.cp_sdk.R;
+import com.zeustel.cp.SdkHelper;
+import com.zeustel.cp.ZSSDK;
+import com.zeustel.cp.intf.IMenu;
+
+/**
+ * Created by Do on 2016/2/23.
+ */
+public class ControllerCenter extends Closeable implements IMenu {
+    public ControllerCenter(Context context){
+        super(context);
+        addView();
+    }
+
+    private void addView() {
+        inflate(getContext(), R.layout.view_controllercenter, this);
+
+        addItem();
+    }
+
+
+
+    private void addItem(){
+        LinearLayout.LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.weight =1;
+
+        MenuItem exchangeItem = new MenuItem(getContext());
+        exchangeItem.setViewId(Constants.EXCHANGE_VIEWID);
+        exchangeItem.displayImg("drawable://" + R.drawable.exchange);
+        exchangeItem.displayImg(R.drawable.exchange);
+        exchangeItem.setTitle("兑换");
+        exchangeItem.registCallBack(this);
+        layout.addView(exchangeItem,params);
+
+        MenuItem shopItem = new MenuItem(getContext());
+        shopItem.setViewId(Constants.EXCHANGE_VIEWID);
+        shopItem.displayImg("drawable://" + R.drawable.shop);
+        shopItem.displayImg(R.drawable.shop);
+        shopItem.setTitle("商城");
+        shopItem.registCallBack(this);
+        shopItem.setViewFlag(MenuItem.SHOP_VIEW);
+        layout.addView(shopItem,params);
+
+        MenuItem radioItem = new MenuItem(getContext());
+        radioItem.setViewId(Constants.EXCHANGE_VIEWID);
+        radioItem.displayImg("drawable://" + R.drawable.radio);
+        radioItem.displayImg(R.drawable.radio);
+        radioItem.setTitle("电台");
+        radioItem.registCallBack(this);
+        radioItem.setViewFlag(MenuItem.RADIO_VIEW);
+        layout.addView(radioItem,params);
+
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()){
+
+        }
+    }
+
+	@Override
+	public void toShop() {
+		// TODO Auto-generated method stub
+		SdkHelper.openApp(getContext(), Constants.PACKAGE_NAME_JFT);
+		ZSSDK.getDefault().distroyControlMenu();
+		close();
+	}
+
+	@Override
+	public void toView(int viewId) {
+		// TODO Auto-generated method stub
+		iView.addView(viewId);
+		ZSSDK.getDefault().distroyControlMenu();
+		close();
+	}
+
+	@Override
+	public void toRadio() {
+		// TODO Auto-generated method stub
+		SdkHelper.openApp(getContext(), Constants.PACKAGE_NAME_TOP9);
+		ZSSDK.getDefault().distroyControlMenu();
+		close();
+	}
+
+
+
+}

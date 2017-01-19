@@ -1,0 +1,28 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+ 	xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="320dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="end"
+    >
+    
+     <com.zeustel.cp.views.ControllerImage
+        android:id="@+id/animimg"
+        android:layout_width="320dp"
+        android:layout_height="@dimen/controller_height"
+        android:src="@drawable/center_bg"
+  		
+        />
+     
+    <RelativeLayout
+        android:id="@+id/animlayout"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/controller_height"
+        android:paddingLeft="@dimen/common_space"
+        android:paddingRight="@dimen/common_space"
+        >
+        
+	</RelativeLayout >
+	
+   
+</RelativeLayout >

@@ -1,0 +1,431 @@
+package com.zeustel.top9.utils;
+
+import android.os.Build;
+
+import com.zeustel.top9.BuildConfig;
+import com.zeustel.top9.bean.UserInfo;
+import com.zeustel.top9.bean.Version;
+
+/**
+ * 一些常量信息
+ *
+ * @author NiuLei
+ * @email niulei@zeustel.com
+ * @date 2015/6/23 15:22
+ */
+public class Constants {
+
+    //测试服务器路径头
+    public static final String PORT = "1024";
+    public static final String IP = "10.1.1.18";
+    /*   public static final String PORT = "8080";
+     public static final String IP = "192.168.1.110";*/
+/* http://192.168.1.112:8080/DemoServer/servlet/HtmlCommentServlet */
+    public static final String TEST_URL_BASE = "http://" + IP + ":" + PORT + "/DemoServer/";
+
+    public static final String TEST_SERVLET = TEST_URL_BASE + "servlet/";
+    public static final String TEST_VIDEO = TEST_URL_BASE + "videos/";
+    public static final String TEST_LIST_EVLUATING = TEST_SERVLET + "EvaluatingServlet?";
+    public static final String TEST_LIST_COMMENT = TEST_SERVLET + "HtmlCommentServlet?";
+    public static final String TEST_LIST_STORE = TEST_SERVLET + "StoreServlet";
+    public static final String TEST_FM = TEST_SERVLET + "FMServlet";
+    public static final String TEST_LIST_NOTE = TEST_SERVLET + "NoteServlet?";
+    public static final String TEST_LIST_GAME = TEST_SERVLET + "GameServlet";
+    public static final String TEST_LIST_COMMUNITY = TEST_SERVLET + "CommunityTopicServlet?";
+    public static final String TEST_LIST_INFO = TEST_SERVLET + "CommunityInfoServlet?";
+
+    // log开关
+    public static final boolean DEBUG = BuildConfig.LOG_DEBUG;
+    //演示版
+    public static final boolean SHOW_HOW = false;
+    //网络请求log
+    public static final boolean DEBUG_NET_CALLBACK = true && DEBUG;
+    //游戏界面开关
+    public static final boolean GAME_ENABLE = false;
+
+    //db名称
+    public static final String DATABASE_NAME = "dbTop9.db";
+    //db版本
+    public static final int DATABASE_VERSION = 1;
+
+    //log tag
+    public static final String TAG = "Top9-TAG";
+    //系统版本
+    public static final String SDK_VERSION = Build.VERSION.RELEASE;
+    //apk文件存放目录
+    public static final String PATH_APK = "apk";
+    //图片文件存放目录
+    public static final String PATH_IMAGE = "image";
+    //video文件存放目录
+    public static final String PATH_VIDEO = "video";
+    //配置文件文件存放目录
+    public static final String PATH_CONFIG = "config";
+    //网络连接超时
+    public static final int TIMEOUT = 5000;
+    //服务器路径头
+    /*立标*/
+       // public static final String URL_SERVER = "http://10.1.1.226:8081";
+    /*伟秋*/
+    //    public static final String URL_SERVER = "http://10.1.1.211:8081";
+    /*服务器*/
+    public static final String URL_SERVER = "http://115.29.5.34";
+    //数据接口
+    public static final String URL_BASE = URL_SERVER + "/app/";
+    //文件接口
+    @Deprecated
+    public static final String TEST_IMG = URL_SERVER;
+    /**
+     * 注册
+     *
+     * @param name 账户
+     * @param password 密码
+     * @param gender 性别 see{@link com.zeustel.top9.bean.SubUserInfo.Gender}
+     * @method post
+     */
+    public static final String URL_REGIST = URL_BASE + "register";
+    /**
+     * 登录
+     *
+     * @param name 账户
+     * @param password 密码
+     * @method post
+     */
+    public static final String URL_LOGIN = URL_BASE + "login";
+    /**
+     * token登录
+     *
+     * @method get
+     */
+    public static final String URL_LOGIN_TOKEN = URL_BASE + "login";
+    /**
+     * 第三方登录
+     *
+     * @param loginPlatform 第三方平台 see{@link com.zeustel.top9.bean.UserInfo.LoginPlatform}
+     * @param openId 唯一序列号
+     * @param nickName 昵称
+     * @param gender 性别
+     * @param Icon 头像
+     * @method post
+     */
+    public static final String URL_LOGIN_THIRD = URL_BASE + "thirdLogin";
+
+
+    public static final UserInfo USER = new UserInfo();
+    /**
+     * 获币记录
+     *
+     * @param userId 当前用户id
+     * @param time 参照时间
+     * @param flag see {@link com.zeustel.top9.utils.NetHelper.Flag}
+     * @method post
+     */
+    public static final String URL_INTEGRAL_NOTE = URL_BASE + "user/getIntegralLog";
+    /**
+     * 提交反馈
+     *
+     * @param userId 当前用户id
+     * @param Content 内容
+     * @param imgs File array
+     * @param feedbackId 反馈id, 回复反馈时需要传
+     * @method post
+     */
+    public static final String URL_FEEDBACK_PUBLISH = URL_BASE + "feedback/submit";
+    /**
+     * 反馈列表
+     *
+     * @param userId 当前用户id
+     * @param time 参照时间
+     * @param flag see {@link com.zeustel.top9.utils.NetHelper.Flag}
+     * @method post
+     */
+    public static final String URL_FEEDBACK_LIST = URL_BASE + "feedback/getRecordList";
+    /**
+     * 反馈回复列表
+     *
+     * @param sourceId 反馈id
+     * @param time 参照时间
+     * @param flag see {@link com.zeustel.top9.utils.NetHelper.Flag}
+     * @method post
+     */
+    public static final String URL_FEEDBACK_REPLY_LIST = URL_BASE + "feedback/getReplyList";
+    /**
+     * 主播信息
+     *
+     * @method get
+     */
+    public static final String URL_ANCHOR_LIST = URL_BASE + "anchor/getInfo";
+    /**
+     * 商城基本路径
+     */
+    public static final String URL_SHOP_BASE = URL_BASE + "shopAward/";
+    /**
+     * 商城奖品列表
+     *
+     * @method get
+     */
+    public static final String URL_SHOP_LIST = URL_SHOP_BASE + "listInfoShopAward";
+    /**
+     * 兑换奖品
+     *
+     * @param userId 当前用户id
+     * @param shopAwardId 商品id
+     * @param name 收件人
+     * @param address 地址
+     * @param tel 联系电话
+     * @method post
+     */
+    public static final String URL_SHOP_PUBLISH = URL_SHOP_BASE + "submitExchangeAward";
+    /**
+     * 兑换记录
+     *
+     * @param userId 当前用户id
+     * @param time 参照时间
+     * @param flag see {@link com.zeustel.top9.utils.NetHelper.Flag}
+     * @method post
+     */
+    public static final String URL_SHOP_NOTE = URL_SHOP_BASE + "listInfoExchangeAward";
+    /**
+     * 搜索基本路径
+     */
+    public static final String URL_SEARCH_BASE = URL_BASE + "search/";
+    /**
+     * 搜索list
+     *
+     * @param queryStr 关键字
+     * @method post
+     */
+    public static final String URL_SEARCH_LIST = URL_SEARCH_BASE + "getResult";
+
+    /**
+     * 获取详细
+     *
+     * @param sourceId id
+     * @param type 0：游戏；1：资讯；2：话题；3：评测,4:另
+     * @method get
+     */
+    public static final String URL_SEARCH_DETAIL = URL_SEARCH_BASE + "getDetail";
+    /**
+     * 游戏聊天室基本路径
+     */
+    public static final String URL_TOP9_CHART_BASE = URL_BASE + "chatRoom/";
+    /**
+     * 获取游戏聊天室
+     *
+     * @param gameId 游戏id
+     * @method get
+     */
+    public static final String URL_TOP9_CHART_LIST = URL_TOP9_CHART_BASE + "getRoomList";
+    /**
+     * 进入聊天室
+     *
+     * @param userId 用户id
+     * @param roomId 房间id
+     * @method get
+     */
+    public static final String URL_TOP9_CHART_ENTER = URL_TOP9_CHART_BASE + "enter";
+    /**
+     * 退出聊天室
+     *
+     * @param userId 用户id
+     * @param roomId 房间id
+     * @method get
+     */
+    public static final String URL_TOP9_CHART_EXIT = URL_TOP9_CHART_BASE + "exit";
+    /**
+     * 修改用户昵称 密码
+     *
+     * @param userId    用户id
+     * @param type    NICKNAME,PASSWORD,ICON
+     * @param nickName    昵称
+     * @param password    旧密码
+     * @param newPwd    新密码
+     * @param imgs    头像文件
+     * @method post
+     */
+    public static final String URL_UPDATE_USER = URL_BASE + "user/updateUserInfo";
+    /**
+     * 版本更新
+     *
+     * @param verCode 当前版本号
+     * @param channel 渠道 see {@link Version.Channel}
+     * @method get
+     */
+    public static final String URL_VERSION = URL_BASE + "tech/version/getLatest";
+    /*评测相关基本路径*/
+    private static final String URL_EVALUATING_BASE = URL_BASE + "gameEvaluate/";
+    /**
+     * 评测列表
+     *
+     * @param flag see {@link com.zeustel.top9.utils.NetHelper.Flag}
+     * @param type 评测类型 see {@link com.zeustel.top9.bean.GameEvaluating.EvaluatingType}
+     * @param time
+     * @method get
+     */
+    public static final String URL_EVALUATING_LIST = URL_EVALUATING_BASE + "list";
+    /**
+     * 单个评测
+     *
+     * @param evluatingId 评测id
+     * @method get
+     * @deprecated use {@link URL_SEARCH_DETAIL} instead
+     */
+
+    public static final String URL_EVALUATING_SINGLE = URL_EVALUATING_BASE + "getEvaluate";
+    /**
+     * 评测评论列表
+     *
+     * @param flag see {@link com.zeustel.top9.utils.NetHelper.Flag}
+     * @param time 参照时间
+     * @param sourceId 评测id
+     * @method get
+     */
+    public static final String URL_EVALUATING_COMMENT_LIST = URL_EVALUATING_BASE + "listComment";
+    /**
+     * 评测评论发表
+     *
+     * @param userId 当前用户id
+     * @param sourceId 评测对象id
+     * @param content 评论内容
+     * @method post
+     */
+    public static final String URL_EVALUATING_COMMENT_PUBLISH = URL_EVALUATING_BASE + "comment";
+    /*Top9相关基本路径*/
+    private static final String URL_TOP9_BASE = URL_BASE + "top9/";
+    /**
+     * Top9列表
+     *
+     * @param flag see {@link com.zeustel.top9.utils.NetHelper.Flag}
+     * @param time 参照时间
+     * @method get
+     */
+    public static final String URL_TOP9_LIST = URL_TOP9_BASE + "list";
+    /**
+     * Top9资讯列表
+     *
+     * @param flag see {@link com.zeustel.top9.utils.NetHelper.Flag}
+     * @param time 参照时间
+     * @param gameId 游戏id
+     * @method get
+     */
+    public static final String URL_TOP9_INFO_LIST = URL_TOP9_BASE + "listInfo";
+    /**
+     * Top9资讯评论列表
+     *
+     * @param flag see {@link com.zeustel.top9.utils.NetHelper.Flag}
+     * @param time 参照时间
+     * @param sourceId 资讯id
+     * @method get
+     */
+    public static final String URL_TOP9_INFO_COMMENT_LIST = URL_TOP9_BASE + "listInfoComment";
+    /**
+     * Top9资讯评论发表
+     *
+     * @param userId 当前用户id
+     * @param sourceId 资讯对象id
+     * @param content 评论内容
+     * @method post
+     */
+    public static final String URL_TOP9_INFO_COMMENT_PUBLISH = URL_TOP9_BASE + "commentInfo";
+    /**
+     * Top9话题列表
+     *
+     * @param flag see {@link com.zeustel.top9.utils.NetHelper.Flag}
+     * @param time 参照时间
+     * @param gameId 游戏id
+     * @method get
+     */
+    public static final String URL_TOP9_TOPIC_LIST = URL_TOP9_BASE + "listInfoCommunity";
+    /**
+     * Top9话题发表
+     *
+     * @param userId 当前用户id
+     * @param gameId 游戏id
+     * @param type 话题类型 see {@link com.zeustel.top9.bean.CommunityTopic.TopicType}
+     * @param title 标题
+     * @param content 内容
+     * @param img 图片
+     * @method post
+     */
+    public static final String URL_TOP9_TOPIC_PUBLISH = URL_TOP9_BASE + "postCommunityTopic";
+    /**
+     * Top9话题评论列表
+     *
+     * @param flag see {@link com.zeustel.top9.utils.NetHelper.Flag}
+     * @param time 参照时间
+     * @param sourceId 资讯id
+     * @method get
+     */
+    public static final String URL_TOP9_TOPIC_COMMENT_LIST = URL_TOP9_BASE + "listTopicComment";
+    /**
+     * Top9话题评论发表
+     *
+     * @param userId 当前用户id
+     * @param sourceId 资讯对象id
+     * @param content 评论内容
+     * @method post
+     */
+    public static final String URL_TOP9_TOPIC_COMMENT_PUBLISH = URL_TOP9_BASE + "replyCommunity";
+
+    /**
+     * 新评测评论列表
+     *
+     * @param flag see {@link com.zeustel.top9.utils.NetHelper.Flag}
+     * @param time 参照时间
+     * @param sourceId 评测id
+     * @method get
+     */
+    public static final String URL_COMMENT_LIST = URL_EVALUATING_BASE + "listComment";
+
+    /**
+     * 新评测评论发表
+     *
+     * @param userId 当前用户id
+     * @param sourceId 评测对象id
+     * @param content 评论内容
+     * @param contentType  0语音；1文本
+     * @param atUser  @对象用户id
+     * @method post
+     */
+    public static final String URL_COMMENT_PUBLISH = URL_EVALUATING_BASE + "comment";
+    public static final String URL_COMMENT_BASE = URL_BASE + "comment/";
+
+    /**
+     * 点赞
+     *
+     * @param userId 用户id
+     * @param commentId 评论id 回复id
+     * @method post
+     */
+    public static final String URL_GOOD = URL_COMMENT_BASE + "thumbUp";
+    /**
+     * 检查点赞
+     *
+     * @param userId 用户id
+     * @param commentId 评论id 回复id
+     * @method post
+     */
+    public static final String URL_CHEKC_GOOD = URL_COMMENT_BASE + "validThumbUp";
+
+    /**
+     * 评论回复
+     *
+     * @param userId 当前用户id
+     * @param sourceId 评测对象id
+     * @param content 评论内容
+     * @param contentType  0语音；1文本
+     * @param atUser  @对象用户id
+     * @method post
+     */
+    public static final String URL_COMMENT_REPLY = URL_COMMENT_BASE + "reply";
+
+
+    /**
+     * 回复列表
+     *
+     * @param flag see {@link com.zeustel.top9.utils.NetHelper.Flag}
+     * @param time 参照时间
+     * @param sourceId 评测id
+     * @method post
+     */
+    public static final String URL_COMMENT_REPLY_LIST = URL_COMMENT_BASE + "getReplyList";
+}

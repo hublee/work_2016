@@ -1,0 +1,74 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/def_bg"
+                tools:context="com.zeustel.top9.fragments.html.HtmlCommentFragment">
+
+    <RelativeLayout
+        android:id="@+id/best_group_flag"
+        android:layout_width="match_parent"
+        android:layout_height="180dp">
+
+        <ImageView
+            android:id="@+id/best_group_theme"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/best_group_bg"/>
+
+        <LinearLayout
+            android:id="@+id/best_group"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            >
+        </LinearLayout>
+    </RelativeLayout>
+
+
+    <com.zeustel.top9.widgets.CustomRecyclerView
+        android:id="@+id/comment_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/comment_more"
+        android:layout_below="@+id/best_group_flag"
+        android:paddingTop="15dp"
+        />
+
+    <Button
+        android:id="@+id/comment_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/input"
+        android:layout_marginLeft="50dp"
+        android:background="@android:color/transparent"
+        android:text="查看更多>"
+        android:textColor="@color/red"
+        />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="165dp"
+        android:background="@mipmap/comment_thebest"
+        android:paddingLeft="14dp"
+        android:paddingTop="8dp"
+        android:text="最佳评论者"
+        android:textColor="@color/white"
+        />
+
+    <com.zeustel.top9.widgets.InputView
+        android:id="@+id/input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        />
+</RelativeLayout>

@@ -1,0 +1,224 @@
+package com.zeustel.top9.fragments.html;
+
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.google.gson.Gson;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.zeustel.top9.LoginActivity;
+import com.zeustel.top9.R;
+import com.zeustel.top9.adapters.HolderComment;
+import com.zeustel.top9.adapters.OverallRecyclerAdapter;
+import com.zeustel.top9.base.WrapNotAndRefreshFragment;
+import com.zeustel.top9.bean.GameEvaluating;
+import com.zeustel.top9.bean.community.Comment;
+import com.zeustel.top9.bean.community.Content;
+import com.zeustel.top9.result.CommentListResult;
+import com.zeustel.top9.result.Result;
+import com.zeustel.top9.utils.Constants;
+import com.zeustel.top9.utils.NetHelper;
+import com.zeustel.top9.utils.Tools;
+import com.zeustel.top9.utils.operate.DataComment;
+import com.zeustel.top9.utils.operate.DataUser;
+import com.zeustel.top9.widgets.InputView;
+
+import org.apache.http.Header;
+
+/**
+ * 更多评论页面
+ */
+public class CommentMoreFragment extends WrapNotAndRefreshFragment<Comment> implements InputView.OnInputView, OverallRecyclerAdapter.OnitemClickListener {
+
+    private static final String EXTRA_NAME_EV = "gameEvaluating";
+    private GameEvaluating gameEvaluating;
+    private OverallRecyclerAdapter<Comment> adapter;
+    private DataComment dataComment;
+    private InputView commentMoreInput;
+
+    public CommentMoreFragment() {
+    }
+
+    public static CommentMoreFragment newInstance(GameEvaluating gameEvaluating) {
+        Bundle args = new Bundle();
+        args.putSerializable(EXTRA_NAME_EV, gameEvaluating);
+        CommentMoreFragment fragment = new CommentMoreFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            gameEvaluating = (GameEvaluating) getArguments().getSerializable(EXTRA_NAME_EV);
+        }
+        if (gameEvaluating == null) {
+            getFragmentManager().popBackStack();
+        }
+        dataComment = new DataComment(getHandler(), null);
+    }
+
+
+    @Override
+    public View onBeforeCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View contentView = inflater.inflate(R.layout.fragment_detail_html, container, false);
+        commentMoreInput = (InputView) contentView.findViewById(R.id.detail_html_input);
+        commentMoreInput.setOnInputView(this);
+        return contentView;
+    }
+
+    @Override
+    protected void onAfterCreateView(View contentView) {
+        setDataOperate(dataComment);
+        try {
+            adapter = new OverallRecyclerAdapter<Comment>(getData(), R.layout.comment_item, HolderComment.class);
+            adapter.setOnitemClickListener(this);
+            setAdapter(adapter);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onInputView(String content) {
+        Comment comment = new Comment();
+        Content content1 = new Content();
+        content1.setContentType(Content.ContentType.TEXT);
+        content1.setMsg(content);
+        comment.setContent(content1);
+        comment.setTagId(gameEvaluating.getId());
+        dataComment.publishData(comment);
+    }
+
+    @Override
+    public String getFloatTitle() {
+        return null;
+    }
+
+    @Override
+    public int getBackgroundColor() {
+        return 0;
+    }
+
+    @Override
+    public void onPullDownRefresh() {
+        Comment comment = Tools.getFirstData(getData());
+        long time = 0;
+        if (comment != null) {
+            time = comment.getTime();
+        }
+        try {
+            dataComment.getListData(dataComment.createListBundle(Constants.URL_COMMENT_LIST + "?flag=" +
+                    NetHelper.Flag.UPDATE + "&time=" + time + "&sourceId=" + gameEvaluating.getId(), time, NetHelper.Flag.UPDATE), CommentListResult.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onPullUpRefresh() {
+        Comment comment = Tools.getLastData(getData());
+        long time = 0;
+        if (comment != null) {
+            time = comment.getTime();
+        }
+        try {
+            dataComment.getListData(dataComment.createListBundle(Constants.URL_COMMENT_LIST + "?flag=" +
+                    NetHelper.Flag.HISTORY + "&time=" + time + "&sourceId=" + gameEvaluating.getId(), time, NetHelper.Flag.HISTORY), CommentListResult.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private class Response extends AsyncHttpResponseHandler {
+        private int index;
+
+        public Response(int index) {
+            this.index = index;
+        }
+
+        @Override
+        public void onSuccess(int i, Header[] headers, byte[] bytes) {
+            if (bytes != null) {
+                String json = new String(bytes);
+                Gson gson = new Gson();
+                Tools.log_i(Response.class, "onSuccess", "json :" + json);
+                Result result = gson.fromJson(json, Result.class);
+                if (result.getSuccess() == Result.SUCCESS) {
+                    success(result);
+                    return;
+                } else if (result.getError() == 10017/*已经点赞*/) {
+                    Tools.showToast(getActivity(), result.getMsg());
+                    success(null);
+                    return;
+                }
+            }
+            failueToast();
+        }
+
+        @Override
+        public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
+            failueToast();
+        }
+
+        private void failueToast() {
+            Tools.showToast(getActivity(), "点赞失败");
+        }
+
+        private void success(Result result) {
+            View childAt = getRecyler().getChildAt(index);
+            if (childAt != null) {
+                RecyclerView.ViewHolder childViewHolder = getRecyler().getChildViewHolder(childAt);
+                if (childViewHolder != null && childViewHolder instanceof HolderComment) {
+                    boolean need = (result != null);
+                    //..更新数据库
+                    Comment comment = getData().get(index);
+                    comment.setIsGooded(true);
+                    if (need) {
+                        comment.setGoodCount(result.getCount());
+                        ((HolderComment) childViewHolder).goodChange(index);
+                    }
+                    getData().set(index, comment);
+                    /*getHandler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+                        }
+                    }, 1000);*/
+                    adapter.notifyItemChanged(index);
+                }
+            }
+        }
+
+    }
+
+    @Override
+    public void onHandlePublishSuccess(Result result) {
+        Tools.log_i(HtmlCommentFragment.class, "onHandlePublishSuccess", "zzzzzzzz");
+        commentMoreInput.done();
+    }
+
+    @Override
+    public void onHandlePublishFailed(Result result) {
+        commentMoreInput.done();
+    }
+
+    @Override
+    public void onitemClick(RecyclerView.Adapter adapter, int position, String tag) {
+        if (tag.equals("good")) {
+            if (Constants.USER.isOnline()) {
+                DataUser.doGood(getData().get(position).getId(), new Response(position));
+            } else {
+                Intent intent = new Intent(getContext(), LoginActivity.class);
+                getContext().startActivity(intent);
+            }
+        } else {
+            getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.temp, CommentDetailFragment.newInstance(gameEvaluating, getData().get(position))).commit();
+        }
+    }
+}

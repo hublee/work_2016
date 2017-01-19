@@ -1,0 +1,233 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.zeustel.top9.fragments.GameDescribeFragment">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/game_describe_menu"
+        android:layout_margin="@dimen/game_describe_card_margin"
+        app:cardElevation="@dimen/cardview_elevation"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/game_describe_play"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_above="@+id/below_play_layout"
+                >
+
+                <ImageView
+                    android:id="@+id/game_describe_palayer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    />
+
+                <ImageView
+                    android:id="@+id/game_describe_palayer_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/video_start"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/below_play_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/game_describe_mic"
+                android:layout_marginTop="@dimen/below_play_layout_margin_top"
+                android:layout_toRightOf="@+id/game_describe_icon"
+                >
+
+                <TextView
+                    android:id="@+id/game_describe_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/game_describe_name_margin_right"
+                    android:layout_toLeftOf="@+id/game_describe_des"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textColor="@color/def_font"
+                    android:textSize="@dimen/game_describe_name"
+                    />
+
+                <ImageView
+                    android:id="@+id/game_describe_des"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/game_describe_des_margin_right"
+                    android:layout_toLeftOf="@+id/game_describe_share"
+                    android:src="@mipmap/ic_describe"
+                    />
+
+                <ImageView
+                    android:id="@+id/game_describe_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/game_describe_share_margin_right"
+                    android:src="@mipmap/ic_share"/>
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/game_describe_mic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/game_describe_entry_room"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/game_describe_mic_margin_top"
+                android:src="@mipmap/ic_mic_red"
+                />
+
+            <TextView
+                android:id="@+id/game_describe_entry_room"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/game_describe_bottom"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/game_describe_entry_room_margin_top"
+                android:background="@drawable/border_bg_red"
+                android:gravity="center"
+                android:text="@string/game_describe_entry_room"
+                android:textColor="@color/red"
+                android:textSize="@dimen/game_describe_entry_room"
+                />
+
+            <LinearLayout
+                android:id="@+id/game_describe_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/game_describe_bottom_margin_bottom"
+                android:layout_marginTop="@dimen/game_describe_bottom_margin_top"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:id="@+id/game_describe_room_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text="@string/game_describe_room_count"
+                    />
+
+                <ImageView
+                    android:layout_width="@dimen/line_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/game_describe_line_margin_left"
+                    android:layout_marginRight="@dimen/game_describe_line_margin_right"
+                    android:src="@mipmap/line_vertical"
+                    />
+
+                <TextView
+                    android:id="@+id/game_describe_online_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|left"
+                    android:text="@string/game_describe_online_count"/>
+            </LinearLayout>
+
+            <com.zeustel.top9.widgets.CircleImage
+                android:id="@+id/game_describe_icon"
+                android:layout_width="@dimen/game_describe_icon_width"
+                android:layout_height="@dimen/game_describe_icon_height"
+                android:layout_below="@+id/game_describe_play"
+                android:layout_marginLeft="@dimen/game_describe_icon_margin_left"
+                android:layout_marginRight="@dimen/game_describe_icon_margin_right"
+                android:layout_marginTop="@dimen/game_describe_icon_margin_top"
+                android:src="@mipmap/ic_launcher"
+                />
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+    <TableLayout
+        android:id="@+id/game_describe_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/game_describe_tab_margin_bottom"
+        android:layout_marginLeft="@dimen/game_describe_tab_margin_left"
+        android:layout_marginRight="@dimen/game_describe_tab_margin_right"
+        android:layout_marginTop="@dimen/game_describe_tab_margin_top"
+        >
+
+        <TableRow
+            android:gravity="center"
+            >
+
+            <ImageView
+                android:id="@+id/game_describe_download"
+                android:src="@mipmap/ic_download"/>
+
+            <ImageView
+                android:layout_weight="1"
+                android:src="@mipmap/line_vertical"
+                android:visibility="invisible"/>
+
+            <ImageView
+                android:id="@+id/game_describe_screenshot"
+                android:src="@mipmap/ic_screenshot"/>
+
+            <ImageView
+                android:layout_weight="1"
+                android:src="@mipmap/line_vertical"
+                android:visibility="invisible"/>
+
+            <ImageView
+                android:id="@+id/game_describe_video"
+                android:src="@mipmap/ic_video"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="@dimen/game_describe_tab_vertical_space"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/game_describe_download_text"
+                android:text="@string/game_describe_download_text"
+                android:textColor="@color/def_font"
+                android:textSize="@dimen/game_describe_download_text"/>
+
+            <ImageView
+                android:layout_weight="1"
+                android:src="@mipmap/line_vertical"/>
+
+            <TextView
+                android:id="@+id/game_describe_screenshot_text"
+                android:text="@string/game_describe_screenshot_text"
+                android:textColor="@color/def_font"
+                android:textSize="@dimen/game_describe_screenshot_text"/>
+
+            <ImageView
+                android:layout_weight="1"
+                android:src="@mipmap/line_vertical"/>
+
+            <TextView
+                android:id="@+id/game_describe_video_text"
+                android:text="@string/game_describe_video_text"
+                android:textColor="@color/def_font"
+                android:textSize="@dimen/game_describe_video_text"/>
+        </TableRow>
+    </TableLayout>
+</RelativeLayout>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zeustel.top9.widgets.ScrollGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                                      android:layout_width="match_parent"
+                                      android:layout_height="match_parent"
+                                      android:orientation="vertical"
+    >
+
+    <ImageView
+        android:id="@+id/head"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@mipmap/evaluating01"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ZxZxZx"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="asdqweqrrtt"/>
+</com.zeustel.top9.widgets.ScrollGroup>

@@ -1,0 +1,56 @@
+<FrameLayout
+    android:id="@+id/container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:animateLayoutChanges="true"
+    >
+
+    <!--主题内容-->
+    <!-- <com.zeustel.top9.widgets.CustomViewPager
+         android:id="@+id/container_viewPager"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         />-->
+    <com.jfeinstein.jazzyviewpager.JazzyViewPager
+        android:id="@+id/container_viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <TextView
+        android:id="@+id/container_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/container_title_margin_left"
+        android:layout_marginTop="@dimen/container_title_margin_top"
+        android:background="@color/red"
+        android:gravity="center"
+        android:paddingBottom="@dimen/container_title_padding_bottom"
+        android:paddingLeft="@dimen/container_title_padding_left"
+        android:paddingRight="@dimen/container_title_padding_right"
+        android:paddingTop="@dimen/container_title_padding_top"
+        android:textColor="@color/white"
+        android:textSize="@dimen/container_title_size"
+        android:visibility="gone"
+        />
+
+    <com.zeustel.top9.widgets.Indicator
+        android:id="@+id/container_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="@dimen/indicator_margin_bottom"
+        />
+
+    <com.zeustel.top9.widgets.ExpandMenu
+        android:id="@+id/container_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="@dimen/container_menu_margin_bootom"
+        android:layout_marginRight="@dimen/container_menu_margin_right"
+        android:animateLayoutChanges="true"
+        />
+</FrameLayout>

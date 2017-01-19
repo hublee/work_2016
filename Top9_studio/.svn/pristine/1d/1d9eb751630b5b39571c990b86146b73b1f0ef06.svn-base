@@ -1,0 +1,219 @@
+package com.zeustel.top9.fragments;
+
+
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zeustel.top9.GameDetailActivity;
+import com.zeustel.top9.R;
+import com.zeustel.top9.adapters.Grid9WheelAdapter;
+import com.zeustel.top9.base.WrapHaveAndHandleFragment;
+import com.zeustel.top9.bean.Game;
+import com.zeustel.top9.bean.GameEvaluating;
+import com.zeustel.top9.bean.Search;
+import com.zeustel.top9.result.GameListResult;
+import com.zeustel.top9.result.Result;
+import com.zeustel.top9.utils.Constants;
+import com.zeustel.top9.utils.NetHelper;
+import com.zeustel.top9.utils.Tools;
+import com.zeustel.top9.utils.operate.DBBaseOperate;
+import com.zeustel.top9.utils.operate.DBGameImp;
+import com.zeustel.top9.utils.operate.DataBaseOperate;
+import com.zeustel.top9.utils.operate.DataGame;
+import com.zeustel.top9.widgets.GalleryGroup;
+
+import java.util.List;
+
+import kankan.wheel.widget.WheelView;
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class NewTop9Fragment extends WrapHaveAndHandleFragment implements GalleryGroup.OnPageChangeListener {
+
+
+    private GalleryGroup top9_group;
+    private LinearLayout new_top9_circle;
+    private WheelView top9_wheel;
+    private TextView top9_name;
+    private TextView top9_enName;
+    private DataBaseOperate<Game> dataBaseOperate;
+    private DBBaseOperate<Game> dbBaseOperate;
+    private List<Game> data;
+    private int index;
+    private Intent intent;
+    private ImageLoader imageLoader = ImageLoader.getInstance();
+    private View.OnClickListener desClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (v.getTag() != null) {
+                Game game = (Game) v.getTag();
+                int evluatingId = game.getEvluatingId();
+                GameEvaluating gameEvaluating = new GameEvaluating();
+                Tools.log_i(Grid9Fragment.class, "onitemClick", "evluatingId : " + evluatingId);
+                gameEvaluating.setId(evluatingId);
+                getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.container, HtmlDetailFragment.newInstance(gameEvaluating, Search.Type.EVALUATING.value())).commit();
+            }
+
+        }
+    };
+    private View.OnClickListener downloadClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (v.getTag() != null) {
+                Game game = (Game) v.getTag();
+                Tools.log_i(Grid9Fragment.class, "onitemClick", game.getName() + " download");
+            }
+        }
+    };
+    private View.OnClickListener enterClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Game game = data.get(index);
+            if (game != null && intent != null) {
+                intent.putExtra(GameDetailActivity.EXTRA_NAME, game);
+                startActivity(intent);
+            }
+
+        }
+    };
+
+    public NewTop9Fragment() {
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        dbBaseOperate = new DBGameImp(getActivity());
+        dataBaseOperate = new DataGame(getHandler(), dbBaseOperate);
+        intent = new Intent(getActivity(), GameDetailActivity.class);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View contentView = inflater.inflate(R.layout.fragment_new_top9, container, false);
+        top9_group = (GalleryGroup) contentView.findViewById(R.id.new_top9_group);
+        new_top9_circle = (LinearLayout) contentView.findViewById(R.id.new_top9_circle);
+        top9_wheel = (WheelView) contentView.findViewById(R.id.new_top9_wheel);
+        top9_name = (TextView) contentView.findViewById(R.id.new_top9_name);
+        top9_enName = (TextView) contentView.findViewById(R.id.new_top9_enName);
+        top9_wheel.setVisibleItems(3/*count*/);
+        top9_wheel.setViewAdapter(new Grid9WheelAdapter(getActivity()));
+        top9_wheel.setWheelBackground(R.drawable.wheel_bg_holo);
+        top9_wheel.setWheelForeground(R.drawable.wheel_val_holo);
+        top9_wheel.setShadowColor(Color.TRANSPARENT, Color.TRANSPARENT, Color.TRANSPARENT);
+        top9_group.setOnPageChangeListener(this);
+        new_top9_circle.setOnClickListener(enterClick);
+        onRefresh();
+        return contentView;
+    }
+
+    private View initItemView(View itemView, Game game) {
+        if (getActivity() == null) {
+            return null;
+        }
+        if (itemView == null) {
+            itemView = getActivity().getLayoutInflater().inflate(R.layout.list_item_new_top9, null);
+        }
+        ImageView grid9_item_icon = (ImageView) itemView.findViewById(R.id.grid9_item_icon);
+        ProgressBar grid9_item_progress = (ProgressBar) itemView.findViewById(R.id.grid9_item_progress);
+        TextView grid9_item_title = (TextView) itemView.findViewById(R.id.grid9_item_title);
+        TextView grid9_item_download = (TextView) itemView.findViewById(R.id.grid9_item_download);
+        TextView grid9_item_des = (TextView) itemView.findViewById(R.id.grid9_item_des);
+        grid9_item_download.setTag(game);
+        grid9_item_des.setTag(game);
+        //        itemView.setOnClickListener(enterClick);
+        grid9_item_download.setOnClickListener(downloadClick);
+        grid9_item_des.setOnClickListener(desClick);
+        imageLoader.displayImage(Constants.TEST_IMG + game.getBanner(), grid9_item_icon, Tools.options);
+        grid9_item_progress.setProgress(30);
+        grid9_item_title.setText(game.getDescribe());
+        return itemView;
+    }
+
+    private void updateCircle(Game game) {
+        if (game != null) {
+            top9_name.setText(game.getName());
+            top9_enName.setText(game.getNameEn());
+        }
+    }
+
+    @Override
+    public void onHandleListUpdate(Result result, Object obj) {
+        super.onHandleListUpdate(result, obj);
+        //        Tools.log_i(NewTop9Fragment.class,"onHandleListUpdate","game");
+        data = (List<Game>) obj;
+        if (!Tools.isEmpty(data)) {
+            if (top9_group.getChildCount() > 0) {
+                top9_group.removeAllViews();
+            }
+            for (int i = 0; i < data.size(); i++) {
+                //                Tools.log_i(NewTop9Fragment.class,"onHandleListUpdate","i "+i);
+                View itemView = initItemView(null, data.get(i));
+                if (itemView != null) {
+                top9_group.addView(itemView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, top9_group.getVisibleItemHeight()));
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onHandleListFailed(Result result) {
+        super.onHandleListFailed(result);
+        Tools.log_i(NewTop9Fragment.class, "onHandleListFailed", "game");
+    }
+
+    @Override
+    public void onHandleListNo(Result result) {
+        super.onHandleListNo(result);
+        Tools.log_i(NewTop9Fragment.class, "onHandleListNo", "game");
+    }
+
+    @Override
+    public String getFloatTitle() {
+        return getString(R.string.title_top9);
+    }
+
+    @Override
+    public int getBackgroundColor() {
+        return 0;
+    }
+
+    private void onRefresh() {
+        try {
+            dataBaseOperate.getListData(dataBaseOperate.createListBundle(Constants.URL_TOP9_LIST +
+                    "?flag=" + NetHelper.Flag.UPDATE + "&time=0", 0/*time*/, NetHelper.Flag.UPDATE), GameListResult.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//        Tools.log_i(NewTop9Fragment.class, "onPageScrolled", "position : " + position + ",positionOffset : " + positionOffset + ",positionOffsetPixels : " + positionOffsetPixels);
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        Tools.log_i(NewTop9Fragment.class, "onPageSelected", "position : " + position);
+        this.index = position;
+        top9_wheel.setCurrentItem(position);
+        updateCircle(data.get(position));
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+}

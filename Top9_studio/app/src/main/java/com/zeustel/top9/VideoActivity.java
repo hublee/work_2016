@@ -1,0 +1,55 @@
+package com.zeustel.top9;
+
+import android.net.Uri;
+import android.os.Bundle;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zeustel.top9.base.WrapNotActivity;
+import com.zeustel.top9.utils.Tools;
+import com.zeustel.top9.widgets.VideoLayout;
+
+public class VideoActivity extends WrapNotActivity {
+    public static final String EXTRA_VIDEO_UR = "video_url";
+    public static final String EXTRA_VIDEO_COVER = "video_cover";
+    public static final String EXTRA_VIDEO_COVER_NET = "video_cover_net";
+    private String video_url = null;
+    private int video_cover = -1;
+    private String video_cover_net;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getIntent() != null) {
+            video_url = getIntent().getStringExtra(EXTRA_VIDEO_UR);
+            video_cover = getIntent().getIntExtra(EXTRA_VIDEO_COVER, -1);
+            video_cover_net = getIntent().getStringExtra(EXTRA_VIDEO_COVER_NET);
+        }
+        if (video_url == null && video_cover_net == null) {
+            finish();
+        }
+        VideoLayout mVideoLayout = new VideoLayout(getApplicationContext());
+        Tools.fullScreen(this);
+        mVideoLayout.getVideo_view().setVideoURI(Uri.parse(video_url));
+        if (video_cover != -1) {
+            mVideoLayout.getVideo_cover().setImageResource(video_cover);
+        } else {
+            ImageLoader.getInstance().displayImage(video_cover_net, mVideoLayout.getVideo_cover(), Tools.options);
+        }
+        setContentView(mVideoLayout);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public String getFloatTitle() {
+        return null;
+    }
+
+    @Override
+    public int getBackgroundColor() {
+        return 0;
+    }
+}

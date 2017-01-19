@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/gallery2_select_line" android:state_selected="true"></item>
+    <item android:drawable="@color/all_imgbtn_bg" android:state_selected="false"></item>
+</selector><!-- From: file:/D:/lib_workspace/androidStudio/Top9_studio/libraries/GalleryLib/res/drawable/background_gallery2_select.xml --><!-- From: file:/D:/lib_workspace/androidStudio/Top9_studio/libraries/GalleryLib/build/intermediates/bundles/debug/res/drawable/background_gallery2_select.xml -->

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="center_bg">#88333333</color>
+    <color name="common_bg">#1a1a1b</color>
+    <color name="common_btn">#ff8101</color>
+    <color name="dark_btn">#cc999999</color>
+
+    <color name="input_bg">#111</color>
+
+    <color name="input_separate">#fff</color>
+
+    <color name="common_text">#fff</color>
+    <color name="common_text_hint">#999</color>
+    <color name="important_text">#ff8101</color>
+
+
+</resources>

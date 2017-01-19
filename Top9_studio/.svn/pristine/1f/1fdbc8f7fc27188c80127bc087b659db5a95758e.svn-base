@@ -1,0 +1,204 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/def_bg"
+                tools:context="com.zeustel.top9.fragments.StoreDetailFragment"
+    >
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/goods_card"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/goods_exchange"
+        android:layout_margin="@dimen/goods_card_margin"
+        android:background="@android:color/white"
+        app:cardElevation="@dimen/cardview_elevation"
+        >
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/goods_content_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/goods_content_layout_margint_bottom"
+                    android:layout_marginLeft="@dimen/goods_content_layout_margint_left"
+                    android:layout_marginRight="@dimen/goods_content_layout_margint_right"
+                    android:layout_marginTop="@dimen/goods_content_layout_margint_top"
+                    android:orientation="vertical">
+
+                    <com.zeustel.top9.widgets.ExhibitionView
+                        android:id="@+id/goods_exhibtion"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/goods_exhibtion_height"
+                        android:layout_marginTop="@dimen/goods_exhibtion_margin_top"/>
+
+                    <TextView
+                        android:id="@+id/goods_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/goods_name_margin_top"
+                        android:gravity="center"
+                        android:text="@string/goods_name_text"
+                        android:textColor="@color/def_font"
+                        android:textSize="@dimen/goods_name_size"
+                        android:textStyle="bold"
+                        />
+
+                    <LinearLayout
+                        android:id="@+id/goods_amount_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/goods_amount_layout_margin_top"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="@dimen/goods_amount_item_width"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/goods_price_text"
+                                android:textColor="@color/gray"
+                                android:textSize="@dimen/goods_price_des_size"
+                                />
+
+                            <TextView
+                                android:id="@+id/goods_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/goods_price_margin_top"
+                                android:background="@drawable/border_bg_red"
+                                android:gravity="center"
+                                android:textColor="@color/red"
+                                android:textSize="@dimen/goods_price_size"
+                                />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="@dimen/goods_amount_item_width"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/goods_residue_text"
+                                android:textColor="@color/gray"
+                                android:textSize="@dimen/goods_residue_des_size"
+                                />
+
+                            <TextView
+                                android:id="@+id/goods_residue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/goods_residue_margin_top"
+                                android:background="@drawable/border_bg_yellow"
+                                android:gravity="center"
+                                android:textColor="@color/yellow"
+                                android:textSize="@dimen/goods_residue_size"
+                                />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/goods_line_height"
+                    android:background="@color/def_bg"/>
+
+                <RelativeLayout
+                    android:id="@+id/goods_describe_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/goods_describe_layout_margin"
+                    >
+
+                    <ImageView
+                        android:id="@+id/line"
+                        android:layout_width="@dimen/goods_describe_line_width"
+                        android:layout_height="@dimen/goods_describe_line_height"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/line_vertical_red"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/line"
+                        android:layout_marginLeft="@dimen/goods_describe_include_margin_left"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="20dp"
+                            android:gravity="center"
+                            android:text="@string/goods_describe_text"
+                            android:textColor="@color/gray"
+                            android:textSize="@dimen/goods_describe_des_size"
+                            android:textStyle="bold"
+                            />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/goods_limit_line_height"
+                            android:layout_marginBottom="@dimen/goods_limit_line_margin_bottom"
+                            android:layout_marginTop="@dimen/goods_limit_line_margin_top"
+                            android:background="@mipmap/line_horizontal"
+                            />
+
+                        <TextView
+                            android:id="@+id/goods_describe"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="@dimen/goods_describe_drawable_padding"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/gray"
+                            android:textSize="@dimen/goods_describe_size"
+                            />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+        </ScrollView>
+
+    </android.support.v7.widget.CardView>
+
+    <Button
+        android:id="@+id/goods_exchange"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/goods_exchange_height"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/goods_exchange_margin_bottom"
+        android:layout_marginLeft="@dimen/goods_exchange_margin_left"
+        android:layout_marginRight="@dimen/goods_exchange_margin_right"
+        android:background="@drawable/all_btn_bg"
+        android:text="@string/goods_exchange_text"
+        android:textColor="@drawable/all_text_color"
+        />
+</RelativeLayout>

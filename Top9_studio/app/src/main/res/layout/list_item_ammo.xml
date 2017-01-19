@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:minHeight="40dp">
+
+        <TextView
+            android:id="@+id/ammo_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@mipmap/temp_fm_ammo_bg"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:lineSpacingExtra="5dp"
+            android:maxLines="2"
+            android:minHeight="30dp"
+            android:paddingBottom="2dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="5dp"
+            android:paddingTop="2dp"
+            android:text="asdasdasdasdas"
+            android:textColor="@color/white"
+            android:textSize="13sp"/>
+
+
+        <com.zeustel.top9.widgets.CircleImage
+            android:id="@+id/ammo_by"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@mipmap/ic_icon"/>
+    </RelativeLayout>
+</FrameLayout>

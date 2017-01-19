@@ -1,0 +1,175 @@
+package com.zeustel.cp;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import com.zeustel.cp.bean.CoinInfo;
+import com.zeustel.cp.intf.HttpCallBack;
+import com.zeustel.cp.utils.Constants;
+import com.zeustel.cp.utils.NetCache;
+import com.zeustel.cp.utils.Tools;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ConfigurationInfo;
+import android.os.Looper;
+import android.view.Gravity;
+import android.widget.Toast;
+
+/**
+ * 帮助类
+ * @author Do
+ *
+ */
+public class SdkHelper {
+	public static boolean DEBUGMODE = false;
+	
+	public static CPInfo CP;
+	
+	protected static String AUTH_URL = "";//授权地址
+	
+	protected static String EXCHANGE_URL = "";//兑换地址
+	
+	protected static String SMS_URL = "";//短信地址
+	
+	private static int EXCHANGE_RETE = 1000;//兑换比例
+	
+	protected static int TOTAL = 0;//游戏币总数
+	
+	public static CoinInfo coinInfo;
+	
+	/**
+	 * 菜单x坐标
+	 * @return
+	 */
+	public static int getControlMenuX(Activity activity,int x){
+		int baseX = x+Tools.dip2px(activity,Constants.CONTROLLER_WIDTH/2);
+        if(baseX>Tools.getScreenWidth(activity)/2){
+            return x-Tools.dip2px(activity,Constants.CONTROLCENTER_WIDTH);
+        }else{
+            return baseX+Tools.dip2px(activity,Constants.CONTROLLER_WIDTH/2);
+        }
+	}
+	
+	/**
+     * 菜单宽度
+     * @return
+     */
+    public static int getControlMenuWidth(Context context){
+        return Tools.dip2px(context,Constants.CONTROLCENTER_WIDTH);
+    }
+
+    /**
+     * 菜单高度
+     * @return
+     */
+    public static int getControlMenuHeight(Context context){
+        return Tools.dip2px(context,Constants.CONTROLCENTER_HEIGHT);
+    }
+    
+    /**
+     * 打开应用
+     * @return
+     */
+    public static void openApp(Context context,String pack){
+    	Intent intent = Tools.packageIntent(context, pack);
+        if(intent==null) {//检查是否安装包
+            //下载应用
+            Tools.openUrl(context,pack==Constants.PACKAGE_NAME_TOP9?Constants.DOWNLOAD_URL_TOP9:Constants.DOWNLOAD_URL_JFT);
+        }else{
+            //打开应用
+        	context.startActivity(intent);
+        }
+    }
+    
+    /**
+     * 提示
+     * @param context
+     * @param tips
+     */
+    public static void showTips(final Context context,final String tips){
+    	if(DEBUGMODE){
+	    	new Thread(){
+				@Override
+				public void run() {
+					Looper.prepare();
+					Toast toast = Toast.makeText(context, tips, Toast.LENGTH_LONG);
+					toast.setGravity(Gravity.BOTTOM, 0, 10);
+					toast.show();
+					Looper.loop();
+				};
+			}.start();
+    	}
+    }
+    
+    /**
+     * 网络请求
+     * @param type GET,POST
+     * @param url
+     * @param call 回调
+     */
+    public static void httpRequest(String type,String url,HttpCallBack call){
+    	if(type == null){
+    		return;
+    	}
+    	if(type.equals(Constants.GET)){
+    		
+    	}
+    	call.callBack(ZSStatusCode.SUCCESS, null);
+    }
+    
+    /**
+     * 发送验证码
+     * @param authKey
+     * @param phoneno
+     */
+    public static void sendSMS(String authKey,String phoneno){
+    	
+    }
+    
+    /**
+     * 返回总游戏币
+     * @return
+     */
+    public static int getTotal(){
+    	return TOTAL;
+    }
+   
+    
+    /**
+     * 检查手机号是否合法
+     * @param phoneno
+     * @return
+     */
+    public static boolean checkPhoneno(String phoneno){
+    	Pattern pattern = Pattern.compile("1[0-9]{10}");  
+    	Matcher matcher =pattern.matcher(phoneno);   
+    	if (matcher.matches()) {  
+    		return true;  
+    	}else {  
+    		return false;  
+    	}
+    }
+    
+    /**
+     * 金币信息
+     * @return
+     */
+    public static CoinInfo getCoinInfo(){
+    	if(coinInfo!=null){
+    		return coinInfo;
+    	}
+    	coinInfo = (CoinInfo)NetCache.getInstance().getObjectCache(Constants.COININFO);
+		return coinInfo;
+    }
+    
+    /**
+     * 保存金币信息
+     */
+    public static void saveCoinInfo(String coinName,int rate){
+    	coinInfo = new CoinInfo(rate, coinName);
+    	NetCache.getInstance().addCache(Constants.COININFO, coinInfo);
+    }
+    
+}

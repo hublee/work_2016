@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants"
+    >
+
+    <ImageView
+        android:layout_width="@dimen/line_width_limit"
+        android:layout_height="@dimen/note_item_height"
+        android:layout_marginLeft="@dimen/note_item_line_margin_left"
+        android:scaleType="fitXY"
+        android:src="@mipmap/line_vertical"/>
+
+    <RadioButton
+        android:id="@+id/support_note_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="@dimen/note_item_title_margin_left"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="@dimen/note_item_title_margin_top"
+        android:layout_toLeftOf="@+id/support_note_item_detail"
+        android:clickable="false"
+        android:ellipsize="end"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:paddingLeft="@dimen/note_item_title_padding_left"
+        android:singleLine="true"
+        />
+
+
+    <TextView
+        android:id="@+id/support_note_item_reply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/support_note_item_title"
+        android:layout_marginLeft="@dimen/note_item_time_margin_left"
+        android:layout_marginTop="@dimen/note_item_time_margin_top"
+        android:drawablePadding="@dimen/note_item_time_drawable_padding"
+        android:gravity="center_vertical"
+        android:textColor="@drawable/selector_red_black_color"
+        />
+
+    <TextView
+        android:id="@+id/support_note_item_detail"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/support_note_item_title"
+        android:layout_marginRight="@dimen/note_item_amount_margin_right"
+        android:layout_marginTop="@dimen/note_item_amount_margin_top"
+        android:background="@drawable/border_bg_red_selector"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="详情"
+        android:textColor="@drawable/all_text_color"
+        />
+
+</RelativeLayout>

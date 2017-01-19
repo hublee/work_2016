@@ -1,0 +1,185 @@
+package com.zeustel.top9.adapters;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.zeustel.top9.R;
+import com.zeustel.top9.bean.Feedback;
+import com.zeustel.top9.bean.FeedbackReply;
+import com.zeustel.top9.bean.SubUserInfo;
+import com.zeustel.top9.utils.Constants;
+import com.zeustel.top9.utils.TimeUtil;
+import com.zeustel.top9.utils.Tools;
+import com.zeustel.top9.widgets.CircleImage;
+import com.zeustel.top9.widgets.ImgPreview;
+
+import java.util.List;
+
+/**
+ * @author NiuLei
+ * @date 2015/9/10 00:22
+ */
+public class AdapterSupport extends OverallRecyclerAdapter<FeedbackReply> {
+    //用于显示头和内容
+    public static final int NEED_SPACE = 1;
+    private static final int TYPE_FEEDBACK = 0;
+    private static final int TYPE_FIRST_REPLY = 1;
+    private static final int TYPE_FEEDBACKREPLY = 2;
+    private static final int TYPE_REPLY = 3;
+    private Context context;
+    private List<FeedbackReply> data;
+    private Feedback feedback;
+    private LayoutInflater inflater;
+
+    public AdapterSupport(Context context, List<FeedbackReply> data, Feedback feedback) throws NoSuchMethodException {
+        super(data, 0/*layoutId*/, null/*Class<? extends OverallRecyclerHolder>*/);
+        this.context = context;
+        this.data = data;
+        this.feedback = feedback;
+        inflater = LayoutInflater.from(context);
+        data.add(0, new FeedbackReply());
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (0 == position) {
+            return TYPE_FEEDBACK;
+        } else {
+            SubUserInfo subUserInfo = data.get(position).getSubUserInfo();
+            if (subUserInfo != null) {
+                int id = subUserInfo.getId();
+                return id == Constants.USER.getId() ? TYPE_REPLY : TYPE_FEEDBACKREPLY;
+            }
+            return TYPE_REPLY;
+        }
+    }
+
+    @Override
+    public OverallRecyclerHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        OverallRecyclerHolder viewHolder = null;
+        switch (viewType) {
+            case TYPE_FEEDBACK:
+                viewHolder = new FeedbackViewHolder(context, Tools.setLayoutParams(inflater.inflate(FeedbackViewHolder.LAYOUT_ID, null)));
+                break;
+            case TYPE_FEEDBACKREPLY:
+                viewHolder = new FeedbackReplyViewHolder(context, Tools.setLayoutParams(inflater.inflate(FeedbackReplyViewHolder.FEEDBACKREPLY_LAYOUT_ID, null)));
+                break;
+            case TYPE_REPLY:
+                viewHolder = new FeedbackReplyViewHolder(context, Tools.setLayoutParams(inflater.inflate(FeedbackReplyViewHolder.REPLY_LAYOUT_ID, null)));
+                break;
+        }
+        return viewHolder;
+    }
+
+    public class FeedbackViewHolder extends OverallRecyclerHolder {
+        public static final int LAYOUT_ID = R.layout.list_item_support_head;
+        private CircleImage community_head_icon;
+        private TextView community_head_name;
+        private TextView community_head_time;
+        private TextView community_head_title;
+        private TextView community_head_subTitle;
+        private TextView community_head_landlord;
+        //        private RecyclerView community_head_picture;
+        private ImgPreview community_head_picture;
+
+        public FeedbackViewHolder(Context context, View itemView) {
+            super(context, itemView);
+        }
+
+        @Override
+        protected void initItemView(View itemView) {
+            community_head_icon = (CircleImage) itemView.findViewById(R.id.community_head_icon);
+            community_head_name = (TextView) itemView.findViewById(R.id.community_head_name);
+            community_head_time = (TextView) itemView.findViewById(R.id.community_head_time);
+            community_head_title = (TextView) itemView.findViewById(R.id.community_head_title);
+            community_head_landlord = (TextView) itemView.findViewById(R.id.community_head_landlord);
+            community_head_subTitle = (TextView) itemView.findViewById(R.id.community_head_subTitle);
+            community_head_picture = (ImgPreview) itemView.findViewById(R.id.community_head_picture);
+            Tools.endCreateOperate(community_head_picture, new Runnable() {
+                @Override
+                public void run() {
+                    String path = feedback.getImgs();
+                    if (!Tools.isEmpty(path)) {
+                        List<String> strings = Tools.convertPathList(path);
+                        if (!Tools.isEmpty(strings)) {
+                            try {
+                                AdapterSupportPicture pictureAdapter = new AdapterSupportPicture(strings);
+                                pictureAdapter.setIsNet(true);
+                                pictureAdapter.setSpanCount(strings.size(), ImgPreview.SPAN_COUNT, community_head_picture.getWidth(), community_head_picture.getHeight());
+                                pictureAdapter.setMode(HolderSupport.MODE_LAYOUT);
+                                community_head_picture.setAdapter(pictureAdapter);
+
+                            } catch (NoSuchMethodException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            });
+
+        }
+
+        @Override
+        public void set(OverallRecyclerAdapter adapter, int position) {
+            community_head_landlord.setVisibility(View.GONE);
+            community_head_subTitle.setVisibility(View.GONE);
+            if (feedback != null) {
+                SubUserInfo subUserInfo = feedback.getSubUserInfo();
+                if (subUserInfo != null) {
+                    getImageLoader().displayImage(Constants.TEST_IMG + subUserInfo.getIcon(), community_head_icon, Tools.options);
+                    community_head_name.setText(subUserInfo.getNickName());
+                }
+                community_head_time.setText(Tools.getTimeformatAll(feedback.getFeedbackTime()));
+                community_head_title.setText(feedback.getFeedbackContent());
+            }
+        }
+    }
+
+    public class FeedbackReplyViewHolder extends OverallRecyclerHolder<FeedbackReply> {
+        public static final int REPLY_LAYOUT_ID = R.layout.list_item_comment;
+        public static final int FEEDBACKREPLY_LAYOUT_ID = R.layout.list_item_feedback_reply;
+        private ImageView icon;
+        private TextView name;
+        private TextView time;
+        private TextView content;
+        private TextView flag;
+
+        public FeedbackReplyViewHolder(Context context, View itemView) {
+            super(context, itemView);
+        }
+
+        @Override
+        protected void initItemView(View itemView) {
+            icon = (ImageView) itemView.findViewById(R.id.icon);
+            name = (TextView) itemView.findViewById(R.id.name);
+            time = (TextView) itemView.findViewById(R.id.time);
+            content = (TextView) itemView.findViewById(R.id.content);
+            flag = (TextView) itemView.findViewById(R.id.flag);
+            flag.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void set(OverallRecyclerAdapter<FeedbackReply> adapter, int position) {
+            FeedbackReply reply = getItem(position);
+            String content = reply.getReplyContent();
+            this.content.setText(Tools.isEmpty(content) ? "" : content);
+            SubUserInfo mSubUserInfo = reply.getSubUserInfo();
+            if (mSubUserInfo != null) {
+                String nickName = mSubUserInfo.getNickName();
+                int gender = mSubUserInfo.getGender();
+                this.name.setText(Tools.isEmpty(nickName) ? "" : nickName);
+                getImageLoader().displayImage(Constants.TEST_IMG + mSubUserInfo.getIcon(), this.icon, Tools.options);
+            }
+            time.setText(TimeUtil.getTimeDisplay(context, reply.getReplyTime()));
+            if (NEED_SPACE == position) {
+                flag.setVisibility(View.VISIBLE);
+            } else {
+                flag.setVisibility(View.GONE);
+            }
+        }
+    }
+}

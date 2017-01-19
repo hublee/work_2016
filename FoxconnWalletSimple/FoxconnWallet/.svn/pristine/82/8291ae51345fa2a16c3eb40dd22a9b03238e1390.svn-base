@@ -1,0 +1,336 @@
+package com.zeustel.cp;
+
+import org.json.JSONObject;
+
+import com.zeustel.cp.bean.ErrorMsg;
+import com.zeustel.cp.bean.PopView;
+import com.zeustel.cp.bean.ViewFactory;
+import com.zeustel.cp.intf.CPCallBack;
+import com.zeustel.cp.intf.HttpCallBack;
+import com.zeustel.cp.intf.ILocation;
+import com.zeustel.cp.intf.IView;
+import com.zeustel.cp.utils.Constants;
+import com.zeustel.cp.utils.CrashHandler;
+import com.zeustel.cp.utils.NetCache;
+import com.zeustel.cp.utils.Tools;
+import com.zeustel.cp.views.FMControlView;
+import com.zeustel.cp.views.FloatFM;
+import com.zeustel.cp.views.FloatHelper;
+
+import android.app.Activity;
+import android.content.Context;
+import android.os.Handler;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
+
+/**
+ * 宙斯CP_SDK
+ * @author Do
+ *
+ */
+public class ZSSDK implements ILocation,IView{
+	static volatile ZSSDK defaultInstance;
+	
+	private Activity activity;
+	private ViewFactory viewFactory;//视图工厂
+	
+	public static FloatFM floatFM;
+	private FloatHelper mFloatHelper = null;
+	
+	private static int pointX;//移动后的坐标x
+    private static int pointY;//移动后的坐标y
+    
+    private boolean isShow;//菜单是否显示
+    private static PopView controlMenuView;//菜单
+    
+    private CPCallBack callBack;
+	
+	private ZSSDK(){
+		
+	}
+	
+	public static ZSSDK getDefault(){
+		if (defaultInstance == null) {
+            synchronized (ZSSDK.class) {
+                if (defaultInstance == null) {
+                    defaultInstance = new ZSSDK();
+                }
+            }
+        }
+        return defaultInstance;
+	}
+	
+	/**
+	 * 初始化sdk
+	 * @param activity
+	 */
+	public void initSDK(Activity activity,boolean debugMode,CPInfo info,CPCallBack callBack){
+		this.activity = activity;
+		
+		if(info == null||info.isEmpty()){
+			SdkHelper.showTips(activity, ErrorMsg.CP_INFO_PARAMS_NULL);
+			return;
+		}
+		if(callBack == null){
+			SdkHelper.showTips(activity, ErrorMsg.CP_CALLBACK_NULL);
+			return;
+		}
+		
+		//视图工厂
+		initFactory(activity);
+		//悬浮
+		initFloatView(activity);
+		//错误处理
+		initCrash();
+		//缓存
+		initCache();
+		
+		SdkHelper.DEBUGMODE = debugMode;
+		SdkHelper.CP = info;
+		this.callBack = callBack;
+		//授权码
+		getAuthCode();
+		
+		init();
+	}
+	
+	private void init(){
+		
+	}
+	
+	/**
+	 * 初始化视图工厂
+	 * @param context
+	 */
+	private void initFactory(Context context){
+        viewFactory = ViewFactory.getInstance();
+        viewFactory.setContext(context);
+        viewFactory.addViewListener(this);//添加监听
+	}
+	
+	/**
+	 *初始化悬浮
+	 */
+	private void initFloatView(Activity activity){
+		pointX = 0;
+		pointY = Tools.getControlMenuY(activity);//悬浮默认Y坐标
+		
+		if(mFloatHelper == null) {
+            mFloatHelper = new FloatHelper(activity, FloatHelper.FloatType.TYPE_SERVICE, true);
+            floatFM = new FloatFM(activity);
+            floatFM.setLocation(this);
+
+            floatFM.setOnFmControlListener(new FMControlView.OnFmControlListener() {
+
+				@Override
+				public void onClick() {
+					// TODO Auto-generated method stub
+					controllerClick();
+				}
+
+				@Override
+				public void onDoubleClick() {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void onLongPress() {
+					// TODO Auto-generated method stub
+					
+				}
+            });
+            
+		}
+	}
+	
+	/**
+	 * 初始错误处理
+	 */
+	private void initCrash(){
+		CrashHandler.getInstance().init(activity);
+	}
+	
+	/**
+	 * 初始缓存
+	 */
+	private void initCache(){
+		NetCache.getInstance().openObjectCache(activity);
+	}
+	
+	/**
+	 * 点击菜单
+	 */
+	private void controllerClick(){
+		if(isShow){
+			distroyControlMenu();
+            return;
+        }
+
+        if(controlMenuView!=null){
+            addController();
+            isShow = true;
+            return;
+        }
+
+        controlMenuView = viewFactory.createView(Constants.CONTROLLERCENTER_VIEWID);//创建视图
+        if(controlMenuView == null){
+            return;
+        }
+
+        controlMenuView.addViewListener(this);
+        addController();
+        isShow = true;
+	}
+	
+	/**
+	 * 添加菜单
+	 */
+	private void addController(){
+		ScaleAnimation animation =new ScaleAnimation(0.0f, 1.4f, 0.0f, 1.4f,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        animation.setDuration(2000);
+        mFloatHelper.addView(controlMenuView, FloatHelper.getWmParamsAnimation(SdkHelper.getControlMenuX(activity, pointX), pointY, SdkHelper.getControlMenuWidth(activity), SdkHelper.getControlMenuHeight(activity), 1, WindowManager.LayoutParams.TYPE_SYSTEM_ALERT), false);
+        controlMenuView.startAnimation(animation);
+	}
+
+    
+	@Override
+	public void setLocation(int x, int y) {
+		pointX = x;
+		pointY = y;
+		
+		/**
+		 * 移动图标时菜单消失
+		 */
+		distroyControlMenu();
+	}
+
+	@Override
+	public void dropView(final View view) {
+		// TODO Auto-generated method stub
+		new Handler().post(new Runnable() {
+            public void run() {
+                mFloatHelper.removeView(view);
+            }
+        });
+	}
+
+	@Override
+	public void addView(int viewId) {
+		// TODO Auto-generated method stub
+		PopView popView = viewFactory.createView(viewId);//创建视图
+        if(popView!=null) {
+            popView.addViewListener(this);
+            addView(popView, viewId, popView.getViewWidth(), popView.getViewHeight(),popView.isNeedMove());
+        }
+	}
+
+	@Override
+	public void close() {
+		// TODO Auto-generated method stub
+		android.os.Process.killProcess(android.os.Process.myPid());
+	}
+	
+	 /**
+     * 添加视图
+     * @param view
+     */
+    private void addView(View view,int viewId,int width,int height,boolean needMove){
+        ScaleAnimation animation =new ScaleAnimation(0.0f, 1.4f, 0.0f, 1.4f,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        animation.setDuration(2000);
+        mFloatHelper.addView(view, FloatHelper.getWmParamsAnimation((Tools.getDisplayMetrics().widthPixels - width) / 2, (Tools.getDisplayMetrics().heightPixels - height) / 2, width, height, 1, WindowManager.LayoutParams.TYPE_SYSTEM_ALERT), needMove);
+        view.startAnimation(animation);
+    }
+   
+    /**
+     * 移除菜单
+     */
+    public void distroyControlMenu(){
+    	 if (isShow){
+             ViewFactory.getInstance().closeController(controlMenuView);
+             isShow = false;
+         }
+    }
+    
+    /**
+     * 获取授权码
+     */
+    private void getAuthCode(){
+    	SdkHelper.httpRequest(Constants.POST,SdkHelper.AUTH_URL, new HttpCallBack() {
+			@Override
+			public void callBack(int code, JSONObject obj) {
+				// TODO Auto-generated method stub
+				try{
+					switch(code){
+					case ZSStatusCode.NETWORK_ERROR:
+//						callBack.callBack(ZSStatusCode.NETWORK_ERROR, ZSStatusCode.NETWORK_ERROR_MSG);
+						return;
+					case ZSStatusCode.REQUEST_ERROR:
+//						callBack.callBack(ZSStatusCode.REQUEST_ERROR, ZSStatusCode.REQUEST_ERROR_MSG);
+						return;
+					case ZSStatusCode.CP_INFO_ERROR:
+//						cal lBack.callBack(ZSStatusCode.CP_INFO_ERROR, ZSStatusCode.CP_INFO_ERROR_MSG);
+						return;
+					case ZSStatusCode.SUCCESS:
+						//保存货币信息
+						SdkHelper.saveCoinInfo("银币", 180);
+//						callBack.callBack(ZSStatusCode.SUCCESS, obj.getString("data"));
+						break;
+					}
+				}catch(Exception e){
+		    		e.printStackTrace();
+		    	}
+			};
+    	});   	
+    }
+    
+    /**
+     * 设置用户游戏币总数
+     * @param total
+     */
+    public void setTotal(int total){
+    	if(total<0){
+    		callBack.callBack(ZSStatusCode.TOTAL_ERROR, ZSStatusCode.TOTAL_ERROR_MSG);
+    		return;
+    	}
+    	SdkHelper.TOTAL = total;
+    }
+    
+    /**
+     * 兑换接口，直接调用发起兑换
+     * @param authCode 授权码
+     * @param total 用户游戏币总数
+     */
+    public void exchange(String authCode,int total){
+    	if(TextUtils.isEmpty(authCode)){
+    		callBack.callBack(ZSStatusCode.AUTH_CODE_NULL, ZSStatusCode.AUTH_CODE_NULL_MSG);
+    		return;
+    	} 
+    	if(total<0){
+    		callBack.callBack(ZSStatusCode.TOTAL_ERROR, ZSStatusCode.TOTAL_ERROR_MSG);
+    		return;
+    	}
+    	SdkHelper.TOTAL = total;
+    	addView(Constants.EXCHANGE_VIEWID);
+    }
+    
+    /**
+     * 兑换接口，直接调用发起兑换
+     * @param authCode 授权码
+     */
+    public void exchange(String authCode){
+    	if(TextUtils.isEmpty(authCode)){
+    		callBack.callBack(ZSStatusCode.AUTH_CODE_NULL, ZSStatusCode.AUTH_CODE_NULL_MSG);
+    		return;
+    	} 
+    	
+    	addView(Constants.EXCHANGE_VIEWID);
+    }
+ 
+}

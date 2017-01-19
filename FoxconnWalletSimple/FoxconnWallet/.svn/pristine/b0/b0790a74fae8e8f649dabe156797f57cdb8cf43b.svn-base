@@ -1,0 +1,61 @@
+package com.zeustel.cp.utils;
+
+/**
+ * Created by Do on 2016/2/23.
+ */
+public class Constants {
+
+    public static boolean DEBUG = true;
+
+    public static String TAG = "CP";
+
+
+    //视图id
+    public final static int CONTROLLERCENTER_VIEWID = 0x1;//控制中心
+    public final static int EXCHANGE_VIEWID = 0x2;//兑换
+    public final static int GIFT_VIEWID = 0x3;//商城
+    public final static int USERSET_VIEWID = 0x4;//用户中心
+    public final static int LOGIN_VIEWID = 0x5;//登录
+    public final static int CHECK_VIEWID = 0x6;//验证
+    public final static int EXCHANGE_OK_VIEWID = 0x7;//兑换成功
+
+
+
+    public static final int PAGE_WIDTH_PENCENT = 83;//页面宽度占比
+    public static final int PAGE_WIDTH_PENCENT_NOCONTROL = 73;//页面宽度占比
+
+    public static int PAGE_WIDTH_PENCENT_LITTLE = 93;//页面宽度占比 小屏
+    public static int PAGE_WIDTH_PENCENT_NOCONTROL_LITTLE = 83;//页面宽度占比 小屏
+
+
+
+    //网络类型
+    public static final int NETWORK_TYPE_WIFI = 1;
+    public static final int NETWORK_TYPE_2G = 2;
+    public static final int NETWORK_TYPE_3G = 3;
+    public static final int NETWORK_TYPE_4G = 4;
+    public static final int NETWORK_TYPE_OTHER = 10;
+
+
+    //缓存标志
+    public static final String USERINFO = "userinfo";//用户信息
+    public static final String COININFO = "coininfo";//金币信息
+
+
+    public static final String PACKAGE_NAME_JFT = "com.zeustel.integralclient";//积分通包名
+    public static final String DOWNLOAD_URL_JFT = "http://www.pgyer.com/iIntegralClient";//积分通的下载地址
+
+    public static final String PACKAGE_NAME_TOP9 = "com.zeustel.top9";//Top9的包名
+    public static final String DOWNLOAD_URL_TOP9 = "http://www.pgyer.com/iIntegralClient";//TOP9的下载地址
+
+    public static final int CONTROLCENTER_WIDTH = 200;
+    public static final int CONTROLCENTER_HEIGHT = 56;
+    public static final int CONTROLLER_WIDTH = 56;
+
+    public static boolean ISFULLSCREEN = true;
+    
+    //http
+    public final static String GET = "GET";
+    public final static String POST = "POST";
+    
+}

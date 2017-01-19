@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ImageView
+        android:id="@+id/fragment_html_theme"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"/>
+
+    <com.zeustel.top9.widgets.OverScrollView
+        android:id="@+id/fragment_html_over"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/fragment_html_des"
+                layout="@layout/fragment_html_des"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <WebView
+                android:id="@+id/fragment_html_web"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:scrollbars="none"/>
+        </LinearLayout>
+    </com.zeustel.top9.widgets.OverScrollView>
+</RelativeLayout>

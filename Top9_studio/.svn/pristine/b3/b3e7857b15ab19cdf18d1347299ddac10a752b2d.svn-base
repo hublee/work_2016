@@ -1,0 +1,49 @@
+package com.zeustel.top9.utils;
+
+import com.loopj.android.http.AsyncHttpResponseHandler;
+
+import org.apache.http.Header;
+
+import java.net.HttpURLConnection;
+
+/**
+ * ...
+ *
+ * @author NiuLei
+ * @email niulei@zeustel.com
+ * @date 2015/7/22 16:14
+ */
+public abstract class SimpleResponseHandler extends AsyncHttpResponseHandler {
+    public static final int CODE_NET_FAILED = 11101;
+    public static final int CODE_NO_DATA = 11102;
+
+    @Override
+    public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
+        String json = null;
+        try {
+            if (statusCode == HttpURLConnection.HTTP_OK) {
+                if (bytes != null && bytes.length > 0) {
+                    json = new String(bytes);
+                    onCallBack(statusCode, json);
+                    return;
+                }
+                onCallBack(CODE_NO_DATA, null);
+            } else {
+                onCallBack(statusCode, null);
+            }
+        } finally {
+            json = null;
+            bytes = null;
+        }
+    }
+
+    @Override
+    public void onFailure(int statusCode, Header[] headers, byte[] bytes, Throwable throwable) {
+        onCallBack(statusCode, null);
+    }
+
+    public void onCallBack(int code, String json) {
+        if (Constants.DEBUG_NET_CALLBACK)
+            Tools.log_i(SimpleResponseHandler.class, "onCallBack", "code : " + code + ",json : " + json);
+    }
+}

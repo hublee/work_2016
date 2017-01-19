@@ -1,0 +1,92 @@
+<LinearLayout
+    android:id="@+id/voice_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/def_bg"
+    android:clickable="true"
+    android:orientation="vertical"
+    tools:context="com.zeustel.top9.fragments.VoiceFragment">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/voice_card"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/min_height"
+        android:layout_marginLeft="@dimen/voice_card_margin_left"
+        android:layout_marginRight="@dimen/voice_card_margin_right"
+        android:layout_marginTop="@dimen/voice_card_margin_top"
+        android:layout_weight="@integer/weight_one"
+        android:background="@color/white"
+        app:cardElevation="@dimen/cardview_elevation"
+        >
+
+        <com.zeustel.top9.widgets.SwipeRefreshLayout
+            android:id="@+id/voice_list_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <ExpandableListView
+                android:id="@+id/voice_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:childDivider="@null"
+                android:childIndicator="@null"
+                android:divider="@null"
+                android:groupIndicator="@null"
+                android:listSelector="@color/transparent"
+                android:scrollbars="none"
+                />
+        </com.zeustel.top9.widgets.SwipeRefreshLayout>
+    </android.support.v7.widget.CardView>
+
+
+    <LinearLayout
+        android:id="@+id/voice_bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/voice_bottom_layout_margin_bottom"
+        android:layout_marginTop="@dimen/voice_bottom_layout_margin_top"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:id="@+id/voice_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/voice_toggle_drawable_padding"
+            android:drawableTop="@drawable/voice_toggle_selector"
+            android:paddingLeft="@dimen/voice_toggle_padding_left"
+            android:paddingRight="@dimen/voice_toggle_padding_right"
+            android:text="@string/voice_toggle_text"
+            android:textColor="@color/def_font"
+            android:textSize="@dimen/voice_toggle_size"
+            />
+
+        <FrameLayout
+            android:id="@+id/voice_line"
+            android:layout_width="@dimen/line_width"
+            android:layout_height="@dimen/voice_line_height"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="@dimen/voice_line_margin_left"
+            android:layout_marginRight="@dimen/voice_line_margin_right"
+            android:background="@mipmap/line_vertical"
+            />
+
+        <TextView
+            android:id="@+id/voice_hf_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/voice_hf_toggle_drawable_padding"
+            android:drawableTop="@drawable/voice_hf_toggle_selector"
+            android:paddingLeft="@dimen/voice_hf_toggle_padding_left"
+            android:paddingRight="@dimen/voice_hf_toggle_padding_right"
+            android:text="@string/voice_hf_toggle_text"
+            android:textColor="@color/def_font"
+            android:textSize="@dimen/voice_hf_toggle_size"
+            />
+    </LinearLayout>
+</LinearLayout>

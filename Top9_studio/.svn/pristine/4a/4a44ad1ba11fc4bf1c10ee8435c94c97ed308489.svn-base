@@ -1,0 +1,85 @@
+package com.zeustel.top9.fragments;
+
+
+import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v7.widget.CardView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zeustel.top9.R;
+import com.zeustel.top9.base.WrapNotFrament;
+import com.zeustel.top9.utils.Tools;
+
+import java.io.File;
+import java.io.FileFilter;
+
+/**
+ * 设置主页
+ */
+public class SettingsHomeFragment extends WrapNotFrament implements TabLayout.OnTabSelectedListener {
+
+
+    private TabLayout settings_home_tab;
+    private ImageLoader imageLoader = ImageLoader.getInstance();
+    public SettingsHomeFragment() {
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View contentView = inflater.inflate(R.layout.fragment_settings_home, container, false);
+        settings_home_tab = (TabLayout) contentView.findViewById(R.id.settings_home_tab);
+        settings_home_tab.setTabMode(TabLayout.MODE_SCROLLABLE);
+        File[] files = Tools.getCacheDir(getActivity()).listFiles(new FileFilter() {
+            @Override
+            public boolean accept(File pathname) {
+                if (pathname != null) {
+                    if (pathname.getName().endsWith(".png")) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+        for (File file : files) {
+            CardView cardView = new CardView(getActivity());
+            ImageView imageView = new ImageView(getActivity());
+            imageLoader.displayImage("file://" + file.getAbsolutePath(), imageView, Tools.options);
+            cardView.addView(imageView, new CardView.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+            cardView.setCardElevation(getResources().getDimensionPixelSize(R.dimen.cardview_elevation));
+            cardView.setRadius(getResources().getDimensionPixelSize(R.dimen.cardview_corner_radius));
+            settings_home_tab.addTab(settings_home_tab.newTab().setCustomView(cardView).setText("text"));
+        }
+        settings_home_tab.setOnTabSelectedListener(this);
+        return contentView;
+    }
+
+    @Override
+    public String getFloatTitle() {
+        return null;
+    }
+
+    @Override
+    public int getBackgroundColor() {
+        return 0;
+    }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        Tools.log_i(SettingsHomeFragment.class, "onTabSelected", "");
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
+    }
+}

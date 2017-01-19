@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:orientation="vertical">
+
+    <com.zeustel.top9.widgets.CustomRecyclerView
+        android:id="@+id/voice_child_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/voice_child_recycler_margin_bottom"
+        android:layout_marginLeft="@dimen/voice_child_recycler_margin_left"
+        android:layout_marginRight="@dimen/voice_child_recycler_margin_right"
+        android:layout_marginTop="@dimen/voice_child_recycler_margin_top"
+        />
+
+    <FrameLayout
+        android:id="@+id/voice_child_recycler_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height_limit"
+        android:background="@color/def_bg"/>
+</LinearLayout>

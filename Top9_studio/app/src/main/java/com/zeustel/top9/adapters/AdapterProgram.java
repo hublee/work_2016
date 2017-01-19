@@ -1,0 +1,167 @@
+package com.zeustel.top9.adapters;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.OvershootInterpolator;
+import android.widget.BaseAdapter;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.zeustel.top9.R;
+import com.zeustel.top9.bean.Program;
+import com.zeustel.top9.utils.Tools;
+
+import java.util.List;
+
+/**
+ * @author NiuLei
+ * @email niulei@zeustel.com
+ * @date 2015/11/25 15:52
+ */
+@Deprecated
+public class AdapterProgram extends BaseAdapter {
+    private static final int DURATION_MILLIS = 300;
+    private List<Program> data;
+    private Context context;
+    private LayoutInflater inflater;
+    private int start;
+    private int end;
+    private Program item;
+    private String title;
+    private long time;
+    private int index;
+    private int lineTime;
+    private int offset;
+    private int reverse;
+
+    public AdapterProgram(List<Program> data) {
+        this.data = data;
+    }
+
+    @Override
+    public int getCount() {
+        return data == null ? 0 : data.size();
+    }
+
+    @Override
+    public Program getItem(int position) {
+        return data == null ? null : data.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+
+    @Override
+    public boolean areAllItemsEnabled() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled(int position) {
+        return false;
+    }
+
+    public void anim(int start, int end) {
+        this.start = start;
+        this.end = end;
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        if (context == null) {
+            context = parent.getContext().getApplicationContext();
+        }
+        if (inflater == null) {
+            inflater = LayoutInflater.from(context);
+        }
+        ViewHolder mViewHolder = null;
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.list_item_temp_program, null);
+            mViewHolder = new ViewHolder();
+            mViewHolder.set(convertView);
+            convertView.setTag(mViewHolder);
+        } else {
+            mViewHolder = (ViewHolder) convertView.getTag();
+        }
+        item = getItem(position);
+        if (item != null) {
+            title = item.getTitle();
+            time = item.getTime();
+            mViewHolder.temp_program_item_describe.setText(title);
+            mViewHolder.temp_program_item_time.setText(Tools.formatHHmm.format(time));
+        }
+        if (end - start > 0) {
+            index = position - start;
+            lineTime = index * DURATION_MILLIS;
+            reverse = end - position;
+            offset = DURATION_MILLIS + (reverse == 0 ? DURATION_MILLIS : DURATION_MILLIS / reverse);
+
+            Animation sacleIn = AnimationUtils.loadAnimation(context, R.anim.scale_in_vertical);
+            Animation radioIn = AnimationUtils.loadAnimation(context, R.anim.anim_sacle_in);
+            radioIn.setInterpolator(new OvershootInterpolator());
+            Animation layoutIn = AnimationUtils.loadAnimation(context, R.anim.anim_list_item_set_in);
+            sacleIn.setDuration(DURATION_MILLIS);
+            radioIn.setDuration(DURATION_MILLIS);
+            layoutIn.setDuration(DURATION_MILLIS);
+
+            sacleIn.setStartOffset(lineTime);
+            Tools.log_i(AdapterProgram.class,"getView","position "+ position + " , offset : "+offset);
+            radioIn.setStartOffset(lineTime + offset);
+            layoutIn.setStartOffset(lineTime + offset);
+
+          /*  sacleIn.setAnimationListener(new CleanAnimListener(mViewHolder.temp_program_item_line));
+            radioIn.setAnimationListener(new CleanAnimListener(mViewHolder.temp_program_item_radio));
+            sacleIn.setAnimationListener(new CleanAnimListener(mViewHolder.temp_program_item_content));*/
+
+            mViewHolder.temp_program_item_line.clearAnimation();
+            mViewHolder.temp_program_item_radio.clearAnimation();
+            mViewHolder.temp_program_item_content.clearAnimation();
+            mViewHolder.temp_program_item_line.startAnimation(sacleIn);
+            mViewHolder.temp_program_item_radio.startAnimation(radioIn);
+            mViewHolder.temp_program_item_content.startAnimation(layoutIn);
+            if (end == position) {
+                end = start = index = 0;
+            }
+        }
+        return convertView;
+    }
+
+    private static final class ViewHolder implements CompoundButton.OnCheckedChangeListener {
+        private ImageView temp_program_item_line;
+        private RadioButton temp_program_item_radio;
+        private TextView temp_program_item_describe;
+        private TextView temp_program_item_time;
+        private RelativeLayout temp_program_item_content;
+
+        public ViewHolder() {
+
+        }
+
+        public void set(View convertView) {
+            temp_program_item_line = (ImageView) convertView.findViewById(R.id.temp_program_item_line);
+            temp_program_item_radio = (RadioButton) convertView.findViewById(R.id.temp_program_item_radio);
+            temp_program_item_describe = (TextView) convertView.findViewById(R.id.temp_program_item_describe);
+            temp_program_item_time = (TextView) convertView.findViewById(R.id.temp_program_item_time);
+            temp_program_item_content = (RelativeLayout) convertView.findViewById(R.id.temp_program_item_content);
+            temp_program_item_radio.setOnCheckedChangeListener(this);
+        }
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            temp_program_item_describe.setSelected(isChecked);
+            temp_program_item_time.setSelected(isChecked);
+        }
+    }
+
+}

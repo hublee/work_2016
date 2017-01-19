@@ -1,0 +1,92 @@
+package com.zeustel.cp.views;
+
+import android.content.Context;
+import android.text.Html;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.zeustel.cp.SdkHelper;
+import com.zeustel.cp.utils.Constants;
+import com.zeustel.cp.utils.Tools;
+//import com.zeustel.cp.events.AddViewEvent;
+import com.zeustel.cp_sdk.R;
+
+/**
+ * Created by Do on 2016/2/23.
+ */
+public class Exchange extends Backable{
+    private TextView totalTextView;//账户信息
+    private EditText countEditText;//兑换数
+    private TextView exchangeRateTextView;//汇率
+    private Button submitButton;//提交
+
+    public Exchange(Context context){
+        super(context);
+        addView();
+    }
+
+    private void addView() {
+        inflate(getContext(), R.layout.view_exchange, layout);
+
+        totalTextView = (TextView)findViewById(R.id.exchange_total);
+        countEditText = (EditText)findViewById(R.id.exchange_count);
+        submitButton = (Button)findViewById(R.id.exchange_submit);
+        exchangeRateTextView = (TextView)findViewById(R.id.exchange_rate);
+
+        submitButton.setOnClickListener(this);
+
+        initData();
+    }
+
+    /**
+     * 初始数据
+     */
+    private void initData(){
+        totalTextView.setText(Html.fromHtml("可用"+SdkHelper.getCoinInfo().getCoinName()+"    <font color=\"#ff8101\">"+SdkHelper.getTotal()+"</font>"));
+        exchangeRateTextView.setText(SdkHelper.getCoinInfo().getExchangeRate()+SdkHelper.getCoinInfo().getCoinName()+"/1积分");
+        setTitle(getResources().getString(R.string.exchange_title));
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        int id = v.getId();
+        if(id == R.id.exchange_submit){
+            exchange();
+        }
+    }
+
+    /**
+     * 兑换
+     */
+    private void exchange(){
+        if(TextUtils.isEmpty(countEditText.getText().toString())){
+            Tools.tips(getContext(), "请输入兑换积分数！");
+            countEditText.requestFocus();
+            return;
+        }
+        
+        int max = SdkHelper.getTotal()/SdkHelper.getCoinInfo().getExchangeRate();
+        if(Integer.parseInt(countEditText.getText().toString())>max){
+        	Tools.tips(getContext(), "您最多可兑换"+max+"积分！");
+        	countEditText.requestFocus();
+        	countEditText.setText(max+"");
+        	return;
+        }
+        
+        
+        iView.addView(Constants.CHECK_VIEWID);
+        close();
+    }
+
+
+    @Override
+    public void back() {
+        super.back();
+        close();
+    }
+}

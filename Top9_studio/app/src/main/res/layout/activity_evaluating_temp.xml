@@ -1,0 +1,11 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="com.zeustel.top9.temp.TempEvaluatingActivity">
+
+    <com.zeustel.top9.widgets.CustomViewPager
+        android:id="@+id/tempPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.zeustel.top9.widgets.CustomViewPager>
+</FrameLayout>
